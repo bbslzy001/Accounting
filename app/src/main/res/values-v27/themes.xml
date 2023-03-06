@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Base application theme -->
     <style name="Theme.Accounting" parent="Theme.Material3.DayNight">
         <!-- Primary brand color -->
         <item name="colorPrimary">#8BC34A</item>
@@ -15,10 +14,7 @@
         <item name="android:windowLightStatusBar">true</item>
 
         <!-- Navigation bar color -->
-        <item name="android:navigationBarColor">#F5F5EF</item>
-    </style>
-
-    <style name="Accounting.Navigation.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
-        <item name="android:color">#C5E1A5</item>
+        <item name="android:navigationBarColor">#F4F5EE</item>
+        <item name="android:windowLightNavigationBar">true</item>
     </style>
 </resources>
