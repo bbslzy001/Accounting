@@ -4,29 +4,30 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.accounting.R;
 import com.example.accounting.adapter.ViewPagerAdapter;
 import com.example.accounting.databinding.ActivityMainBinding;
-import com.example.accounting.ui.viewmodel.MainActivityViewModel;
+import com.example.accounting.model.repository.AccountTypeRepository;
+import com.example.accounting.model.room.bean.AccountType;
 
 public class MainActivity extends AppCompatActivity
 {
     private ActivityMainBinding binding;
-    private MainActivityViewModel viewModel;
+
+    private final AccountTypeRepository accountTypeRepository = new AccountTypeRepository();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setLifecycleOwner(this);
-        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        binding.setViewModel(viewModel);
 
         initNavigation();
+        fakeData();
     }
 
     private void initNavigation()
@@ -50,5 +51,13 @@ public class MainActivity extends AppCompatActivity
             else return false;
             return true;
         });
+    }
+
+    private void fakeData()
+    {
+        accountTypeRepository.deleteAll();
+        accountTypeRepository.insert(new AccountType(0,"工商银行储蓄卡"));
+        accountTypeRepository.insert(new AccountType(0,"微信"));
+        accountTypeRepository.insert(new AccountType(0,"支付宝"));
     }
 }

@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data></data>
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.accounting.ui.viewmodel.MainActivityViewModel" />
+    </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,8 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="Home"
-            android:textSize="36sp" />
+            android:textSize="16sp"
+            app:accountTypes="@{viewModel.accountTypes}" />
 
     </RelativeLayout>
 </layout>
