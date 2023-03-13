@@ -19,7 +19,6 @@ public abstract class MyDatabase extends RoomDatabase
 
     public abstract AccountTypeDao getAccountDao();
 
-
     public static MyDatabase getMyDatabaseInstance()
     {
         if (myDatabase == null) myDatabase = createMyDatabase();
