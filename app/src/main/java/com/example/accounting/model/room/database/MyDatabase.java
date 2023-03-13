@@ -7,6 +7,9 @@ import androidx.room.RoomDatabase;
 import com.example.accounting.application.MyApplication;
 import com.example.accounting.model.room.bean.AccountType;
 import com.example.accounting.model.room.dao.AccountTypeDao;
+import com.example.accounting.model.room.dao.ExpenditureDao;
+import com.example.accounting.model.room.dao.IncomeDao;
+import com.example.accounting.model.room.dao.TradeTypeDao;
 
 @Database(
         entities = {AccountType.class},
@@ -17,7 +20,10 @@ public abstract class MyDatabase extends RoomDatabase
     private static final String DB_NAME = "Accounting.db";
     private static MyDatabase myDatabase;
 
+    public abstract ExpenditureDao getExpenditureDao();
+    public abstract IncomeDao getIncomeDao();
     public abstract AccountTypeDao getAccountDao();
+    public abstract TradeTypeDao getTradeTypeDao();
 
     public static MyDatabase getMyDatabaseInstance()
     {

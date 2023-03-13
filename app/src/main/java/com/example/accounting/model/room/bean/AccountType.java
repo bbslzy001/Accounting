@@ -8,10 +8,10 @@ import androidx.room.PrimaryKey;
 public class AccountType
 {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name="AT_id")
+    @ColumnInfo(name = "AT_id")
     private int id;
 
-    @ColumnInfo(name="AT_type")
+    @ColumnInfo(name = "AT_type")
     private String type;
 
     public AccountType(int id, String type)
