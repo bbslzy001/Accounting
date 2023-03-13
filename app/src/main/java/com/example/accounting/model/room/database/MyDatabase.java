@@ -6,13 +6,21 @@ import androidx.room.RoomDatabase;
 
 import com.example.accounting.application.MyApplication;
 import com.example.accounting.model.room.bean.AccountType;
+import com.example.accounting.model.room.bean.Expenditure;
+import com.example.accounting.model.room.bean.Income;
+import com.example.accounting.model.room.bean.TradeType;
 import com.example.accounting.model.room.dao.AccountTypeDao;
 import com.example.accounting.model.room.dao.ExpenditureDao;
 import com.example.accounting.model.room.dao.IncomeDao;
 import com.example.accounting.model.room.dao.TradeTypeDao;
 
 @Database(
-        entities = {AccountType.class},
+        entities = {
+                Expenditure.class,
+                Income.class,
+                AccountType.class,
+                TradeType.class
+        },
         version = 1
 )
 public abstract class MyDatabase extends RoomDatabase
