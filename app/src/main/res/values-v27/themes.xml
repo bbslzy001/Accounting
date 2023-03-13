@@ -4,6 +4,7 @@
         <!-- Primary brand color -->
         <item name="colorPrimary">#8BC34A</item>
         <item name="colorPrimaryVariant">#4CAF50</item>
+        <item name="colorPrimaryContainer">#C5E1A5</item>
 
         <!-- Secondary brand color -->
         <item name="colorSecondary">#558B2F</item>
@@ -16,5 +17,8 @@
         <!-- Navigation bar color -->
         <item name="android:navigationBarColor">#F4F5EE</item>
         <item name="android:windowLightNavigationBar">true</item>
+
+        <!-- App background color -->
+        <item name="android:windowBackground">#F5F5F5</item>
     </style>
 </resources>

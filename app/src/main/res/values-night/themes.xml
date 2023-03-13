@@ -5,6 +5,7 @@
         <!-- Primary brand color -->
         <item name="colorPrimary">#8BC34A</item>
         <item name="colorPrimaryVariant">#4CAF50</item>
+        <item name="colorPrimaryContainer">#80558B2F</item>
 
         <!-- Secondary brand color -->
         <item name="colorSecondary">#558B2F</item>
@@ -16,6 +17,9 @@
 
         <!-- Navigation bar color -->
         <item name="android:navigationBarColor">#252823</item>
+
+        <!-- App background color -->
+        <item name="android:windowBackground">#121212</item>
     </style>
 
     <style name="Accounting.Navigation.ActiveIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
