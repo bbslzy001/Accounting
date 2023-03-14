@@ -27,7 +27,6 @@
             android:id="@+id/navigation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:itemActiveIndicatorStyle="@style/Accounting.Navigation.ActiveIndicator"
             app:itemRippleColor="@null"
             app:labelVisibilityMode="labeled"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -10,7 +10,7 @@
         android:label="@string/app_name"
         android:name=".application.MyApplication"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Accounting"
+        android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
             android:name=".ui.view.activity.MainActivity"
