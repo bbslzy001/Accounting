@@ -3,6 +3,7 @@ package com.example.accounting.ui.view.activity;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -38,16 +39,16 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onPageSelected(int position)
             {
-                binding.navigation.getMenu().getItem(position).setChecked(true);
+                binding.bottomNavigation.getMenu().getItem(position).setChecked(true);
             }
         });
 
-        binding.navigation.setOnItemSelectedListener(item ->
+        binding.bottomNavigation.setOnItemSelectedListener(item ->
         {
             int itemId = item.getItemId();
             if (itemId == R.id.navigation_home) binding.viewPager.setCurrentItem(0);
             else if (itemId == R.id.navigation_statistics) binding.viewPager.setCurrentItem(1);
-            else if (itemId == R.id.navigation_individual) binding.viewPager.setCurrentItem(2);
+            else if (itemId == R.id.navigation_account) binding.viewPager.setCurrentItem(2);
             else return false;
             return true;
         });
@@ -56,8 +57,26 @@ public class MainActivity extends AppCompatActivity
     private void fakeData()
     {
         accountTypeRepository.deleteAll();
-        accountTypeRepository.insert(new AccountType(0,"工商银行储蓄卡"));
-        accountTypeRepository.insert(new AccountType(0,"微信"));
-        accountTypeRepository.insert(new AccountType(0,"支付宝"));
+        accountTypeRepository.insert(new AccountType(0, "工商银行储蓄卡"));
+        accountTypeRepository.insert(new AccountType(0, "微信"));
+        accountTypeRepository.insert(new AccountType(0, "支付宝"));
+    }
+
+    public void openDrawer()
+    {
+        binding.drawerLayout.openDrawer(GravityCompat.START);
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START))
+        {
+            binding.drawerLayout.closeDrawer(GravityCompat.START);
+        }
+        else
+        {
+            super.onBackPressed();
+        }
     }
 }

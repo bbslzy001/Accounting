@@ -1,19 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home"
-        android:title="首页" />
-
+        android:title="设置" />
     <item
         android:id="@+id/navigation_statistics"
-        android:icon="@drawable/ic_statistics"
-        android:title="统计" />
-
-    <item
-        android:id="@+id/navigation_individual"
-        android:icon="@drawable/ic_individual"
-        android:title="我的" />
-
+        android:title="关于" />
 </menu>
