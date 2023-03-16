@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "79a0622ac25218cd7a018cdb44c08e38",
+    "identityHash": "aaa53ec3552f3345359b1b8e307328f3",
     "entities": [
       {
         "tableName": "Expenditure",
@@ -220,7 +220,7 @@
       },
       {
         "tableName": "AccountType",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AT_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `AT_type` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AT_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `AT_type` TEXT, `AT_amount` REAL NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -233,6 +233,12 @@
             "columnName": "AT_type",
             "affinity": "TEXT",
             "notNull": false
+          },
+          {
+            "fieldPath": "amount",
+            "columnName": "AT_amount",
+            "affinity": "REAL",
+            "notNull": true
           }
         ],
         "primaryKey": {
@@ -274,7 +280,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '79a0622ac25218cd7a018cdb44c08e38')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'aaa53ec3552f3345359b1b8e307328f3')"
     ]
   }
 }

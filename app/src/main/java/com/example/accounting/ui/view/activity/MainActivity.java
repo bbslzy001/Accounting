@@ -1,8 +1,6 @@
 package com.example.accounting.ui.view.activity;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
@@ -30,8 +28,6 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);  // 全屏布局
-
-        //getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setLifecycleOwner(this);
@@ -69,9 +65,9 @@ public class MainActivity extends AppCompatActivity
     private void fakeData()
     {
         accountTypeRepository.deleteAll();
-        accountTypeRepository.insert(new AccountType(0, "工商银行储蓄卡"));
-        accountTypeRepository.insert(new AccountType(0, "微信"));
-        accountTypeRepository.insert(new AccountType(0, "支付宝"));
+        accountTypeRepository.insert(new AccountType(0, "工商银行储蓄卡",100.0));
+        accountTypeRepository.insert(new AccountType(0, "微信",100.0));
+        accountTypeRepository.insert(new AccountType(0, "支付宝",100.0));
     }
 
     public void openDrawer()

@@ -14,10 +14,14 @@ public class AccountType
     @ColumnInfo(name = "AT_type")
     private String type;
 
-    public AccountType(int id, String type)
+    @ColumnInfo(name = "AT_amount")
+    private double amount;
+
+    public AccountType(int id, String type, double amount)
     {
         this.id = id;
         this.type = type;
+        this.amount = amount;
     }
 
     public int getId()
@@ -30,6 +34,11 @@ public class AccountType
         return type;
     }
 
+    public double getAmount()
+    {
+        return amount;
+    }
+
     public void setId(int id)
     {
         this.id = id;
@@ -38,5 +47,10 @@ public class AccountType
     public void setType(String type)
     {
         this.type = type;
+    }
+
+    public void setAmount(double amount)
+    {
+        this.amount = amount;
     }
 }

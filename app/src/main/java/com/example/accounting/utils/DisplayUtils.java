@@ -80,7 +80,6 @@ public class DisplayUtils
         Resources resources = MyApplication.getContext().getResources();
         int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) height = resources.getDimensionPixelSize(resourceId);
-        // Log.v("dbw", "Status height:" + height);
         return height;
     }
 
@@ -93,7 +92,6 @@ public class DisplayUtils
         Resources resources = MyApplication.getContext().getResources();
         int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
         if (resourceId > 0) height = resources.getDimensionPixelSize(resourceId);
-        // Log.v("dbw", "Navi height:" + height);
         return height;
     }
 
