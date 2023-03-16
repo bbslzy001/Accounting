@@ -1,4 +1,4 @@
-package com.example.accounting.adapter;
+package com.example.accounting.utils.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

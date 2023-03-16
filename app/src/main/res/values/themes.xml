@@ -29,10 +29,11 @@
         <item name="colorPrimaryInverse">@color/md_theme_light_inversePrimary</item>
 
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
 
         <!-- Navigation bar color -->
-        <item name="android:navigationBarColor">#E7EEF6</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentNavigation">true</item>
     </style>
 </resources>

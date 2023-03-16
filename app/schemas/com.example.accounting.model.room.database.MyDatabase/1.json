@@ -1,0 +1,280 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "79a0622ac25218cd7a018cdb44c08e38",
+    "entities": [
+      {
+        "tableName": "Expenditure",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`E_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `E_amount` REAL NOT NULL, `E_date` TEXT, `E_time` TEXT, `E_remark` TEXT, `AT_id` INTEGER NOT NULL, `TT_id` INTEGER NOT NULL, FOREIGN KEY(`AT_id`) REFERENCES `AccountType`(`AT_id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`TT_id`) REFERENCES `TradeType`(`TT_id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "E_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "amount",
+            "columnName": "E_amount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "E_date",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "time",
+            "columnName": "E_time",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "remark",
+            "columnName": "E_remark",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "accountTypeId",
+            "columnName": "AT_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tradeTypeId",
+            "columnName": "TT_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "E_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_Expenditure_E_date",
+            "unique": false,
+            "columnNames": [
+              "E_date"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Expenditure_E_date` ON `${TABLE_NAME}` (`E_date`)"
+          },
+          {
+            "name": "index_Expenditure_AT_id",
+            "unique": false,
+            "columnNames": [
+              "AT_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Expenditure_AT_id` ON `${TABLE_NAME}` (`AT_id`)"
+          },
+          {
+            "name": "index_Expenditure_TT_id",
+            "unique": false,
+            "columnNames": [
+              "TT_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Expenditure_TT_id` ON `${TABLE_NAME}` (`TT_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "AccountType",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "AT_id"
+            ],
+            "referencedColumns": [
+              "AT_id"
+            ]
+          },
+          {
+            "table": "TradeType",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "TT_id"
+            ],
+            "referencedColumns": [
+              "TT_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "Income",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`I_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `I_amount` REAL NOT NULL, `I_date` TEXT, `I_time` TEXT, `I_remark` TEXT, `AT_id` INTEGER NOT NULL, `TT_id` INTEGER NOT NULL, FOREIGN KEY(`AT_id`) REFERENCES `AccountType`(`AT_id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`TT_id`) REFERENCES `TradeType`(`TT_id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "I_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "amount",
+            "columnName": "I_amount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "I_date",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "time",
+            "columnName": "I_time",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "remark",
+            "columnName": "I_remark",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "accountTypeId",
+            "columnName": "AT_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tradeTypeId",
+            "columnName": "TT_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "I_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_Income_I_date",
+            "unique": false,
+            "columnNames": [
+              "I_date"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Income_I_date` ON `${TABLE_NAME}` (`I_date`)"
+          },
+          {
+            "name": "index_Income_AT_id",
+            "unique": false,
+            "columnNames": [
+              "AT_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Income_AT_id` ON `${TABLE_NAME}` (`AT_id`)"
+          },
+          {
+            "name": "index_Income_TT_id",
+            "unique": false,
+            "columnNames": [
+              "TT_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Income_TT_id` ON `${TABLE_NAME}` (`TT_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "AccountType",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "AT_id"
+            ],
+            "referencedColumns": [
+              "AT_id"
+            ]
+          },
+          {
+            "table": "TradeType",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "TT_id"
+            ],
+            "referencedColumns": [
+              "TT_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "AccountType",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AT_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `AT_type` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "AT_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "AT_type",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "AT_id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "TradeType",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`TT_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `TT_type` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "TT_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "TT_type",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "TT_id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '79a0622ac25218cd7a018cdb44c08e38')"
+    ]
+  }
+}
