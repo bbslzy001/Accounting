@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.accounting.ui.viewmodel.MainActivityViewModel" />
+            type="com.example.accounting.ui.viewmodel.activity.MainActivityViewModel" />
     </data>
 
     <!-- DrawerLayout，用于实现侧边栏的滑动效果 -->
@@ -42,13 +42,13 @@
 
         <!-- 侧边栏 -->
         <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navigation_view"
+            android:id="@+id/drawer"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             app:headerLayout="@layout/header_navigation_drawer"
             app:marginBottom="@{viewModel.navigationHeight}"
-            app:menu="@menu/navigation_menu"
+            app:menu="@menu/drawer_menu"
             app:paddingTop="@{viewModel.statusHeight}" />
 
     </androidx.drawerlayout.widget.DrawerLayout>

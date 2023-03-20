@@ -1,4 +1,4 @@
-package com.example.accounting.ui.viewmodel;
+package com.example.accounting.ui.viewmodel.activity;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -8,7 +8,6 @@ import com.example.accounting.utils.DisplayUtils;
 
 public class MainActivityViewModel extends ViewModel
 {
-
     private final MutableLiveData<Integer> statusHeight = new MutableLiveData<>();
     private final MutableLiveData<Integer> navigationHeight = new MutableLiveData<>();
 

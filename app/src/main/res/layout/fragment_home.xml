@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.accounting.ui.viewmodel.HomeFragmentViewModel" />
+            type="com.example.accounting.ui.viewmodel.fragment.HomeFragmentViewModel" />
     </data>
 
     <!-- CoordinatorLayout，协调者布局，通常结合AppbarLayout、CollapsingToolbarLayout等布局 -->

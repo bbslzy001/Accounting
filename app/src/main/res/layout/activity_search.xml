@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.accounting.ui.viewmodel.SearchActivityViewModel" />
+            type="com.example.accounting.ui.viewmodel.activity.SearchActivityViewModel" />
     </data>
 
     <RelativeLayout

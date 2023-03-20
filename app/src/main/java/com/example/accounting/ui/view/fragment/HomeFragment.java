@@ -19,7 +19,7 @@ import com.example.accounting.application.MyApplication;
 import com.example.accounting.databinding.FragmentHomeBinding;
 import com.example.accounting.ui.view.activity.MainActivity;
 import com.example.accounting.ui.view.activity.SearchActivity;
-import com.example.accounting.ui.viewmodel.HomeFragmentViewModel;
+import com.example.accounting.ui.viewmodel.fragment.HomeFragmentViewModel;
 
 public class HomeFragment extends Fragment
 {
@@ -52,6 +52,7 @@ public class HomeFragment extends Fragment
         {
             Toast.makeText(MyApplication.getContext(), "点击了floatButton", Toast.LENGTH_SHORT).show();
         });
+        /* 通过点击TopAppBar的菜单按钮打开侧边栏，和滑动打开侧边栏不冲突 */
         binding.topAppBar.setNavigationOnClickListener(view -> ((MainActivity) requireActivity()).openDrawer());
         binding.topAppBar.setOnMenuItemClickListener(item ->
         {

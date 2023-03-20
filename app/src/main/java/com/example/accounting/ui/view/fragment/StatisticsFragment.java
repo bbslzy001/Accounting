@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.accounting.R;
 import com.example.accounting.databinding.FragmentStatisticsBinding;
-import com.example.accounting.ui.viewmodel.StatisticsFragmentViewModel;
+import com.example.accounting.ui.viewmodel.fragment.StatisticsFragmentViewModel;
 
 public class StatisticsFragment extends Fragment
 {

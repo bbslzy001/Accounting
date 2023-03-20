@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.accounting.ui.viewmodel.StatisticsFragmentViewModel" />
+            type="com.example.accounting.ui.viewmodel.fragment.StatisticsFragmentViewModel" />
     </data>
 
     <RelativeLayout

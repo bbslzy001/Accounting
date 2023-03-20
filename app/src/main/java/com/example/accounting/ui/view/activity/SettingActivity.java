@@ -8,13 +8,13 @@ import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
 
 import com.example.accounting.R;
-import com.example.accounting.databinding.ActivitySearchBinding;
-import com.example.accounting.ui.viewmodel.activity.SearchActivityViewModel;
+import com.example.accounting.databinding.ActivitySettingBinding;
+import com.example.accounting.ui.viewmodel.activity.SettingActivityViewModel;
 
-public class SearchActivity extends AppCompatActivity
+public class SettingActivity extends AppCompatActivity
 {
-    private ActivitySearchBinding binding;
-    private SearchActivityViewModel viewModel;
+    private ActivitySettingBinding binding;
+    private SettingActivityViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -22,10 +22,10 @@ public class SearchActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);  // 全屏布局
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_setting);
         binding.setLifecycleOwner(this);
 
-        viewModel = new ViewModelProvider(this).get(SearchActivityViewModel.class);
+        viewModel = new ViewModelProvider(this).get(SettingActivityViewModel.class);
         binding.setViewModel(viewModel);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.accounting.ui.viewmodel;
+package com.example.accounting.ui.viewmodel.activity;
 
 import androidx.lifecycle.ViewModel;
 
