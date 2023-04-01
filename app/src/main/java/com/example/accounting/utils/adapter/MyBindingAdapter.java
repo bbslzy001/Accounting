@@ -1,7 +1,10 @@
 package com.example.accounting.utils.adapter;
 
+import static android.graphics.Color.rgb;
+
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.LiveData;
@@ -10,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.accounting.model.room.bean.HomeRecyclerViewItem;
 
 import java.util.List;
+import java.util.Locale;
 
 public class MyBindingAdapter
 {
@@ -30,6 +34,21 @@ public class MyBindingAdapter
         if (adapter != null)
         {
             adapter.setItemLayoutId(itemLayoutId);
+        }
+    }
+
+    @BindingAdapter({"app:amount"})
+    public static void setAmount(TextView textView, double amount)
+    {
+        if (amount >= 0)
+        {
+            textView.setText(String.format(Locale.CHINA, "+ %.2f", amount));
+            textView.setTextColor(rgb(0, 255, 0));
+        }
+        else
+        {
+            textView.setText(String.format(Locale.CHINA, "- %.2f", amount));
+            textView.setTextColor(rgb(255, 0, 0));
         }
     }
 
