@@ -7,9 +7,10 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(
-        tableName = "Income",
+        tableName = "TradeInfo",
         indices = {
-                @Index(value = "I_date"),
+                @Index(value = "TI_date"),
+                @Index(value = "TI_amount"),
                 @Index(value = "AT_id"),
                 @Index(value = "TT_id")
         },
@@ -28,22 +29,22 @@ import androidx.room.PrimaryKey;
                 )
         }
 )
-public class Income
+public class TradeInfo
 {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "I_id")
+    @ColumnInfo(name = "TI_id")
     private int id;
 
-    @ColumnInfo(name = "I_amount")
+    @ColumnInfo(name = "TI_amount")
     private double amount;
 
-    @ColumnInfo(name = "I_date")
+    @ColumnInfo(name = "TI_date")
     private String date;
 
-    @ColumnInfo(name = "I_time")
+    @ColumnInfo(name = "TI_time")
     private String time;
 
-    @ColumnInfo(name = "I_remark")
+    @ColumnInfo(name = "TI_remark")
     private String remark;
 
     @ColumnInfo(name = "AT_id")
@@ -52,7 +53,7 @@ public class Income
     @ColumnInfo(name = "TT_id")
     private int tradeTypeId;
 
-    public Income(int id, double amount, String date, String time, String remark, int accountTypeId, int tradeTypeId)
+    public TradeInfo(int id, double amount, String date, String time, String remark, int accountTypeId, int tradeTypeId)
     {
         this.id = id;
         this.amount = amount;

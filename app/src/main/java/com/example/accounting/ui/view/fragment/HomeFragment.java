@@ -20,11 +20,13 @@ import com.example.accounting.databinding.FragmentHomeBinding;
 import com.example.accounting.ui.view.activity.MainActivity;
 import com.example.accounting.ui.view.activity.SearchActivity;
 import com.example.accounting.ui.viewmodel.fragment.HomeFragmentViewModel;
+import com.example.accounting.utils.adapter.RecyclerViewAdapter;
 
 public class HomeFragment extends Fragment
 {
     private FragmentHomeBinding binding;
     private HomeFragmentViewModel viewModel;
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -50,6 +52,7 @@ public class HomeFragment extends Fragment
     {
         binding.floatingButton.setOnClickListener(view ->
         {
+            viewModel.addTradeInfo();
             Toast.makeText(MyApplication.getContext(), "点击了floatButton", Toast.LENGTH_SHORT).show();
         });
         /* 通过点击TopAppBar的菜单按钮打开侧边栏，和滑动打开侧边栏不冲突 */
@@ -62,6 +65,8 @@ public class HomeFragment extends Fragment
             else return false;
             return true;
         });
+
+        binding.recyclerView.setAdapter(new RecyclerViewAdapter());
     }
 
     private void openMoreMenu(View view)

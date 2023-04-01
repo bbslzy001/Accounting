@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            app:headerLayout="@layout/header_navigation_drawer"
+            app:headerLayout="@layout/header_main_navigation_drawer"
             app:marginBottom="@{viewModel.navigationHeight}"
             app:menu="@menu/drawer_menu"
             app:paddingTop="@{viewModel.statusHeight}" />

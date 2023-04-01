@@ -2,32 +2,38 @@ package com.example.accounting.utils.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.LiveData;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.accounting.model.room.bean.AccountType;
+import com.example.accounting.model.room.bean.HomeRecyclerViewItem;
 
 import java.util.List;
 
 public class MyBindingAdapter
 {
-    @BindingAdapter("app:accountTypes")
-    public static void setStudents(TextView textView, LiveData<List<AccountType>> accountTypes)
+    @BindingAdapter({"app:dataList"})
+    public static void setDataList(RecyclerView recyclerView, LiveData<List<HomeRecyclerViewItem>> dataList)
     {
-        if (accountTypes != null && accountTypes.getValue() != null)
+        RecyclerViewAdapter adapter = (RecyclerViewAdapter) recyclerView.getAdapter();
+        if (adapter != null && dataList != null && dataList.getValue() != null)
         {
-            StringBuilder sb = new StringBuilder();
-            for (AccountType accountType : accountTypes.getValue())
-            {
-                sb.append("Id: ").append(accountType.getId()).append("  Type: ").append(accountType.getType()).append("\n");
-            }
-            textView.setText(sb.toString());
+            adapter.setDataList(dataList.getValue());
         }
     }
 
-    @BindingAdapter("app:marginBottom")
+    @BindingAdapter({"app:itemLayout"})
+    public static void setItemLayout(RecyclerView recyclerView, int itemLayoutId)
+    {
+        RecyclerViewAdapter adapter = (RecyclerViewAdapter) recyclerView.getAdapter();
+        if (adapter != null)
+        {
+            adapter.setItemLayoutId(itemLayoutId);
+        }
+    }
+
+    @BindingAdapter({"app:marginBottom"})
     public static void setMarginBottom(View view, LiveData<Integer> marginBottom)
     {
         if (marginBottom != null && marginBottom.getValue() != null)
@@ -38,7 +44,7 @@ public class MyBindingAdapter
         }
     }
 
-    @BindingAdapter("app:paddingTop")
+    @BindingAdapter({"app:paddingTop"})
     public static void setPaddingTop(View view, LiveData<Integer> paddingTop)
     {
         if (paddingTop != null && paddingTop.getValue() != null)

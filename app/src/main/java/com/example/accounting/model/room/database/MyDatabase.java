@@ -6,18 +6,16 @@ import androidx.room.RoomDatabase;
 
 import com.example.accounting.application.MyApplication;
 import com.example.accounting.model.room.bean.AccountType;
-import com.example.accounting.model.room.bean.Expenditure;
-import com.example.accounting.model.room.bean.Income;
+import com.example.accounting.model.room.bean.TradeInfo;
 import com.example.accounting.model.room.bean.TradeType;
 import com.example.accounting.model.room.dao.AccountTypeDao;
-import com.example.accounting.model.room.dao.ExpenditureDao;
-import com.example.accounting.model.room.dao.IncomeDao;
+import com.example.accounting.model.room.dao.HomeRecyclerViewItemDao;
+import com.example.accounting.model.room.dao.TradeInfoDao;
 import com.example.accounting.model.room.dao.TradeTypeDao;
 
 @Database(
         entities = {
-                Expenditure.class,
-                Income.class,
+                TradeInfo.class,
                 AccountType.class,
                 TradeType.class
         },
@@ -28,10 +26,11 @@ public abstract class MyDatabase extends RoomDatabase
     private static final String DB_NAME = "Accounting.db";
     private static MyDatabase myDatabase;
 
-    public abstract ExpenditureDao getExpenditureDao();
-    public abstract IncomeDao getIncomeDao();
+    public abstract TradeInfoDao getTradeInfoDao();
     public abstract AccountTypeDao getAccountDao();
     public abstract TradeTypeDao getTradeTypeDao();
+
+    public abstract HomeRecyclerViewItemDao getHomeRecyclerViewItemDao();
 
     public static MyDatabase getMyDatabaseInstance()
     {

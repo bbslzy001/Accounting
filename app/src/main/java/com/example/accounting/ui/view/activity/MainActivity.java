@@ -2,9 +2,7 @@ package com.example.accounting.ui.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.WindowCompat;
@@ -16,16 +14,11 @@ import com.example.accounting.R;
 import com.example.accounting.ui.viewmodel.activity.MainActivityViewModel;
 import com.example.accounting.utils.adapter.ViewPagerAdapter;
 import com.example.accounting.databinding.ActivityMainBinding;
-import com.example.accounting.model.repository.AccountTypeRepository;
-import com.example.accounting.model.room.bean.AccountType;
-import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity
 {
     private ActivityMainBinding binding;
     private MainActivityViewModel viewModel;
-
-    private final AccountTypeRepository accountTypeRepository = new AccountTypeRepository();
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -40,7 +33,8 @@ public class MainActivity extends AppCompatActivity
         binding.setViewModel(viewModel);
 
         initNavigation();
-        fakeData();
+
+        viewModel.fakeData();
     }
 
     private void initNavigation()
@@ -73,14 +67,6 @@ public class MainActivity extends AppCompatActivity
             else return false;
             return true;
         });
-    }
-
-    private void fakeData()
-    {
-        accountTypeRepository.deleteAll();
-        accountTypeRepository.insert(new AccountType(0, "工商银行储蓄卡",100.0));
-        accountTypeRepository.insert(new AccountType(0, "微信",100.0));
-        accountTypeRepository.insert(new AccountType(0, "支付宝",100.0));
     }
 
     public void openDrawer()
