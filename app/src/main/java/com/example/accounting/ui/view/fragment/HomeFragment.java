@@ -27,7 +27,6 @@ public class HomeFragment extends Fragment
     private FragmentHomeBinding binding;
     private HomeFragmentViewModel viewModel;
 
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
