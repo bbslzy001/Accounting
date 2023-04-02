@@ -16,7 +16,7 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
 {
-    private List<HomeRecyclerViewItem> dataList = new ArrayList<>();
+    private List<HomeRecyclerViewItem> itemList = new ArrayList<>();
     private int itemLayoutId;
 
     public RecyclerViewAdapter()
@@ -24,9 +24,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    public void setDataList(List<HomeRecyclerViewItem> dataList)
+    public void setItemList(List<HomeRecyclerViewItem> itemList)
     {
-        this.dataList = dataList;
+        this.itemList = itemList;
         notifyDataSetChanged();
     }
 
@@ -47,14 +47,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position)
     {
-        viewHolder.binding.setHomeRecyclerViewItems(dataList.get(position));
+        viewHolder.binding.setHomeRecyclerViewItems(itemList.get(position));
         viewHolder.binding.executePendingBindings();
     }
 
     @Override
     public int getItemCount()
     {
-        return dataList.size();
+        return itemList.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder

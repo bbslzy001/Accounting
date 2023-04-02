@@ -23,7 +23,7 @@ public class MyBindingAdapter
         RecyclerViewAdapter adapter = (RecyclerViewAdapter) recyclerView.getAdapter();
         if (adapter != null && dataList != null && dataList.getValue() != null)
         {
-            adapter.setDataList(dataList.getValue());
+            adapter.setItemList(dataList.getValue());
         }
     }
 
