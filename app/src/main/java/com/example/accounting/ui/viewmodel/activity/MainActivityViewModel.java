@@ -15,6 +15,8 @@ public class MainActivityViewModel extends ViewModel
     private final MutableLiveData<Integer> statusHeight = new MutableLiveData<>();
     private final MutableLiveData<Integer> navigationHeight = new MutableLiveData<>();
 
+    private final MutableLiveData<String> topAppBarTitle = new MutableLiveData<>();
+
     private final AccountTypeRepository accountTypeRepository = new AccountTypeRepository();
     private final TradeTypeRepository tradeTypeRepository = new TradeTypeRepository();
 
@@ -34,10 +36,13 @@ public class MainActivityViewModel extends ViewModel
         return navigationHeight;
     }
 
+    public MutableLiveData<String> getTopAppBarTitle()
+    {
+        return topAppBarTitle;
+    }
+
     public void fakeData()
     {
-        accountTypeRepository.deleteAll();
-        tradeTypeRepository.deleteAll();
         tradeTypeRepository.insert(new TradeType(0,"吃饭"));
         accountTypeRepository.insert(new AccountType(0, "工商银行储蓄卡",100.0));
         accountTypeRepository.insert(new AccountType(0, "微信",100.0));

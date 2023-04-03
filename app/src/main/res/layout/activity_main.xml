@@ -24,6 +24,24 @@
             android:orientation="vertical"
             tools:context=".ui.view.activity.MainActivity">
 
+            <!-- 顶部应用栏 -->
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/app_bar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:elevation="4dp">
+
+                <com.google.android.material.appbar.MaterialToolbar
+                    android:id="@+id/top_app_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:menu="@menu/top_bar_menu"
+                    app:navigationIcon="@drawable/ic_menu"
+                    app:title="@{viewModel.topAppBarTitle}"
+                    app:titleCentered="true" />
+
+            </com.google.android.material.appbar.AppBarLayout>
+
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
