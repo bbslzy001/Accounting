@@ -1,0 +1,188 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "8305efac36614211a3152a2a4d5da8be",
+    "entities": [
+      {
+        "tableName": "TradeInfo",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`TI_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `TI_amount` REAL NOT NULL, `TI_date` TEXT, `TI_time` TEXT, `TI_remark` TEXT, `AT_id` INTEGER NOT NULL, `TT_id` INTEGER NOT NULL, FOREIGN KEY(`AT_id`) REFERENCES `AccountType`(`AT_id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`TT_id`) REFERENCES `TradeType`(`TT_id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "TI_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "amount",
+            "columnName": "TI_amount",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "date",
+            "columnName": "TI_date",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "time",
+            "columnName": "TI_time",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "remark",
+            "columnName": "TI_remark",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "accountTypeId",
+            "columnName": "AT_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tradeTypeId",
+            "columnName": "TT_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "TI_id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_TradeInfo_TI_date",
+            "unique": false,
+            "columnNames": [
+              "TI_date"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_TradeInfo_TI_date` ON `${TABLE_NAME}` (`TI_date`)"
+          },
+          {
+            "name": "index_TradeInfo_TI_amount",
+            "unique": false,
+            "columnNames": [
+              "TI_amount"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_TradeInfo_TI_amount` ON `${TABLE_NAME}` (`TI_amount`)"
+          },
+          {
+            "name": "index_TradeInfo_AT_id",
+            "unique": false,
+            "columnNames": [
+              "AT_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_TradeInfo_AT_id` ON `${TABLE_NAME}` (`AT_id`)"
+          },
+          {
+            "name": "index_TradeInfo_TT_id",
+            "unique": false,
+            "columnNames": [
+              "TT_id"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_TradeInfo_TT_id` ON `${TABLE_NAME}` (`TT_id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "AccountType",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "AT_id"
+            ],
+            "referencedColumns": [
+              "AT_id"
+            ]
+          },
+          {
+            "table": "TradeType",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "TT_id"
+            ],
+            "referencedColumns": [
+              "TT_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "AccountType",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AT_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `AT_type` TEXT, `AT_amount` REAL NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "AT_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "AT_type",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "amount",
+            "columnName": "AT_amount",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "AT_id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "TradeType",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`TT_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `TT_type` TEXT)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "TT_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "TT_type",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "TT_id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8305efac36614211a3152a2a4d5da8be')"
+    ]
+  }
+}
