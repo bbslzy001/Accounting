@@ -16,7 +16,7 @@ import com.example.accounting.R;
 import com.example.accounting.application.MyApplication;
 import com.example.accounting.databinding.FragmentHomeBinding;
 import com.example.accounting.ui.viewmodel.fragment.HomeFragmentViewModel;
-import com.example.accounting.utils.adapter.RecyclerViewAdapter;
+import com.example.accounting.utils.adapter.HomeRecyclerViewAdapter;
 
 public class HomeFragment extends Fragment
 {
@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment
      */
     private void initRecyclerView()
     {
-        binding.recyclerView.setAdapter(new RecyclerViewAdapter());
+        binding.recyclerView.setAdapter(new HomeRecyclerViewAdapter());
     }
 
     /**

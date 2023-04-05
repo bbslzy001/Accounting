@@ -14,9 +14,7 @@ public class MainActivityViewModel extends ViewModel
 {
     private final MutableLiveData<Integer> statusHeight = new MutableLiveData<>();
     private final MutableLiveData<Integer> navigationHeight = new MutableLiveData<>();
-
     private final MutableLiveData<String> topAppBarTitle = new MutableLiveData<>();
-
     private final AccountTypeRepository accountTypeRepository = new AccountTypeRepository();
     private final TradeTypeRepository tradeTypeRepository = new TradeTypeRepository();
 

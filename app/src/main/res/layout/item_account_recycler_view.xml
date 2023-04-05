@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="homeRecyclerViewItems"
-            type="com.example.accounting.model.room.bean.HomeRecyclerViewItem" />
+            name="accountType"
+            type="com.example.accounting.model.room.bean.AccountType" />
     </data>
 
     <LinearLayout
@@ -24,26 +24,17 @@
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginStart="16dp"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_weight="1">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start|top"
-                android:text="@{homeRecyclerViewItems.tradeType}"
+                android:layout_gravity="start|center"
+                android:text="@{accountType.type}"
                 android:textColor="#000"
                 android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start|bottom"
-                android:text="@{homeRecyclerViewItems.time}"
-                android:textColor="#C0C0C0"
-                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -52,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
             android:textSize="16sp"
-            app:amount="@{homeRecyclerViewItems.amount}" />
+            app:amount="@{accountType.amount}" />
 
     </LinearLayout>
 </layout>

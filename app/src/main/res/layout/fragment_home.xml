@@ -73,7 +73,7 @@
                         android:layout_column="0"
                         android:layout_columnWeight="1"
                         android:paddingVertical="4dp"
-                        android:text="0.00"
+                        app:cardAmount="@{viewModel.incomeAmount}"
                         android:textSize="20sp" />
 
                     <com.google.android.material.textview.MaterialTextView
@@ -83,7 +83,7 @@
                         android:layout_column="1"
                         android:layout_columnWeight="1"
                         android:paddingVertical="4dp"
-                        android:text="0.00"
+                        app:cardAmount="@{viewModel.expenditureAmount}"
                         android:textSize="20sp" />
 
                     <com.google.android.material.textview.MaterialTextView
@@ -93,7 +93,7 @@
                         android:layout_column="2"
                         android:layout_columnWeight="1"
                         android:paddingVertical="4dp"
-                        android:text="0.00"
+                        app:cardAmount="@{viewModel.totalAmount}"
                         android:textSize="20sp" />
 
                 </GridLayout>
@@ -104,10 +104,11 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="8dp"
                 android:orientation="vertical"
                 android:scrollbars="vertical"
-                app:dataList="@{viewModel.items}"
-                app:itemLayout="@{@layout/item_home_recycler_view}"
+                app:homeRecyclerViewDataList="@{viewModel.items}"
+                app:recyclerViewItemLayout="@{@layout/item_home_recycler_view}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </LinearLayout>

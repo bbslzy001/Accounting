@@ -10,6 +10,7 @@ import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.accounting.model.room.bean.AccountType;
 import com.example.accounting.model.room.bean.HomeRecyclerViewItem;
 
 import java.util.List;
@@ -17,23 +18,47 @@ import java.util.Locale;
 
 public class MyBindingAdapter
 {
-    @BindingAdapter({"app:dataList"})
-    public static void setDataList(RecyclerView recyclerView, LiveData<List<HomeRecyclerViewItem>> dataList)
+    @BindingAdapter({"app:homeRecyclerViewDataList"})
+    public static void setHomeRecyclerViewDataList(RecyclerView recyclerView, LiveData<List<HomeRecyclerViewItem>> dataList)
     {
-        RecyclerViewAdapter adapter = (RecyclerViewAdapter) recyclerView.getAdapter();
+        HomeRecyclerViewAdapter adapter = (HomeRecyclerViewAdapter) recyclerView.getAdapter();
         if (adapter != null && dataList != null && dataList.getValue() != null)
         {
             adapter.setItemList(dataList.getValue());
         }
     }
 
-    @BindingAdapter({"app:itemLayout"})
-    public static void setItemLayout(RecyclerView recyclerView, int itemLayoutId)
+    @BindingAdapter({"app:accountRecyclerViewDataList"})
+    public static void setAccountRecyclerViewDataList(RecyclerView recyclerView, LiveData<List<AccountType>> dataList)
     {
-        RecyclerViewAdapter adapter = (RecyclerViewAdapter) recyclerView.getAdapter();
+        AccountRecyclerViewAdapter adapter = (AccountRecyclerViewAdapter) recyclerView.getAdapter();
+        if (adapter != null && dataList != null && dataList.getValue() != null)
+        {
+            adapter.setItemList(dataList.getValue());
+        }
+    }
+
+    @BindingAdapter({"app:recyclerViewItemLayout"})
+    public static void setRecyclerViewItemLayout(RecyclerView recyclerView, int itemLayoutId)
+    {
+        Object adapter = recyclerView.getAdapter();
         if (adapter != null)
         {
-            adapter.setItemLayoutId(itemLayoutId);
+            if (adapter instanceof HomeRecyclerViewAdapter) ((HomeRecyclerViewAdapter) adapter).setItemLayoutId(itemLayoutId);
+            else ((AccountRecyclerViewAdapter) adapter).setItemLayoutId(itemLayoutId);
+        }
+    }
+
+    @BindingAdapter({"app:cardAmount"})
+    public static void setCardAmount(TextView textView, double amount)
+    {
+        if (amount >= 0)
+        {
+            textView.setText(String.format(Locale.CHINA, "%.2f", amount));
+        }
+        else
+        {
+            textView.setText(String.format(Locale.CHINA, "- %.2f", amount));
         }
     }
 

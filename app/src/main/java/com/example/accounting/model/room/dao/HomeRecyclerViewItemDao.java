@@ -11,21 +11,53 @@ import java.util.List;
 @Dao
 public interface HomeRecyclerViewItemDao
 {
-//    @Query("")
-//    LiveData<List<HomeRecyclerViewItem>> queryAllExpenditures();
-//
-//    @Query("")
-//    LiveData<List<HomeRecyclerViewItem>> queryAllIncomes();
+    @Query("select SUM(TI_amount) from TradeInfo where TI_amount < 0")
+    LiveData<Double> queryExpenditureAmount();
 
-    @Query("SELECT TradeInfo.TI_id AS tradeInfoId, " +
-            "TradeInfo.TI_amount AS amount, " +
-            "TradeInfo.TI_date AS date, " +
-            "TradeInfo.TI_time AS time, " +
-            "TradeInfo.TI_remark AS remark, " +
-            "AccountType.AT_type AS accountType, " +
-            "TradeType.TT_type AS tradeType " +
-            "FROM TradeInfo " +
-            "INNER JOIN AccountType ON TradeInfo.AT_id = AccountType.AT_id " +
-            "INNER JOIN TradeType ON TradeInfo.TT_id = TradeType.TT_id")
+    @Query("select SUM(TI_amount) from TradeInfo where TI_amount >= 0")
+    LiveData<Double> queryIncomeAmount();
+
+    @Query("select SUM(TI_amount) from TradeInfo")
+    LiveData<Double> queryTotalAmount();
+
+    @Query("select TradeInfo.TI_id as tradeInfoId, " +
+            "TradeInfo.TI_amount as amount, " +
+            "TradeInfo.TI_date as date, " +
+            "TradeInfo.TI_time as time, " +
+            "TradeInfo.TI_remark as remark, " +
+            "AccountType.AT_type as accountType, " +
+            "TradeType.TT_type as tradeType " +
+            "from TradeInfo " +
+            "inner join AccountType on TradeInfo.AT_id = AccountType.AT_id " +
+            "inner join TradeType on TradeInfo.TT_id = TradeType.TT_id " +
+            "where TradeInfo.TI_amount < 0"
+    )
+    LiveData<List<HomeRecyclerViewItem>> queryAllExpenditures();
+
+    @Query("select TradeInfo.TI_id as tradeInfoId, " +
+            "TradeInfo.TI_amount as amount, " +
+            "TradeInfo.TI_date as date, " +
+            "TradeInfo.TI_time as time, " +
+            "TradeInfo.TI_remark as remark, " +
+            "AccountType.AT_type as accountType, " +
+            "TradeType.TT_type as tradeType " +
+            "from TradeInfo " +
+            "inner join AccountType on TradeInfo.AT_id = AccountType.AT_id " +
+            "inner join TradeType on TradeInfo.TT_id = TradeType.TT_id " +
+            "where TradeInfo.TI_amount >= 0"
+    )
+    LiveData<List<HomeRecyclerViewItem>> queryAllIncomes();
+
+    @Query("select TradeInfo.TI_id as tradeInfoId, " +
+            "TradeInfo.TI_amount as amount, " +
+            "TradeInfo.TI_date as date, " +
+            "TradeInfo.TI_time as time, " +
+            "TradeInfo.TI_remark as remark, " +
+            "AccountType.AT_type as accountType, " +
+            "TradeType.TT_type as tradeType " +
+            "from TradeInfo " +
+            "inner join AccountType on TradeInfo.AT_id = AccountType.AT_id " +
+            "inner join TradeType on TradeInfo.TT_id = TradeType.TT_id"
+    )
     LiveData<List<HomeRecyclerViewItem>> queryAll();
 }

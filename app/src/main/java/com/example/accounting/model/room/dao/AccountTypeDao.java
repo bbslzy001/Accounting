@@ -30,6 +30,15 @@ public interface AccountTypeDao
     @Query("select * from AccountType where AT_id = :id")
     LiveData<AccountType> queryById(int id);
 
+    @Query("select sum(AT_amount) from AccountType where AT_amount >= 0")
+    LiveData<Double> queryTotalAmount();
+
+    @Query("select sum(AT_amount) from AccountType where AT_amount < 0")
+    LiveData<Double> queryNegativeAmount();
+
+    @Query("select sum(AT_amount) from AccountType")
+    LiveData<Double> queryNetAmount();
+
     @Query("select * from AccountType")
     LiveData<List<AccountType>> queryAll();
 }

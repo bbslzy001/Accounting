@@ -14,12 +14,12 @@ import com.example.accounting.model.room.bean.HomeRecyclerViewItem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>
+public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<HomeRecyclerViewAdapter.ViewHolder>
 {
     private List<HomeRecyclerViewItem> itemList = new ArrayList<>();
     private int itemLayoutId;
 
-    public RecyclerViewAdapter()
+    public HomeRecyclerViewAdapter()
     {
     }
 

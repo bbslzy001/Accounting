@@ -47,6 +47,21 @@ public class AccountTypeRepository
         return accountTypeDao.queryById(id);
     }
 
+    public LiveData<Double> queryTotalAmount()
+    {
+        return accountTypeDao.queryTotalAmount();
+    }
+
+    public LiveData<Double> queryNegativeAmount()
+    {
+        return accountTypeDao.queryNegativeAmount();
+    }
+
+    public LiveData<Double> queryNetAmount()
+    {
+        return accountTypeDao.queryNetAmount();
+    }
+
     public LiveData<List<AccountType>> queryAll()
     {
         return accountTypeDao.queryAll();

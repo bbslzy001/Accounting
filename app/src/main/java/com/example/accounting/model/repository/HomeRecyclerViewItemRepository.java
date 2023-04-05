@@ -18,15 +18,30 @@ public class HomeRecyclerViewItemRepository
         homeRecyclerViewItemDao = myDatabase.getHomeRecyclerViewItemDao();
     }
 
-//    public LiveData<List<HomeRecyclerViewItem>> queryAllExpenditures()
-//    {
-//        return homeRecyclerViewItemDao.queryAllExpenditures();
-//    }
-//
-//    public LiveData<List<HomeRecyclerViewItem>> queryAllIncomes()
-//    {
-//        return homeRecyclerViewItemDao.queryAllIncomes();
-//    }
+    public LiveData<Double> queryExpenditureAmount()
+    {
+        return homeRecyclerViewItemDao.queryExpenditureAmount();
+    }
+
+    public LiveData<Double> queryIncomeAmount()
+    {
+        return homeRecyclerViewItemDao.queryIncomeAmount();
+    }
+
+    public LiveData<Double> queryTotalAmount()
+    {
+        return homeRecyclerViewItemDao.queryTotalAmount();
+    }
+
+    public LiveData<List<HomeRecyclerViewItem>> queryAllExpenditures()
+    {
+        return homeRecyclerViewItemDao.queryAllExpenditures();
+    }
+
+    public LiveData<List<HomeRecyclerViewItem>> queryAllIncomes()
+    {
+        return homeRecyclerViewItemDao.queryAllIncomes();
+    }
 
     public LiveData<List<HomeRecyclerViewItem>> queryAll()
     {
