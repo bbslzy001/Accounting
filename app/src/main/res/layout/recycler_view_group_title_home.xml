@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
-            name="homeRecyclerViewItems"
-            type="com.example.accounting.model.room.bean.HomeRecyclerViewItem" />
+            name="homeRecyclerViewGroupTitle"
+            type="com.example.accounting.model.entity.HomeRecyclerViewGroupTitle" />
     </data>
 
     <LinearLayout
@@ -23,7 +24,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="日期"
+                android:text="@{homeRecyclerViewGroupTitle.date}"
                 android:textColor="#000"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -38,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingEnd="16dp"
-            android:text="192.00"
+            app:listTitleAmount="@{homeRecyclerViewGroupTitle.income}"
             android:textSize="14sp" />
 
         <TextView
@@ -50,7 +51,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="256.00"
+            app:listTitleAmount="@{homeRecyclerViewGroupTitle.expenditure}"
             android:textSize="14sp" />
 
     </LinearLayout>

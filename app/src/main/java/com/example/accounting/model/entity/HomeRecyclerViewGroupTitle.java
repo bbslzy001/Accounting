@@ -1,22 +1,16 @@
 package com.example.accounting.model.entity;
 
-import com.example.accounting.model.room.bean.HomeRecyclerViewItem;
-
-import java.util.List;
-
-public class HomeRecyclerViewItemGroup
+public class HomeRecyclerViewGroupTitle
 {
     private String date;
     private double expenditure;
     private double income;
-    private List<HomeRecyclerViewItem> items;
 
-    public HomeRecyclerViewItemGroup(String date, double expenditure, double income, List<HomeRecyclerViewItem> items)
+    public HomeRecyclerViewGroupTitle(String date, double expenditure, double income)
     {
         this.date = date;
         this.expenditure = expenditure;
         this.income = income;
-        this.items = items;
     }
 
     public String getDate()
@@ -34,8 +28,18 @@ public class HomeRecyclerViewItemGroup
         return income;
     }
 
-    public List<HomeRecyclerViewItem> getItems()
+    public void setDate(String date)
     {
-        return items;
+        this.date = date;
+    }
+
+    public void setExpenditure(double expenditure)
+    {
+        this.expenditure = expenditure;
+    }
+
+    public void setIncome(double income)
+    {
+        this.income = income;
     }
 }

@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
             android:textSize="16sp"
-            app:amount="@{accountType.amount}" />
+            app:listAmount="@{accountType.amount}" />
 
     </LinearLayout>
 </layout>

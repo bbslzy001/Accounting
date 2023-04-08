@@ -38,14 +38,23 @@ public class MyBindingAdapter
         }
     }
 
-    @BindingAdapter({"app:recyclerViewItemLayout"})
-    public static void setRecyclerViewItemLayout(RecyclerView recyclerView, int itemLayoutId)
+    @BindingAdapter({"app:homeRecyclerViewGroupTitleLayout", "app:homeRecyclerViewItemLayout"})
+    public static void setHomeRecyclerViewItemLayout(RecyclerView recyclerView, int groupTitleLayoutId, int itemLayoutId)
     {
-        Object adapter = recyclerView.getAdapter();
+        HomeRecyclerViewAdapter adapter = (HomeRecyclerViewAdapter) recyclerView.getAdapter();
         if (adapter != null)
         {
-            if (adapter instanceof HomeRecyclerViewAdapter) ((HomeRecyclerViewAdapter) adapter).setItemLayoutId(itemLayoutId);
-            else ((AccountRecyclerViewAdapter) adapter).setItemLayoutId(itemLayoutId);
+            adapter.setItemLayoutIdArray(new int[]{groupTitleLayoutId, itemLayoutId});
+        }
+    }
+
+    @BindingAdapter({"app:accountRecyclerViewItemLayout"})
+    public static void setAccountRecyclerViewItemLayout(RecyclerView recyclerView, int itemLayoutId)
+    {
+        AccountRecyclerViewAdapter adapter = (AccountRecyclerViewAdapter) recyclerView.getAdapter();
+        if (adapter != null)
+        {
+            adapter.setItemLayoutId(itemLayoutId);
         }
     }
 
@@ -62,8 +71,8 @@ public class MyBindingAdapter
         }
     }
 
-    @BindingAdapter({"app:amount"})
-    public static void setAmount(TextView textView, double amount)
+    @BindingAdapter({"app:listAmount"})
+    public static void setListAmount(TextView textView, double amount)
     {
         if (amount >= 0)
         {
@@ -74,6 +83,19 @@ public class MyBindingAdapter
         {
             textView.setText(String.format(Locale.CHINA, "- %.2f", amount));
             textView.setTextColor(rgb(255, 0, 0));
+        }
+    }
+
+    @BindingAdapter({"app:listTitleAmount"})
+    public static void setTitleListAmount(TextView textView, double amount)
+    {
+        if (amount >= 0)
+        {
+            textView.setText(String.format(Locale.CHINA, "%.2f", amount));
+        }
+        else
+        {
+            textView.setText(String.format(Locale.CHINA, "%.2f", amount));
         }
     }
 

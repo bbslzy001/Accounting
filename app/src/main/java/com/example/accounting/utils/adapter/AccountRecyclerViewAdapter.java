@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.accounting.databinding.ItemAccountRecyclerViewBinding;
+import com.example.accounting.databinding.RecyclerViewItemAccountBinding;
 import com.example.accounting.model.room.bean.AccountType;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class AccountRecyclerViewAdapter extends RecyclerView.Adapter<AccountRecy
     public AccountRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        ItemAccountRecyclerViewBinding binding = DataBindingUtil.inflate(inflater, itemLayoutId, parent, false);
+        RecyclerViewItemAccountBinding binding = DataBindingUtil.inflate(inflater, itemLayoutId, parent, false);
         return new AccountRecyclerViewAdapter.ViewHolder(binding);
     }
 
@@ -59,9 +59,9 @@ public class AccountRecyclerViewAdapter extends RecyclerView.Adapter<AccountRecy
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
-        private final ItemAccountRecyclerViewBinding binding;
+        private final RecyclerViewItemAccountBinding binding;
 
-        public ViewHolder(ItemAccountRecyclerViewBinding binding)
+        public ViewHolder(RecyclerViewItemAccountBinding binding)
         {
             super(binding.getRoot());
             this.binding = binding;
