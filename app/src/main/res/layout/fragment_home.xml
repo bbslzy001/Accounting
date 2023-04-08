@@ -43,7 +43,7 @@
                         android:layout_column="0"
                         android:layout_columnWeight="1"
                         android:paddingVertical="4dp"
-                        android:text="本月收入"
+                        android:text="@string/current_month_income"
                         android:textSize="14sp" />
 
                     <com.google.android.material.textview.MaterialTextView
@@ -53,7 +53,7 @@
                         android:layout_column="1"
                         android:layout_columnWeight="1"
                         android:paddingVertical="4dp"
-                        android:text="本月支出"
+                        android:text="@string/current_month_expenditure"
                         android:textSize="14sp" />
 
                     <com.google.android.material.textview.MaterialTextView
@@ -63,7 +63,7 @@
                         android:layout_column="2"
                         android:layout_columnWeight="1"
                         android:paddingVertical="4dp"
-                        android:text="本月结余"
+                        android:text="@string/current_month_balance"
                         android:textSize="14sp" />
 
                     <com.google.android.material.textview.MaterialTextView
@@ -121,7 +121,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_margin="24dp"
-            android:contentDescription="添加"
+            android:contentDescription="@string/add_trade_info"
             app:srcCompat="@drawable/ic_plus" />
 
     </RelativeLayout>

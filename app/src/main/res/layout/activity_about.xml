@@ -26,6 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:lineSpacingExtra="2dp"
+                android:paddingVertical="20dp"
                 android:text="@{viewModel.markdownToHtml}"
                 android:textSize="16sp" />
 

@@ -3,14 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/search"
-        android:contentDescription="搜索"
         android:icon="@drawable/ic_search"
-        android:title="search"
+        android:title="@string/search"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/more"
-        android:contentDescription="更多操作"
         android:icon="@drawable/ic_more_vert"
-        android:title="more"
+        android:title="@string/more"
         app:showAsAction="ifRoom" />
 </menu>

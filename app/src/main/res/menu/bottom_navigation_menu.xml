@@ -3,13 +3,13 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home"
-        android:title="首页" />
+        android:title="@string/home" />
     <item
         android:id="@+id/navigation_statistics"
         android:icon="@drawable/ic_statistics"
-        android:title="统计" />
+        android:title="@string/statistics" />
     <item
         android:id="@+id/navigation_account"
         android:icon="@drawable/ic_account_balance_wallet"
-        android:title="账户" />
+        android:title="@string/account" />
 </menu>

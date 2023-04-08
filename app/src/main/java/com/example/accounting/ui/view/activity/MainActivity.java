@@ -157,7 +157,7 @@ public class MainActivity extends AppCompatActivity
      */
     private void updateTopAppBar(int position)
     {
-        String[] titles = new String[]{"Accounting", "Statistics", "Account"};
+        String[] titles = new String[]{this.getString(R.string.app_name), this.getString(R.string.statistics), this.getString(R.string.account)};
         viewModel.getTopAppBarTitle().setValue(titles[position]);
         binding.topAppBar.getMenu().clear();
         if (position == 0) binding.topAppBar.inflateMenu(R.menu.top_bar_menu);
