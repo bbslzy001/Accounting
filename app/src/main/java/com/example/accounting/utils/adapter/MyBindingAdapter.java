@@ -77,12 +77,12 @@ public class MyBindingAdapter
         if (amount >= 0)
         {
             textView.setText(String.format(Locale.CHINA, "+ %.2f", amount));
-            textView.setTextColor(rgb(0, 255, 0));
+            textView.setTextColor(rgb(0, 200, 83));
         }
         else
         {
             textView.setText(String.format(Locale.CHINA, "- %.2f", amount));
-            textView.setTextColor(rgb(255, 0, 0));
+            textView.setTextColor(rgb(213, 0, 0));
         }
     }
 
@@ -90,7 +90,7 @@ public class MyBindingAdapter
     public static void setTitleListExpenditure(TextView textView, double amount)
     {
         textView.setText(String.format(Locale.CHINA, "%.2f", amount));
-        textView.setTextColor(rgb(255, 0, 0));
+        textView.setTextColor(rgb(213, 0, 0));
 
     }
 
@@ -98,7 +98,7 @@ public class MyBindingAdapter
     public static void setTitleListIncome(TextView textView, double amount)
     {
         textView.setText(String.format(Locale.CHINA, "%.2f", amount));
-        textView.setTextColor(rgb(0, 255, 0));
+        textView.setTextColor(rgb(0, 200, 83));
     }
 
     @BindingAdapter({"app:marginBottom"})
