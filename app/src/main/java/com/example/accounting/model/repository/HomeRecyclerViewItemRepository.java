@@ -10,7 +10,7 @@ import java.util.List;
 
 public class HomeRecyclerViewItemRepository
 {
-    private HomeRecyclerViewItemDao homeRecyclerViewItemDao;
+    private final HomeRecyclerViewItemDao homeRecyclerViewItemDao;
 
     public HomeRecyclerViewItemRepository()
     {

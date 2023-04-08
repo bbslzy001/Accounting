@@ -13,8 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingHorizontal="16dp"
-        android:paddingTop="8dp">
+        android:padding="8dp">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -39,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingEnd="16dp"
-            app:listTitleAmount="@{homeRecyclerViewGroupTitle.income}"
+            app:listTitleIncome="@{homeRecyclerViewGroupTitle.income}"
             android:textSize="14sp" />
 
         <TextView
@@ -51,7 +50,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:listTitleAmount="@{homeRecyclerViewGroupTitle.expenditure}"
+            app:listTitleExpenditure="@{homeRecyclerViewGroupTitle.expenditure}"
             android:textSize="14sp" />
 
     </LinearLayout>

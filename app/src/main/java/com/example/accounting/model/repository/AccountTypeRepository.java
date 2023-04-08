@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
 
 public class AccountTypeRepository
 {
-    private AccountTypeDao accountTypeDao;
+    private final AccountTypeDao accountTypeDao;
     private final ExecutorService executor;
 
     public AccountTypeRepository()

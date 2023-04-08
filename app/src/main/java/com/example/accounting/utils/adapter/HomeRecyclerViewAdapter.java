@@ -21,8 +21,8 @@ import java.util.Objects;
 
 public class HomeRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
-    private Map<String, HomeRecyclerViewGroupTitle> dateMap = new HashMap<>();
-    private List<Object> dataList = new ArrayList<>();
+    private final Map<String, HomeRecyclerViewGroupTitle> dateMap = new HashMap<>();
+    private final List<Object> dataList = new ArrayList<>();
     private int[] itemLayoutIdArray;
 
     public HomeRecyclerViewAdapter()

@@ -86,17 +86,19 @@ public class MyBindingAdapter
         }
     }
 
-    @BindingAdapter({"app:listTitleAmount"})
-    public static void setTitleListAmount(TextView textView, double amount)
+    @BindingAdapter({"app:listTitleExpenditure"})
+    public static void setTitleListExpenditure(TextView textView, double amount)
     {
-        if (amount >= 0)
-        {
-            textView.setText(String.format(Locale.CHINA, "%.2f", amount));
-        }
-        else
-        {
-            textView.setText(String.format(Locale.CHINA, "%.2f", amount));
-        }
+        textView.setText(String.format(Locale.CHINA, "%.2f", amount));
+        textView.setTextColor(rgb(255, 0, 0));
+
+    }
+
+    @BindingAdapter({"app:listTitleIncome"})
+    public static void setTitleListIncome(TextView textView, double amount)
+    {
+        textView.setText(String.format(Locale.CHINA, "%.2f", amount));
+        textView.setTextColor(rgb(0, 255, 0));
     }
 
     @BindingAdapter({"app:marginBottom"})

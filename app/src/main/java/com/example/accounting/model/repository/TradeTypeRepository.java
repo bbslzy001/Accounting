@@ -12,7 +12,7 @@ import java.util.concurrent.Executors;
 
 public class TradeTypeRepository
 {
-    private TradeTypeDao tradeTypeDao;
+    private final TradeTypeDao tradeTypeDao;
     private final ExecutorService executor;
 
     public TradeTypeRepository()
