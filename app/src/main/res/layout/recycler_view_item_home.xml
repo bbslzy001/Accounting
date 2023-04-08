@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center"
             android:contentDescription="TradeInfoIcon"
-            android:src="@drawable/ic_trade_info" />
+            android:src="@drawable/ic_trade_item" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -30,15 +30,14 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|top"
                 android:text="@{homeRecyclerViewItems.tradeType}"
-                android:textColor="#000"
                 android:textSize="16sp" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|bottom"
@@ -48,7 +47,7 @@
 
         </LinearLayout>
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"

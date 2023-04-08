@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity
         binding.topAppBar.setOnMenuItemClickListener(item ->
         {
             int id = item.getItemId();
-            if (id == R.id.search) startActivity(new Intent(this, SearchActivity.class));
+            if (id == R.id.calendar) startActivity(new Intent(this, SearchActivity.class));
             else if (id == R.id.more) openMoreMenu(binding.topAppBar.findViewById(R.id.more));
             else return false;
             return true;

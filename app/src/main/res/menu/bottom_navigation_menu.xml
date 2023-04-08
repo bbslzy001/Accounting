@@ -10,6 +10,6 @@
         android:title="@string/statistics" />
     <item
         android:id="@+id/navigation_account"
-        android:icon="@drawable/ic_account_balance_wallet"
+        android:icon="@drawable/ic_account"
         android:title="@string/account" />
 </menu>
