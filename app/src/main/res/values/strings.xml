@@ -1,6 +1,7 @@
 <resources>
     <!-- Application -->
     <string name="app_name">账迹</string>
+    <string name="app_version">版本信息：1.0.0</string>
 
     <!-- Main Activity -->
     <string name="home">首页</string>

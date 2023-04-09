@@ -14,14 +14,14 @@
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:fitsSystemWindows="false"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="false">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:paddingTop="@{viewModel.statusHeight}"
             android:orientation="vertical"
+            app:paddingTop="@{viewModel.statusHeight}"
             tools:context=".ui.view.activity.MainActivity">
 
             <!-- 顶部应用栏 -->
@@ -67,7 +67,25 @@
             app:headerLayout="@layout/header_main_navigation_drawer"
             app:marginBottom="@{viewModel.navigationHeight}"
             app:menu="@menu/drawer_menu"
-            app:paddingTop="@{viewModel.statusHeight}" />
+            app:paddingTop="@{viewModel.statusHeight}">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/app_version"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.navigation.NavigationView>
 
     </androidx.drawerlayout.widget.DrawerLayout>
 
