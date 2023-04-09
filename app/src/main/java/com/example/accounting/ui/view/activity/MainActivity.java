@@ -131,6 +131,8 @@ public class MainActivity extends AppCompatActivity
 
         binding.viewPager.setUserInputEnabled(false);  // 设置 viewpager 不可滑动
 
+        updateTopAppBar(0);  // 由于没有覆写viewpager回调方法，且启动程序时不会触发bottomNavigation的监听方法，故需要手动初始化
+
         binding.bottomNavigation.setOnItemSelectedListener(item ->
         {
             int itemId = item.getItemId();

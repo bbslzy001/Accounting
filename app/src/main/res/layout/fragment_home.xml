@@ -114,15 +114,16 @@
 
         </LinearLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/floating_button"
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/extended_floating_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_margin="24dp"
+            android:layout_margin="16dp"
             android:contentDescription="@string/add_trade_info"
-            app:srcCompat="@drawable/ic_add_trade" />
+            android:text="@string/add_trade_info"
+            app:icon="@drawable/ic_add_trade" />
 
     </RelativeLayout>
 

@@ -57,10 +57,10 @@ public class HomeFragment extends Fragment
      */
     private void initFloatingButton()
     {
-        binding.floatingButton.setOnClickListener(view ->
+        binding.extendedFloatingButton.setOnClickListener(view ->
         {
             viewModel.addTradeInfo();
-            Toast.makeText(MyApplication.getContext(), "点击了floatButton", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MyApplication.getContext(), "点击了extendedFloatingButton", Toast.LENGTH_SHORT).show();
         });
     }
 }
