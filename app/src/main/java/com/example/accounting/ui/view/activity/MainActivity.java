@@ -11,12 +11,11 @@ import androidx.core.view.GravityCompat;
 import androidx.core.view.WindowCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.accounting.R;
 import com.example.accounting.application.MyApplication;
 import com.example.accounting.ui.viewmodel.activity.MainActivityViewModel;
-import com.example.accounting.utils.adapter.ViewPagerAdapter;
+import com.example.accounting.utils.adapter.MainActivityViewPagerAdapter;
 import com.example.accounting.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity
@@ -118,16 +117,19 @@ public class MainActivity extends AppCompatActivity
      */
     private void initNavigation()
     {
-        binding.viewPager.setAdapter(new ViewPagerAdapter(this));
-        binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback()
-        {
-            @Override
-            public void onPageSelected(int position)
-            {
-                binding.bottomNavigation.getMenu().getItem(position).setChecked(true);
-                updateTopAppBar(position);
-            }
-        });
+        binding.viewPager.setAdapter(new MainActivityViewPagerAdapter(this));
+
+//        binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback()  // 由于设置了不可滑动，用户无法改变页面，故不需要覆写回调方法
+//        {
+//            @Override
+//            public void onPageSelected(int position)
+//            {
+//                binding.bottomNavigation.getMenu().getItem(position).setChecked(true);
+//                updateTopAppBar(position);
+//            }
+//        });
+
+        binding.viewPager.setUserInputEnabled(false);  // 设置 viewpager 不可滑动
 
         binding.bottomNavigation.setOnItemSelectedListener(item ->
         {

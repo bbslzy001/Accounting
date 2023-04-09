@@ -27,6 +27,11 @@
     <string name="current_month_balance">本月结余</string>
     <string name="add_trade_info">记一笔</string>
 
+    <!-- Statistics Fragment -->
+    <string name="week_statistics">周统计</string>
+    <string name="month_statistics">月统计</string>
+    <string name="year_statistics">年统计</string>
+
     <!-- Account Fragment -->
     <string name="net_amount">净资产</string>
     <string name="total_amount">总资产</string>
