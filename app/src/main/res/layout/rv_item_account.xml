@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center"
             android:contentDescription="TradeInfoIcon"
+            android:scaleType="center"
             android:src="@drawable/ic_account_item" />
 
         <LinearLayout
@@ -43,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
             android:textSize="16sp"
-            app:listAmount="@{accountType.amount}" />
+            app:subItemAmount="@{accountType.amount}" />
 
     </LinearLayout>
 </layout>

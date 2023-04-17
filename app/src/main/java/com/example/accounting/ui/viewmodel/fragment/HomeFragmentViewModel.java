@@ -4,29 +4,26 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.accounting.model.repository.TradeInfoRepository;
-import com.example.accounting.model.room.bean.HomeRecyclerViewItem;
-import com.example.accounting.model.repository.HomeRecyclerViewItemRepository;
+import com.example.accounting.model.room.bean.HomeRvItem;
+import com.example.accounting.model.repository.HomeRvItemRepository;
 import com.example.accounting.model.room.bean.TradeInfo;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class HomeFragmentViewModel extends ViewModel
 {
     private final LiveData<Double> expenditureAmount;
     private final LiveData<Double> incomeAmount;
     private final LiveData<Double> totalAmount;
-    private final LiveData<List<HomeRecyclerViewItem>> items;
-    private final HomeRecyclerViewItemRepository homeRecyclerViewItemRepository = new HomeRecyclerViewItemRepository();
+    private final LiveData<List<HomeRvItem>> items;
+    private final HomeRvItemRepository homeRvItemRepository = new HomeRvItemRepository();
 
     public HomeFragmentViewModel()
     {
-        expenditureAmount = homeRecyclerViewItemRepository.queryExpenditureAmount();
-        incomeAmount = homeRecyclerViewItemRepository.queryIncomeAmount();
-        totalAmount = homeRecyclerViewItemRepository.queryTotalAmount();
-        items = homeRecyclerViewItemRepository.queryAll();
+        expenditureAmount = homeRvItemRepository.queryExpenditureAmount();
+        incomeAmount = homeRvItemRepository.queryIncomeAmount();
+        totalAmount = homeRvItemRepository.queryTotalAmount();
+        items = homeRvItemRepository.queryAll();
     }
 
     public LiveData<Double> getExpenditureAmount()
@@ -44,7 +41,7 @@ public class HomeFragmentViewModel extends ViewModel
         return totalAmount;
     }
 
-    public LiveData<List<HomeRecyclerViewItem>> getItems()
+    public LiveData<List<HomeRvItem>> getItems()
     {
         return items;
     }
@@ -52,6 +49,8 @@ public class HomeFragmentViewModel extends ViewModel
     public void addTradeInfo()
     {
         TradeInfoRepository tradeInfoRepository = new TradeInfoRepository();
-        tradeInfoRepository.insert(new TradeInfo(0, 10, "2023/04/01", new SimpleDateFormat("HH:mm:ss", Locale.CHINA).format(new Date()), "nothing", 1, 1));
+        tradeInfoRepository.insert(new TradeInfo(0, 10, "2023/04/01", "20:55:00", "nothing", 1, 1));
+        tradeInfoRepository.insert(new TradeInfo(0, 10, "2023/04/02", "21:55:55", "nothing", 1, 1));
+        tradeInfoRepository.insert(new TradeInfo(0, 10, "2023/04/03", "22:55:00", "nothing", 1, 1));
     }
 }

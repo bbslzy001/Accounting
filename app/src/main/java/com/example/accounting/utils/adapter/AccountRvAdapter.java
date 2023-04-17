@@ -8,18 +8,18 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.accounting.databinding.RecyclerViewItemAccountBinding;
+import com.example.accounting.R;
+import com.example.accounting.databinding.RvItemAccountBinding;
 import com.example.accounting.model.room.bean.AccountType;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AccountRecyclerViewAdapter extends RecyclerView.Adapter<AccountRecyclerViewAdapter.ViewHolder>
+public class AccountRvAdapter extends RecyclerView.Adapter<AccountRvAdapter.ViewHolder>
 {
     private List<AccountType> itemList = new ArrayList<>();
-    private int itemLayoutId;
 
-    public AccountRecyclerViewAdapter()
+    public AccountRvAdapter()
     {
     }
 
@@ -30,22 +30,17 @@ public class AccountRecyclerViewAdapter extends RecyclerView.Adapter<AccountRecy
         notifyDataSetChanged();
     }
 
-    public void setItemLayoutId(int layoutId)
-    {
-        this.itemLayoutId = layoutId;
-    }
-
     @NonNull
     @Override
-    public AccountRecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+    public AccountRvAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
     {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        RecyclerViewItemAccountBinding binding = DataBindingUtil.inflate(inflater, itemLayoutId, parent, false);
-        return new AccountRecyclerViewAdapter.ViewHolder(binding);
+        RvItemAccountBinding binding = DataBindingUtil.inflate(inflater, R.layout.rv_item_account, parent, false);
+        return new AccountRvAdapter.ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(AccountRecyclerViewAdapter.ViewHolder viewHolder, final int position)
+    public void onBindViewHolder(AccountRvAdapter.ViewHolder viewHolder, final int position)
     {
         viewHolder.binding.setAccountType(itemList.get(position));
         viewHolder.binding.executePendingBindings();
@@ -59,9 +54,9 @@ public class AccountRecyclerViewAdapter extends RecyclerView.Adapter<AccountRecy
 
     public static class ViewHolder extends RecyclerView.ViewHolder
     {
-        private final RecyclerViewItemAccountBinding binding;
+        private final RvItemAccountBinding binding;
 
-        public ViewHolder(RecyclerViewItemAccountBinding binding)
+        public ViewHolder(RvItemAccountBinding binding)
         {
             super(binding.getRoot());
             this.binding = binding;

@@ -1,6 +1,6 @@
 package com.example.accounting.model.room.bean;
 
-public class HomeRecyclerViewItem
+public class HomeRvItem
 {
     private int tradeInfoId;
     private double amount;
@@ -10,7 +10,7 @@ public class HomeRecyclerViewItem
     private String accountType;
     private String tradeType;
 
-    public HomeRecyclerViewItem(int tradeInfoId, double amount, String date, String time, String remark, String accountType, String tradeType)
+    public HomeRvItem(int tradeInfoId, double amount, String date, String time, String remark, String accountType, String tradeType)
     {
         this.tradeInfoId = tradeInfoId;
         this.amount = amount;

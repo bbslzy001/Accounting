@@ -108,8 +108,7 @@
                 android:layout_margin="8dp"
                 android:orientation="vertical"
                 android:scrollbars="vertical"
-                app:accountRecyclerViewDataList="@{viewModel.items}"
-                app:accountRecyclerViewItemLayout="@{@layout/recycler_view_item_account}"
+                app:accountRvItemList="@{viewModel.items}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </LinearLayout>

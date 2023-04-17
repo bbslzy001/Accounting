@@ -11,50 +11,30 @@ import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.accounting.model.room.bean.AccountType;
-import com.example.accounting.model.room.bean.HomeRecyclerViewItem;
+import com.example.accounting.model.room.bean.HomeRvItem;
 
 import java.util.List;
 import java.util.Locale;
 
 public class MyBindingAdapter
 {
-    @BindingAdapter({"app:homeRecyclerViewDataList"})
-    public static void setHomeRecyclerViewDataList(RecyclerView recyclerView, LiveData<List<HomeRecyclerViewItem>> dataList)
+    @BindingAdapter({"app:homeRvItemList"})
+    public static void setHomeRvItemList(RecyclerView recyclerView, LiveData<List<HomeRvItem>> itemList)
     {
-        HomeRecyclerViewAdapter adapter = (HomeRecyclerViewAdapter) recyclerView.getAdapter();
-        if (adapter != null && dataList != null && dataList.getValue() != null)
+        HomeRvAdapter adapter = (HomeRvAdapter) recyclerView.getAdapter();
+        if (adapter != null && itemList != null && itemList.getValue() != null)
         {
-            adapter.setItemList(dataList.getValue());
+            adapter.setItemList(itemList.getValue());
         }
     }
 
-    @BindingAdapter({"app:accountRecyclerViewDataList"})
-    public static void setAccountRecyclerViewDataList(RecyclerView recyclerView, LiveData<List<AccountType>> dataList)
+    @BindingAdapter({"app:accountRvItemList"})
+    public static void setAccountRvItemList(RecyclerView recyclerView, LiveData<List<AccountType>> itemList)
     {
-        AccountRecyclerViewAdapter adapter = (AccountRecyclerViewAdapter) recyclerView.getAdapter();
-        if (adapter != null && dataList != null && dataList.getValue() != null)
+        AccountRvAdapter adapter = (AccountRvAdapter) recyclerView.getAdapter();
+        if (adapter != null && itemList != null && itemList.getValue() != null)
         {
-            adapter.setItemList(dataList.getValue());
-        }
-    }
-
-    @BindingAdapter({"app:homeRecyclerViewGroupTitleLayout", "app:homeRecyclerViewItemLayout"})
-    public static void setHomeRecyclerViewItemLayout(RecyclerView recyclerView, int groupTitleLayoutId, int itemLayoutId)
-    {
-        HomeRecyclerViewAdapter adapter = (HomeRecyclerViewAdapter) recyclerView.getAdapter();
-        if (adapter != null)
-        {
-            adapter.setItemLayoutIdArray(new int[]{groupTitleLayoutId, itemLayoutId});
-        }
-    }
-
-    @BindingAdapter({"app:accountRecyclerViewItemLayout"})
-    public static void setAccountRecyclerViewItemLayout(RecyclerView recyclerView, int itemLayoutId)
-    {
-        AccountRecyclerViewAdapter adapter = (AccountRecyclerViewAdapter) recyclerView.getAdapter();
-        if (adapter != null)
-        {
-            adapter.setItemLayoutId(itemLayoutId);
+            adapter.setItemList(itemList.getValue());
         }
     }
 
@@ -71,8 +51,8 @@ public class MyBindingAdapter
         }
     }
 
-    @BindingAdapter({"app:listAmount"})
-    public static void setListAmount(TextView textView, double amount)
+    @BindingAdapter({"app:subItemAmount"})
+    public static void setSubItemAmount(TextView textView, double amount)
     {
         if (amount >= 0)
         {
@@ -86,19 +66,19 @@ public class MyBindingAdapter
         }
     }
 
-    @BindingAdapter({"app:listTitleExpenditure"})
-    public static void setTitleListExpenditure(TextView textView, double amount)
+    @BindingAdapter({"app:headerItemExpenditure"})
+    public static void setHeaderItemExpenditure(TextView textView, double amount)
     {
         textView.setText(String.format(Locale.CHINA, "%.2f", amount));
         textView.setTextColor(rgb(213, 0, 0));
 
     }
 
-    @BindingAdapter({"app:listTitleIncome"})
-    public static void setTitleListIncome(TextView textView, double amount)
+    @BindingAdapter({"app:headerItemIncome"})
+    public static void setHeaderItemIncome(TextView textView, double amount)
     {
         textView.setText(String.format(Locale.CHINA, "%.2f", amount));
-        textView.setTextColor(rgb(0, 200, 83));
+
     }
 
     @BindingAdapter({"app:marginBottom"})

@@ -9,7 +9,7 @@ import com.example.accounting.model.room.bean.AccountType;
 import com.example.accounting.model.room.bean.TradeInfo;
 import com.example.accounting.model.room.bean.TradeType;
 import com.example.accounting.model.room.dao.AccountTypeDao;
-import com.example.accounting.model.room.dao.HomeRecyclerViewItemDao;
+import com.example.accounting.model.room.dao.HomeRvItemDao;
 import com.example.accounting.model.room.dao.TradeInfoDao;
 import com.example.accounting.model.room.dao.TradeTypeDao;
 
@@ -30,7 +30,7 @@ public abstract class MyDatabase extends RoomDatabase
     public abstract AccountTypeDao getAccountDao();
     public abstract TradeTypeDao getTradeTypeDao();
 
-    public abstract HomeRecyclerViewItemDao getHomeRecyclerViewItemDao();
+    public abstract HomeRvItemDao getHomeRecyclerViewItemDao();
 
     public static MyDatabase getMyDatabaseInstance()
     {

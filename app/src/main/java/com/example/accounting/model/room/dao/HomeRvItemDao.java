@@ -4,12 +4,12 @@ import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Query;
 
-import com.example.accounting.model.room.bean.HomeRecyclerViewItem;
+import com.example.accounting.model.room.bean.HomeRvItem;
 
 import java.util.List;
 
 @Dao
-public interface HomeRecyclerViewItemDao
+public interface HomeRvItemDao
 {
     @Query("select SUM(TI_amount) from TradeInfo where TI_amount < 0")
     LiveData<Double> queryExpenditureAmount();
@@ -32,7 +32,7 @@ public interface HomeRecyclerViewItemDao
             "inner join TradeType on TradeInfo.TT_id = TradeType.TT_id " +
             "where TradeInfo.TI_amount < 0"
     )
-    LiveData<List<HomeRecyclerViewItem>> queryAllExpenditures();
+    LiveData<List<HomeRvItem>> queryAllExpenditures();
 
     @Query("select TradeInfo.TI_id as tradeInfoId, " +
             "TradeInfo.TI_amount as amount, " +
@@ -46,7 +46,7 @@ public interface HomeRecyclerViewItemDao
             "inner join TradeType on TradeInfo.TT_id = TradeType.TT_id " +
             "where TradeInfo.TI_amount >= 0"
     )
-    LiveData<List<HomeRecyclerViewItem>> queryAllIncomes();
+    LiveData<List<HomeRvItem>> queryAllIncomes();
 
     @Query("select TradeInfo.TI_id as tradeInfoId, " +
             "TradeInfo.TI_amount as amount, " +
@@ -57,7 +57,8 @@ public interface HomeRecyclerViewItemDao
             "TradeType.TT_type as tradeType " +
             "from TradeInfo " +
             "inner join AccountType on TradeInfo.AT_id = AccountType.AT_id " +
-            "inner join TradeType on TradeInfo.TT_id = TradeType.TT_id"
+            "inner join TradeType on TradeInfo.TT_id = TradeType.TT_id " +
+            "order by date asc"
     )
-    LiveData<List<HomeRecyclerViewItem>> queryAll();
+    LiveData<List<HomeRvItem>> queryAll();
 }

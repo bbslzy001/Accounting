@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="homeRecyclerViewItems"
-            type="com.example.accounting.model.room.bean.HomeRecyclerViewItem" />
+            name="homeRvSubItem"
+            type="com.example.accounting.model.entity.HomeRvSubItem" />
     </data>
 
     <LinearLayout
@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center"
             android:contentDescription="TradeInfoIcon"
+            android:scaleType="center"
             android:src="@drawable/ic_trade_item" />
 
         <LinearLayout
@@ -34,14 +35,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|top"
-                android:text="@{homeRecyclerViewItems.tradeType}"
+                android:text="@{homeRvSubItem.tradeType}"
                 android:textSize="16sp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|bottom"
-                android:text="@{homeRecyclerViewItems.time}"
+                android:text="@{homeRvSubItem.time}"
                 android:textColor="#C0C0C0"
                 android:textSize="12sp" />
 
@@ -52,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
             android:textSize="16sp"
-            app:listAmount="@{homeRecyclerViewItems.amount}" />
+            app:subItemAmount="@{homeRvSubItem.amount}" />
 
     </LinearLayout>
 </layout>

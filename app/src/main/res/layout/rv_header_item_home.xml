@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="homeRvHeaderItem"
+            type="com.example.accounting.model.entity.HomeRvHeaderItem" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="?attr/colorApplicationBackground"
+        android:alpha="1"
+        android:padding="8dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/header_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{homeRvHeaderItem.date}"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/income"
+                android:textSize="12sp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/header_income"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="16dp"
+                android:textColor="#00C853"
+                android:textSize="14sp"
+                app:headerItemIncome="@{homeRvHeaderItem.income}" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/expenditure"
+                android:textSize="12sp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/header_expenditure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#D50000"
+                android:textSize="14sp"
+                app:headerItemExpenditure="@{homeRvHeaderItem.expenditure}" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/header_toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_expand_more" />
+
+    </LinearLayout>
+</layout>

@@ -16,7 +16,7 @@ import com.example.accounting.R;
 import com.example.accounting.application.MyApplication;
 import com.example.accounting.databinding.FragmentAccountBinding;
 import com.example.accounting.ui.viewmodel.fragment.AccountFragmentViewModel;
-import com.example.accounting.utils.adapter.AccountRecyclerViewAdapter;
+import com.example.accounting.utils.adapter.AccountRvAdapter;
 
 public class AccountFragment extends Fragment
 {
@@ -49,7 +49,7 @@ public class AccountFragment extends Fragment
      */
     private void initRecyclerView()
     {
-        binding.recyclerView.setAdapter(new AccountRecyclerViewAdapter());
+        binding.recyclerView.setAdapter(new AccountRvAdapter());
     }
 
     /**

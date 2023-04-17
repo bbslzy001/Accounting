@@ -107,9 +107,7 @@
                 android:layout_margin="8dp"
                 android:orientation="vertical"
                 android:scrollbars="vertical"
-                app:homeRecyclerViewDataList="@{viewModel.items}"
-                app:homeRecyclerViewGroupTitleLayout="@{@layout/recycler_view_group_title_home}"
-                app:homeRecyclerViewItemLayout="@{@layout/recycler_view_item_home}"
+                app:homeRvItemList="@{viewModel.items}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </LinearLayout>
