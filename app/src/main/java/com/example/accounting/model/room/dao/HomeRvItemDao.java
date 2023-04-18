@@ -30,7 +30,8 @@ public interface HomeRvItemDao
             "from TradeInfo " +
             "inner join AccountType on TradeInfo.AT_id = AccountType.AT_id " +
             "inner join TradeType on TradeInfo.TT_id = TradeType.TT_id " +
-            "where TradeInfo.TI_amount < 0"
+            "where TradeInfo.TI_amount < 0 " +
+            "order by date asc, time asc"
     )
     LiveData<List<HomeRvItem>> queryAllExpenditures();
 
@@ -44,7 +45,8 @@ public interface HomeRvItemDao
             "from TradeInfo " +
             "inner join AccountType on TradeInfo.AT_id = AccountType.AT_id " +
             "inner join TradeType on TradeInfo.TT_id = TradeType.TT_id " +
-            "where TradeInfo.TI_amount >= 0"
+            "where TradeInfo.TI_amount >= 0 " +
+            "order by date asc, time asc"
     )
     LiveData<List<HomeRvItem>> queryAllIncomes();
 
@@ -58,7 +60,7 @@ public interface HomeRvItemDao
             "from TradeInfo " +
             "inner join AccountType on TradeInfo.AT_id = AccountType.AT_id " +
             "inner join TradeType on TradeInfo.TT_id = TradeType.TT_id " +
-            "order by date asc"
+            "order by date asc, time asc"
     )
     LiveData<List<HomeRvItem>> queryAll();
 }
