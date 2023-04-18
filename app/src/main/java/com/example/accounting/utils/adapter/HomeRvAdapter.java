@@ -3,7 +3,6 @@ package com.example.accounting.utils.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -59,11 +58,10 @@ public class HomeRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
      * 重新计算所有 Item 的信息；
      * 刷新 列表头/悬浮列表头 的视图。
      *
-     * @param view     列表头对应的 View
      * @param group    列表头所在的 Group
      * @param position 列表头在所有 Item 中的位置，从 0 开始计数
      */
-    public void onHeaderClick(View view, HomeRvGroup group, int position)
+    public void onHeaderClick(HomeRvGroup group, int position)
     {
         if (group.isExpanded())
         {
@@ -75,9 +73,8 @@ public class HomeRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             group.setExpanded(true);
             notifyItemRangeInserted(position + 1, group.getItemCount() - 1);
         }
+        notifyItemChanged(position);  // 更新列表头的图标显示
         calculateItemInfoList();  // 重新计算所有 Item 的信息
-        ImageView imageView = view.findViewById(R.id.header_toggle);
-        imageView.setImageResource(group.isExpanded() ? R.drawable.ic_expand_less : R.drawable.ic_expand_more);
     }
 
     /**
@@ -178,7 +175,7 @@ public class HomeRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (itemInfo.itemType == HEADER_ITEM)
         {
             HeaderItemViewHolder headerItemViewHolder = (HeaderItemViewHolder) viewHolder;
-            headerItemViewHolder.binding.setHomeRvHeaderItem(group.getHeaderItem());
+            headerItemViewHolder.binding.setHomeRvGroup(group);
             headerItemViewHolder.binding.executePendingBindings();
         }
         else
@@ -197,7 +194,7 @@ public class HomeRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         {
             super(binding.getRoot());
             this.binding = binding;
-            this.binding.getRoot().setOnClickListener(this);  // 整个 HeaderItemViewHolder 的长点击事件绑定
+            this.binding.getRoot().setOnClickListener(this);  // 整个 HeaderItemViewHolder 的点击事件绑定
         }
 
         @Override
@@ -205,7 +202,7 @@ public class HomeRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         {
             int position = getAdapterPosition();  // 获取ViewHolder的位置
             HomeRvGroup group = groupList.get(itemInfoList.get(position).groupIndex);  // 获取对应的 Group
-            onHeaderClick(view, group, position);
+            onHeaderClick(group, position);
         }
     }
 
@@ -217,7 +214,7 @@ public class HomeRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         {
             super(binding.getRoot());
             this.binding = binding;
-            this.binding.getRoot().setOnLongClickListener(this);  // 整个ItemViewHolder的长点击事件绑定
+            this.binding.getRoot().setOnLongClickListener(this);  // 整个 SubItemViewHolder 的长点击事件绑定
         }
 
         @Override

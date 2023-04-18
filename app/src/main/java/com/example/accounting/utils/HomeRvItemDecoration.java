@@ -68,7 +68,8 @@ public class HomeRvItemDecoration extends RecyclerView.ItemDecoration implements
         int firstVisiblePosition = getFirstVisiblePosition(parent);  // 获取第一个可见的 item 的位置
         if (firstVisiblePosition == -1) return;  // 如果LayoutManager还没有完全布局，则直接返回，不做任何操作
 
-        if (headerCoordinate == null) initHeaderCoordinate(parent, firstVisiblePosition);  // 初始化 headerInfo
+        if (headerCoordinate == null)
+            initHeaderCoordinate(parent, firstVisiblePosition);  // 初始化 headerInfo
 
         int groupIndex = adapter.getGroupIndex(firstVisiblePosition);  // 获取所有 view 对应的 group 下标
         HomeRvGroup group = adapter.getGroupList().get(groupIndex); // 获取当前组对象
@@ -141,7 +142,11 @@ public class HomeRvItemDecoration extends RecyclerView.ItemDecoration implements
         if (layoutManager != null) layoutManager.scrollToPositionWithOffset(headerItemIndex, 0);
 
         // 悬浮列表头点击事件
-        adapter.onHeaderClick(currentHeaderView, currentGroup, headerItemIndex);
+        adapter.onHeaderClick(currentGroup, headerItemIndex);
+
+        // 更新悬浮列表头的图标显示
+        ImageView imageView = currentHeaderView.findViewById(R.id.header_toggle);
+        imageView.setImageResource(currentGroup.isExpanded() ? R.drawable.ic_expand_less : R.drawable.ic_expand_more);
 
         return true;  // 拦截触摸事件，不再传递给子 view
     }

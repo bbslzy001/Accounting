@@ -47,5 +47,6 @@ public class AccountFragmentViewModel extends ViewModel
     public void addAccountType()
     {
         accountTypeRepository.insert(new AccountType(0, "信用卡", 99.99));
+        accountTypeRepository.insert(new AccountType(0, "信用卡", -99.99));
     }
 }

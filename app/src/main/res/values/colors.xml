@@ -66,4 +66,6 @@
     <color name="my_theme_light_background">#FCFBFE</color>
     <color name="my_theme_dark_navigation">#242A30</color>
     <color name="my_theme_dark_background">#1A1C1E</color>
+    <color name="my_theme_positive">#00C853</color>
+    <color name="my_theme_negative">#D50000</color>
 </resources>

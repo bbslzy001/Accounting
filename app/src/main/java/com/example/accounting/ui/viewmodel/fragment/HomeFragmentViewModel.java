@@ -52,5 +52,8 @@ public class HomeFragmentViewModel extends ViewModel
         tradeInfoRepository.insert(new TradeInfo(0, 10, "2023/04/01", "20:55:00", "nothing", 1, 1));
         tradeInfoRepository.insert(new TradeInfo(0, 10, "2023/04/02", "21:55:55", "nothing", 1, 1));
         tradeInfoRepository.insert(new TradeInfo(0, 10, "2023/04/03", "22:55:00", "nothing", 1, 1));
+        tradeInfoRepository.insert(new TradeInfo(0, -10, "2023/04/03", "22:55:00", "nothing", 1, 1));
+        tradeInfoRepository.insert(new TradeInfo(0, -10, "2023/04/03", "22:55:00", "nothing", 1, 1));
+        tradeInfoRepository.insert(new TradeInfo(0, -10, "2023/04/03", "22:55:00", "nothing", 1, 1));
     }
 }

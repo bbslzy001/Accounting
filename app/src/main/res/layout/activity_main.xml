@@ -64,10 +64,10 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
+            app:drawerPaddingBottom="@{viewModel.navigationHeight}"
+            app:drawerPaddingTop="@{viewModel.statusHeight}"
             app:headerLayout="@layout/drawer_header_main"
-            app:marginBottom="@{viewModel.navigationHeight}"
-            app:menu="@menu/drawer_menu"
-            app:paddingTop="@{viewModel.statusHeight}">
+            app:menu="@menu/drawer_menu">
 
             <LinearLayout
                 android:layout_width="match_parent"
