@@ -10,10 +10,8 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.accounting.R;
-import com.example.accounting.application.MyApplication;
 import com.example.accounting.databinding.FragmentHomeBinding;
 import com.example.accounting.ui.viewmodel.fragment.HomeFragmentViewModel;
 import com.example.accounting.utils.HomeRvItemDecoration;
@@ -34,7 +32,6 @@ public class HomeFragment extends Fragment
         binding.setViewModel(viewModel);
 
         initRecyclerView();
-        initFloatingButton();
 
         return binding.getRoot();
     }
@@ -55,17 +52,5 @@ public class HomeFragment extends Fragment
         HomeRvItemDecoration itemDecoration = new HomeRvItemDecoration(this.getContext(), adapter);
         binding.recyclerView.addItemDecoration(itemDecoration);
         binding.recyclerView.addOnItemTouchListener(itemDecoration);
-    }
-
-    /**
-     * 初始化浮动按钮
-     */
-    private void initFloatingButton()
-    {
-        binding.extendedFloatingButton.setOnClickListener(view ->
-        {
-            viewModel.addTradeInfo();
-            Toast.makeText(MyApplication.getContext(), "点击了extendedFloatingButton", Toast.LENGTH_SHORT).show();
-        });
     }
 }

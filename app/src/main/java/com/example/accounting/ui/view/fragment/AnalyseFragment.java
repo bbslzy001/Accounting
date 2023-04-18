@@ -1,34 +1,33 @@
 package com.example.accounting.ui.view.fragment;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.accounting.R;
-import com.example.accounting.databinding.FragmentStatisticsBinding;
-import com.example.accounting.ui.viewmodel.fragment.StatisticsFragmentViewModel;
-import com.example.accounting.utils.adapter.StatisticsFragmentViewPagerAdapter;
+import com.example.accounting.databinding.FragmentAnalyseBinding;
+import com.example.accounting.ui.viewmodel.fragment.AnalyseFragmentViewModel;
+import com.example.accounting.utils.adapter.AnalyseFragmentViewPagerAdapter;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-public class StatisticsFragment extends Fragment
+public class AnalyseFragment extends Fragment
 {
-    private FragmentStatisticsBinding binding;
-    private StatisticsFragmentViewModel viewModel;
+    private FragmentAnalyseBinding binding;
+    private AnalyseFragmentViewModel viewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_statistics, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_analyse, container, false);
         binding.setLifecycleOwner(this);
 
-        viewModel = new ViewModelProvider(this).get(StatisticsFragmentViewModel.class);
+        viewModel = new ViewModelProvider(this).get(AnalyseFragmentViewModel.class);
         binding.setViewModel(viewModel);
 
         initTab();
@@ -47,14 +46,15 @@ public class StatisticsFragment extends Fragment
      */
     private void initTab()
     {
-        binding.viewPager.setAdapter(new StatisticsFragmentViewPagerAdapter(requireActivity()));
+        binding.viewPager.setAdapter(new AnalyseFragmentViewPagerAdapter(requireActivity()));
 
         new TabLayoutMediator(binding.tabLayout, binding.viewPager, (tab, position) ->
         {
             switch (position)
             {
-                case 0 -> tab.setText(this.getString(R.string.calendar_statistics));
-                case 1 -> tab.setText(this.getString(R.string.list_statistics));
+                case 0 -> tab.setText(this.getString(R.string.day_analyse));
+                case 1 -> tab.setText(this.getString(R.string.month_analyse));
+                case 2 -> tab.setText(this.getString(R.string.year_analyse));
             }
         }).attach();
     }

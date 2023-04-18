@@ -2,6 +2,7 @@ package com.example.accounting.ui.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity
         initTopAppBar();
         initDrawer();
         initNavigation();
+        initAddTradeButton();
 
         viewModel.fakeData();
     }
@@ -133,6 +135,11 @@ public class MainActivity extends AppCompatActivity
 
         updateTopAppBar(0);  // 由于没有覆写viewpager回调方法，且启动程序时不会触发bottomNavigation的监听方法，故需要手动初始化
 
+        // 设置空白标签不可选中且不可用
+        MenuItem menuItem = binding.bottomNavigation.getMenu().getItem(2);
+        menuItem.setCheckable(false);
+        menuItem.setEnabled(false);
+
         binding.bottomNavigation.setOnItemSelectedListener(item ->
         {
             int itemId = item.getItemId();
@@ -141,15 +148,20 @@ public class MainActivity extends AppCompatActivity
                 binding.viewPager.setCurrentItem(0);
                 updateTopAppBar(0);
             }
-            else if (itemId == R.id.navigation_statistics)
+            else if (itemId == R.id.navigation_analyse)
             {
                 binding.viewPager.setCurrentItem(1);
                 updateTopAppBar(1);
             }
-            else if (itemId == R.id.navigation_account)
+            else if (itemId == R.id.navigation_statistics)
             {
                 binding.viewPager.setCurrentItem(2);
                 updateTopAppBar(2);
+            }
+            else if (itemId == R.id.navigation_account)
+            {
+                binding.viewPager.setCurrentItem(3);
+                updateTopAppBar(3);
             }
             else return false;
             return true;
@@ -161,9 +173,21 @@ public class MainActivity extends AppCompatActivity
      */
     private void updateTopAppBar(int position)
     {
-        String[] titles = new String[]{this.getString(R.string.app_name), this.getString(R.string.statistics), this.getString(R.string.account)};
+        String[] titles = new String[]{this.getString(R.string.app_name), this.getString(R.string.analyse), this.getString(R.string.statistics), this.getString(R.string.account)};
         viewModel.getTopAppBarTitle().setValue(titles[position]);
         binding.topAppBar.getMenu().clear();
         if (position == 0) binding.topAppBar.inflateMenu(R.menu.top_bar_menu);
+    }
+
+    /**
+     * 初始化新增交易按钮
+     */
+    private void initAddTradeButton()
+    {
+        binding.addTradeButton.setOnClickListener(view ->
+        {
+            viewModel.addTradeInfo();
+            Toast.makeText(MyApplication.getContext(), "点击了Button", Toast.LENGTH_SHORT).show();
+        });
     }
 }

@@ -98,6 +98,17 @@ public class MyBindingAdapter
         }
     }
 
+    @BindingAdapter({"app:emptyViewHeight"})
+    public static void setEmptyViewHeight(View view, LiveData<Integer> height)
+    {
+        if (height != null && height.getValue() != null)
+        {
+            ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+            layoutParams.height = height.getValue();
+            view.setLayoutParams(layoutParams);
+        }
+    }
+
     @BindingAdapter({"app:drawerPaddingTop", "app:drawerPaddingBottom"})
     public static void setPaddingBottom(View view, LiveData<Integer> paddingTop, LiveData<Integer> paddingBottom)
     {

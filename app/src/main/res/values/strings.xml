@@ -5,6 +5,7 @@
 
     <!-- Main Activity -->
     <string name="home">首页</string>
+    <string name="analyse">分析</string>
     <string name="statistics">统计</string>
     <string name="account">账户</string>
 
@@ -28,10 +29,14 @@
     <string name="current_month_balance">本月结余</string>
     <string name="add_trade_info">记一笔</string>
 
+    <!-- Analyse Fragment -->
+    <string name="day_analyse">日分析</string>
+    <string name="month_analyse">月分析</string>
+    <string name="year_analyse">年分析</string>
+
     <!-- Statistics Fragment -->
-    <string name="week_statistics">周统计</string>
-    <string name="month_statistics">月统计</string>
-    <string name="year_statistics">年统计</string>
+    <string name="calendar_statistics">日历</string>
+    <string name="list_statistics">列表</string>
 
     <!-- Account Fragment -->
     <string name="net_amount">净资产</string>

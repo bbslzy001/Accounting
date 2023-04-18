@@ -11,21 +11,21 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.accounting.R;
-import com.example.accounting.databinding.FragmentStatisticsMonthBinding;
-import com.example.accounting.ui.viewmodel.fragment.statistics.MonthStatisticsFragmentViewModel;
+import com.example.accounting.databinding.FragmentStatisticsListBinding;
+import com.example.accounting.ui.viewmodel.fragment.statistics.ListStatisticsFragmentViewModel;
 
-public class MonthStatisticsFragment extends Fragment
+public class ListStatisticsFragment extends Fragment
 {
-    private FragmentStatisticsMonthBinding binding;
-    private MonthStatisticsFragmentViewModel viewModel;
+    private FragmentStatisticsListBinding binding;
+    private ListStatisticsFragmentViewModel viewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_statistics_month, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_statistics_list, container, false);
         binding.setLifecycleOwner(this);
 
-        viewModel = new ViewModelProvider(this).get(MonthStatisticsFragmentViewModel.class);
+        viewModel = new ViewModelProvider(this).get(ListStatisticsFragmentViewModel.class);
         binding.setViewModel(viewModel);
 
         return binding.getRoot();

@@ -5,27 +5,24 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.accounting.ui.view.fragment.AnalyseFragment;
-import com.example.accounting.ui.view.fragment.HomeFragment;
-import com.example.accounting.ui.view.fragment.AccountFragment;
-import com.example.accounting.ui.view.fragment.StatisticsFragment;
+import com.example.accounting.ui.view.fragment.analyse.DayAnalyseFragment;
+import com.example.accounting.ui.view.fragment.analyse.MonthAnalyseFragment;
+import com.example.accounting.ui.view.fragment.analyse.YearAnalyseFragment;
 
 import java.util.List;
 
-public class MainActivityViewPagerAdapter extends FragmentStateAdapter
+public class AnalyseFragmentViewPagerAdapter extends FragmentStateAdapter
 {
     private final List<Fragment> fragmentList = List.of(
-            new HomeFragment(),
-            new AnalyseFragment(),
-            new StatisticsFragment(),
-            new AccountFragment()
+            new DayAnalyseFragment(),
+            new MonthAnalyseFragment(),
+            new YearAnalyseFragment()
     );
 
-    public MainActivityViewPagerAdapter(@NonNull FragmentActivity fragmentActivity)
+    public AnalyseFragmentViewPagerAdapter(@NonNull FragmentActivity fragmentActivity)
     {
         super(fragmentActivity);
     }
-
     @NonNull
     @Override
     public Fragment createFragment(int position)

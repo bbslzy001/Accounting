@@ -11,21 +11,21 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.accounting.R;
-import com.example.accounting.databinding.FragmentStatisticsWeekBinding;
-import com.example.accounting.ui.viewmodel.fragment.statistics.WeekStatisticsFragmentViewModel;
+import com.example.accounting.databinding.FragmentStatisticsCalendarBinding;
+import com.example.accounting.ui.viewmodel.fragment.statistics.CalendarStatisticsFragmentViewModel;
 
-public class WeekStatisticsFragment extends Fragment
+public class CalendarStatisticsFragment extends Fragment
 {
-    private FragmentStatisticsWeekBinding binding;
-    private WeekStatisticsFragmentViewModel viewModel;
+    private FragmentStatisticsCalendarBinding binding;
+    private CalendarStatisticsFragmentViewModel viewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_statistics_week, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_statistics_calendar, container, false);
         binding.setLifecycleOwner(this);
 
-        viewModel = new ViewModelProvider(this).get(WeekStatisticsFragmentViewModel.class);
+        viewModel = new ViewModelProvider(this).get(CalendarStatisticsFragmentViewModel.class);
         binding.setViewModel(viewModel);
 
         return binding.getRoot();

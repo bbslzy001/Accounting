@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.accounting.ui.viewmodel.fragment.statistics.WeekStatisticsFragmentViewModel" />
+            type="com.example.accounting.ui.viewmodel.fragment.statistics.CalendarStatisticsFragmentViewModel" />
     </data>
 
     <RelativeLayout
@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="@string/week_statistics"
+            android:text="@string/calendar_statistics"
             android:textSize="36sp" />
 
     </RelativeLayout>
