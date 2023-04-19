@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/wechat"
-        android:title="@string/import_from_wechat" />
-    <item
-        android:id="@+id/alipay"
-        android:title="@string/import_from_alipay" />
-</menu>

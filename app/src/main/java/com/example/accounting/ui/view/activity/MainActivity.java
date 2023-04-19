@@ -3,11 +3,9 @@ package com.example.accounting.ui.view.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.PopupMenu;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.WindowCompat;
 import androidx.databinding.DataBindingUtil;
@@ -54,31 +52,11 @@ public class MainActivity extends AppCompatActivity
         binding.topAppBar.setOnMenuItemClickListener(item ->
         {
             int id = item.getItemId();
-            if (id == R.id.calendar) startActivity(new Intent(this, SearchActivity.class));
-            else if (id == R.id.more) openMoreMenu(binding.topAppBar.findViewById(R.id.more));
+            if (id == R.id.dashboard) startActivity(new Intent(this, DashboardActivity.class));
+            else if (id == R.id.search) startActivity(new Intent(this, SearchActivity.class));
             else return false;
             return true;
         });
-    }
-
-    /**
-     * 初始化顶部应用栏————“更多”选项————菜单栏
-     */
-    private void openMoreMenu(View view)
-    {
-        PopupMenu popupMenu = new PopupMenu(this, view);
-        popupMenu.inflate(R.menu.top_bar_more_menu);
-        popupMenu.setOnMenuItemClickListener(item ->
-        {
-            int id = item.getItemId();
-            if (id == R.id.wechat)
-                Toast.makeText(MyApplication.getContext(), "点击了wechat", Toast.LENGTH_SHORT).show();
-            else if (id == R.id.alipay)
-                Toast.makeText(MyApplication.getContext(), "点击了alipay", Toast.LENGTH_SHORT).show();
-            else return false;
-            return true;
-        });
-        popupMenu.show();
     }
 
     /**
@@ -176,7 +154,8 @@ public class MainActivity extends AppCompatActivity
         String[] titles = new String[]{this.getString(R.string.app_name), this.getString(R.string.analyse), this.getString(R.string.statistics), this.getString(R.string.account)};
         viewModel.getTopAppBarTitle().setValue(titles[position]);
         binding.topAppBar.getMenu().clear();
-        if (position == 0) binding.topAppBar.inflateMenu(R.menu.top_bar_menu);
+        if (position == 0) binding.topAppBar.inflateMenu(R.menu.home_top_bar_menu);
+        else if(position == 2) binding.topAppBar.inflateMenu(R.menu.statistics_top_bar_menu);
     }
 
     /**

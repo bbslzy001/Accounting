@@ -16,10 +16,8 @@
     <string name="drawer_text">记录和管理您所有账户的收支</string>
 
     <!-- Top App Bar -->
-    <string name="calendar">日历</string>
-    <string name="more">更多</string>
-    <string name="import_from_wechat">从微信导入</string>
-    <string name="import_from_alipay">从支付宝导入</string>
+    <string name="search">搜索</string>
+    <string name="dashboard">设置仪表板</string>
 
     <!-- Home Fragment -->
     <string name="income">收入：</string>
