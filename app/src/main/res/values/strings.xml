@@ -41,4 +41,7 @@
     <string name="total_amount">总资产</string>
     <string name="negative_amount">负资产</string>
     <string name="add_account">创建新账户</string>
+
+    <!-- Account Details Activity -->
+    <string name="account_details">账户详情</string>
 </resources>

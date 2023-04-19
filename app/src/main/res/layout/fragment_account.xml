@@ -9,120 +9,34 @@
             type="com.example.accounting.ui.viewmodel.fragment.AccountFragmentViewModel" />
     </data>
 
-
-    <RelativeLayout
+    <!-- 在协调者布局内部使用其他布局将RecyclerView嵌套后将导致滚动监听失效 -->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_margin="8dp"
+            android:orientation="vertical"
+            android:scrollbars="vertical"
+            app:accountRvItemList="@{viewModel.items}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/card"
-                style="?attr/materialCardViewFilledStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:checkable="false"
-                android:clickable="false"
-                android:focusable="false">
-
-                <GridLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:columnCount="3"
-                    android:paddingHorizontal="16dp"
-                    android:paddingVertical="12dp"
-                    android:rowCount="2">
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_row="0"
-                        android:layout_column="0"
-                        android:layout_columnWeight="1"
-                        android:paddingVertical="4dp"
-                        android:text="@string/net_amount"
-                        android:textSize="14sp" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_row="0"
-                        android:layout_column="1"
-                        android:layout_columnWeight="1"
-                        android:paddingVertical="4dp"
-                        android:text="@string/total_amount"
-                        android:textSize="14sp" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_row="0"
-                        android:layout_column="2"
-                        android:layout_columnWeight="1"
-                        android:paddingVertical="4dp"
-                        android:text="@string/negative_amount"
-                        android:textSize="14sp" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_row="1"
-                        android:layout_column="0"
-                        android:layout_columnWeight="1"
-                        android:paddingVertical="4dp"
-                        app:cardAmount="@{viewModel.netAmount}"
-                        android:textSize="20sp" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_row="1"
-                        android:layout_column="1"
-                        android:layout_columnWeight="1"
-                        android:paddingVertical="4dp"
-                        app:cardAmount="@{viewModel.totalAmount}"
-                        android:textSize="20sp" />
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_row="1"
-                        android:layout_column="2"
-                        android:layout_columnWeight="1"
-                        android:paddingVertical="4dp"
-                        app:cardAmount="@{viewModel.negativeAmount}"
-                        android:textSize="20sp" />
-
-                </GridLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp"
-                android:orientation="vertical"
-                android:scrollbars="vertical"
-                app:accountRvItemList="@{viewModel.items}"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-
-        </LinearLayout>
-
+        <!-- Google 推荐 FAB 设置 16dp 的 Margin 边距 -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floating_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
             android:layout_margin="16dp"
             android:contentDescription="@string/add_account"
+            app:layout_anchor="@id/recycler_view"
+            app:layout_anchorGravity="bottom|end"
+            app:layout_behavior="com.example.accounting.utils.AccountFabBehavior"
             app:srcCompat="@drawable/ic_add_account" />
 
-    </RelativeLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>
