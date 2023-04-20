@@ -6,6 +6,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.ActionMenuItemView;
+import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.WindowCompat;
 import androidx.databinding.DataBindingUtil;
@@ -13,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.accounting.R;
 import com.example.accounting.application.MyApplication;
+import com.example.accounting.ui.viewmodel.ShareViewModel;
 import com.example.accounting.ui.viewmodel.activity.MainActivityViewModel;
 import com.example.accounting.utils.adapter.MainActivityViewPagerAdapter;
 import com.example.accounting.databinding.ActivityMainBinding;
@@ -21,6 +24,7 @@ public class MainActivity extends AppCompatActivity
 {
     private ActivityMainBinding binding;
     private MainActivityViewModel viewModel;
+    private ShareViewModel shareViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -33,6 +37,8 @@ public class MainActivity extends AppCompatActivity
 
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
         binding.setViewModel(viewModel);
+
+        shareViewModel = new ViewModelProvider(this).get(ShareViewModel.class);
 
         initTopAppBar();
         initDrawer();
@@ -53,6 +59,13 @@ public class MainActivity extends AppCompatActivity
         {
             int id = item.getItemId();
             if (id == R.id.dashboard) startActivity(new Intent(this, DashboardActivity.class));
+            else if (id == R.id.display)
+            {
+                ActionMenuItemView itemView = findViewById(R.id.display);
+                if (Boolean.TRUE.equals(shareViewModel.getButtonState().getValue())) itemView.setIcon(ContextCompat.getDrawable(this,R.drawable.ic_list));
+                else itemView.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_calendar));
+                shareViewModel.setButtonState();
+            }
             else if (id == R.id.search) startActivity(new Intent(this, SearchActivity.class));
             else return false;
             return true;
@@ -155,7 +168,7 @@ public class MainActivity extends AppCompatActivity
         viewModel.getTopAppBarTitle().setValue(titles[position]);
         binding.topAppBar.getMenu().clear();
         if (position == 0) binding.topAppBar.inflateMenu(R.menu.home_top_bar_menu);
-        else if(position == 2) binding.topAppBar.inflateMenu(R.menu.statistics_top_bar_menu);
+        else if (position == 2) binding.topAppBar.inflateMenu(R.menu.statistics_top_bar_menu);
     }
 
     /**

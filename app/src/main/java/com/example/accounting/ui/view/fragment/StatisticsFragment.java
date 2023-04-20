@@ -13,14 +13,15 @@ import android.view.ViewGroup;
 
 import com.example.accounting.R;
 import com.example.accounting.databinding.FragmentStatisticsBinding;
+import com.example.accounting.ui.viewmodel.ShareViewModel;
 import com.example.accounting.ui.viewmodel.fragment.StatisticsFragmentViewModel;
 import com.example.accounting.utils.adapter.StatisticsFragmentViewPagerAdapter;
-import com.google.android.material.tabs.TabLayoutMediator;
 
 public class StatisticsFragment extends Fragment
 {
     private FragmentStatisticsBinding binding;
     private StatisticsFragmentViewModel viewModel;
+    private ShareViewModel shareViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -31,7 +32,18 @@ public class StatisticsFragment extends Fragment
         viewModel = new ViewModelProvider(this).get(StatisticsFragmentViewModel.class);
         binding.setViewModel(viewModel);
 
-        initTab();
+        binding.viewPager.setAdapter(new StatisticsFragmentViewPagerAdapter(requireActivity()));
+
+        // 为了获取相同的 ViewModel 实例，需要使用相同的 LifecycleOwner，
+        // MainActivity 的 LifecycleOwner 和 StatisticsFragment 的 LifecycleOwner 不同，
+        // 因此，此处传递的是 MainActivity 的 LifecycleOwner
+        shareViewModel = new ViewModelProvider(requireActivity()).get(ShareViewModel.class);
+        shareViewModel.getButtonState().observe(getViewLifecycleOwner(), aBoolean ->
+        {
+            int currentItem = binding.viewPager.getCurrentItem();
+            if (currentItem == 0) binding.viewPager.setCurrentItem(1);
+            else binding.viewPager.setCurrentItem(0);
+        });
 
         return binding.getRoot();
     }
@@ -40,22 +52,5 @@ public class StatisticsFragment extends Fragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-    }
-
-    /**
-     * 初始化标签栏
-     */
-    private void initTab()
-    {
-        binding.viewPager.setAdapter(new StatisticsFragmentViewPagerAdapter(requireActivity()));
-
-        new TabLayoutMediator(binding.tabLayout, binding.viewPager, (tab, position) ->
-        {
-            switch (position)
-            {
-                case 0 -> tab.setText(this.getString(R.string.calendar_statistics));
-                case 1 -> tab.setText(this.getString(R.string.list_statistics));
-            }
-        }).attach();
     }
 }

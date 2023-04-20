@@ -6,14 +6,14 @@
         android:title="@string/home" />
     <item
         android:id="@+id/navigation_analyse"
-        android:icon="@drawable/ic_statistics"
+        android:icon="@drawable/ic_analyse"
         android:title="@string/analyse" />
     <item
         android:id="@+id/navigation_empty"
         android:title="" />
     <item
         android:id="@+id/navigation_statistics"
-        android:icon="@drawable/ic_analyse"
+        android:icon="@drawable/ic_statistics"
         android:title="@string/statistics" />
     <item
         android:id="@+id/navigation_account"
