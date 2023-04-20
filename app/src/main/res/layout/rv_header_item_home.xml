@@ -15,6 +15,7 @@
         android:alpha="1"
         android:background="?attr/colorApplicationBackground"
         android:orientation="horizontal"
+        android:paddingHorizontal="8dp"
         android:paddingVertical="8dp">
 
         <com.google.android.material.textview.MaterialTextView
