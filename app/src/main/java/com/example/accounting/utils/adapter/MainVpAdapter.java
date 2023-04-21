@@ -12,7 +12,7 @@ import com.example.accounting.ui.view.fragment.StatisticsFragment;
 
 import java.util.List;
 
-public class MainActivityViewPagerAdapter extends FragmentStateAdapter
+public class MainVpAdapter extends FragmentStateAdapter
 {
     private final List<Fragment> fragmentList = List.of(
             new HomeFragment(),
@@ -21,7 +21,7 @@ public class MainActivityViewPagerAdapter extends FragmentStateAdapter
             new AccountFragment()
     );
 
-    public MainActivityViewPagerAdapter(@NonNull FragmentActivity fragmentActivity)
+    public MainVpAdapter(@NonNull FragmentActivity fragmentActivity)
     {
         super(fragmentActivity);
     }

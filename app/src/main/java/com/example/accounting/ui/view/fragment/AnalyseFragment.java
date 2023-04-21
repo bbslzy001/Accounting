@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.accounting.R;
 import com.example.accounting.databinding.FragmentAnalyseBinding;
 import com.example.accounting.ui.viewmodel.fragment.AnalyseFragmentViewModel;
-import com.example.accounting.utils.adapter.AnalyseFragmentViewPagerAdapter;
+import com.example.accounting.utils.adapter.AnalyseVpAdapter;
 import com.google.android.material.tabs.TabLayoutMediator;
 
 public class AnalyseFragment extends Fragment
@@ -46,7 +46,7 @@ public class AnalyseFragment extends Fragment
      */
     private void initTab()
     {
-        binding.viewPager.setAdapter(new AnalyseFragmentViewPagerAdapter(requireActivity()));
+        binding.viewPager.setAdapter(new AnalyseVpAdapter(requireActivity()));
 
         new TabLayoutMediator(binding.tabLayout, binding.viewPager, (tab, position) ->
         {

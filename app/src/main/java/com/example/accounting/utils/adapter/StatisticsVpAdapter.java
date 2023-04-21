@@ -5,24 +5,23 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.accounting.ui.view.fragment.analyse.DayAnalyseFragment;
-import com.example.accounting.ui.view.fragment.analyse.MonthAnalyseFragment;
-import com.example.accounting.ui.view.fragment.analyse.YearAnalyseFragment;
+import com.example.accounting.ui.view.fragment.statistics.CalendarStatisticsFragment;
+import com.example.accounting.ui.view.fragment.statistics.ListStatisticsFragment;
 
 import java.util.List;
 
-public class AnalyseFragmentViewPagerAdapter extends FragmentStateAdapter
+public class StatisticsVpAdapter extends FragmentStateAdapter
 {
     private final List<Fragment> fragmentList = List.of(
-            new DayAnalyseFragment(),
-            new MonthAnalyseFragment(),
-            new YearAnalyseFragment()
+            new CalendarStatisticsFragment(),
+            new ListStatisticsFragment()
     );
 
-    public AnalyseFragmentViewPagerAdapter(@NonNull FragmentActivity fragmentActivity)
+    public StatisticsVpAdapter(@NonNull FragmentActivity fragmentActivity)
     {
         super(fragmentActivity);
     }
+
     @NonNull
     @Override
     public Fragment createFragment(int position)

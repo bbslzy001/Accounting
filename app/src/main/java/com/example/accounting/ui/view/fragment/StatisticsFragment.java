@@ -15,7 +15,7 @@ import com.example.accounting.R;
 import com.example.accounting.databinding.FragmentStatisticsBinding;
 import com.example.accounting.ui.viewmodel.ShareViewModel;
 import com.example.accounting.ui.viewmodel.fragment.StatisticsFragmentViewModel;
-import com.example.accounting.utils.adapter.StatisticsFragmentViewPagerAdapter;
+import com.example.accounting.utils.adapter.StatisticsVpAdapter;
 
 public class StatisticsFragment extends Fragment
 {
@@ -32,18 +32,7 @@ public class StatisticsFragment extends Fragment
         viewModel = new ViewModelProvider(this).get(StatisticsFragmentViewModel.class);
         binding.setViewModel(viewModel);
 
-        binding.viewPager.setAdapter(new StatisticsFragmentViewPagerAdapter(requireActivity()));
-
-        // 为了获取相同的 ViewModel 实例，需要使用相同的 LifecycleOwner，
-        // MainActivity 的 LifecycleOwner 和 StatisticsFragment 的 LifecycleOwner 不同，
-        // 因此，此处传递的是 MainActivity 的 LifecycleOwner
-        shareViewModel = new ViewModelProvider(requireActivity()).get(ShareViewModel.class);
-        shareViewModel.getButtonState().observe(getViewLifecycleOwner(), aBoolean ->
-        {
-            int currentItem = binding.viewPager.getCurrentItem();
-            if (currentItem == 0) binding.viewPager.setCurrentItem(1);
-            else binding.viewPager.setCurrentItem(0);
-        });
+        initViewPager();
 
         return binding.getRoot();
     }
@@ -52,5 +41,22 @@ public class StatisticsFragment extends Fragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+    }
+
+    private void initViewPager()
+    {
+        binding.viewPager.setAdapter(new StatisticsVpAdapter(requireActivity()));
+        binding.viewPager.setUserInputEnabled(false);
+
+        // 为了获取相同的 ViewModel 实例，需要使用相同的 LifecycleOwner，
+        // MainActivity 的 LifecycleOwner 和 StatisticsFragment 的 LifecycleOwner 不同，
+        // 因此，此处传递的是 MainActivity 的 LifecycleOwner
+        shareViewModel = new ViewModelProvider(requireActivity()).get(ShareViewModel.class);
+        shareViewModel.getButtonState().observe(getViewLifecycleOwner(), aBoolean ->
+        {
+            int currentItem = binding.viewPager.getCurrentItem();
+            if (currentItem == 0) binding.viewPager.setCurrentItem(1, false);
+            else binding.viewPager.setCurrentItem(0, false);
+        });
     }
 }

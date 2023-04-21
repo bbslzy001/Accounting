@@ -6,7 +6,6 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.ActionMenuItemView;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.WindowCompat;
@@ -17,7 +16,7 @@ import com.example.accounting.R;
 import com.example.accounting.application.MyApplication;
 import com.example.accounting.ui.viewmodel.ShareViewModel;
 import com.example.accounting.ui.viewmodel.activity.MainActivityViewModel;
-import com.example.accounting.utils.adapter.MainActivityViewPagerAdapter;
+import com.example.accounting.utils.adapter.MainVpAdapter;
 import com.example.accounting.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity
@@ -42,6 +41,7 @@ public class MainActivity extends AppCompatActivity
 
         initTopAppBar();
         initDrawer();
+        initViewPager();
         initNavigation();
         initAddTradeButton();
 
@@ -61,9 +61,10 @@ public class MainActivity extends AppCompatActivity
             if (id == R.id.dashboard) startActivity(new Intent(this, DashboardActivity.class));
             else if (id == R.id.display)
             {
-                ActionMenuItemView itemView = findViewById(R.id.display);
-                if (Boolean.TRUE.equals(shareViewModel.getButtonState().getValue())) itemView.setIcon(ContextCompat.getDrawable(this,R.drawable.ic_list));
-                else itemView.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_calendar));
+                MenuItem menuItem = binding.topAppBar.getMenu().findItem(R.id.display);
+                if (Boolean.TRUE.equals(shareViewModel.getButtonState().getValue()))
+                    menuItem.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_list));
+                else menuItem.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_calendar));
                 shareViewModel.setButtonState();
             }
             else if (id == R.id.search) startActivity(new Intent(this, SearchActivity.class));
@@ -106,11 +107,11 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * 初始化底部导航栏
+     * 初始化 ViewPager2
      */
-    private void initNavigation()
+    private void initViewPager()
     {
-        binding.viewPager.setAdapter(new MainActivityViewPagerAdapter(this));
+        binding.viewPager.setAdapter(new MainVpAdapter(this));
 
 //        binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback()  // 由于设置了不可滑动，用户无法改变页面，故不需要覆写回调方法
 //        {
@@ -123,7 +124,13 @@ public class MainActivity extends AppCompatActivity
 //        });
 
         binding.viewPager.setUserInputEnabled(false);  // 设置 viewpager 不可滑动
+    }
 
+    /**
+     * 初始化底部导航栏
+     */
+    private void initNavigation()
+    {
         updateTopAppBar(0);  // 由于没有覆写viewpager回调方法，且启动程序时不会触发bottomNavigation的监听方法，故需要手动初始化
 
         // 设置空白标签不可选中且不可用
@@ -136,22 +143,22 @@ public class MainActivity extends AppCompatActivity
             int itemId = item.getItemId();
             if (itemId == R.id.navigation_home)
             {
-                binding.viewPager.setCurrentItem(0);
+                binding.viewPager.setCurrentItem(0, false);
                 updateTopAppBar(0);
             }
             else if (itemId == R.id.navigation_analyse)
             {
-                binding.viewPager.setCurrentItem(1);
+                binding.viewPager.setCurrentItem(1, false);
                 updateTopAppBar(1);
             }
             else if (itemId == R.id.navigation_statistics)
             {
-                binding.viewPager.setCurrentItem(2);
+                binding.viewPager.setCurrentItem(2, false);
                 updateTopAppBar(2);
             }
             else if (itemId == R.id.navigation_account)
             {
-                binding.viewPager.setCurrentItem(3);
+                binding.viewPager.setCurrentItem(3, false);
                 updateTopAppBar(3);
             }
             else return false;
