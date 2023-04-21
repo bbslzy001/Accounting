@@ -20,8 +20,8 @@
     <string name="dashboard">设置仪表板</string>
 
     <!-- Home Fragment -->
-    <string name="income">收入：</string>
-    <string name="expenditure">支出：</string>
+    <string name="income">收：</string>
+    <string name="expenditure">支：</string>
     <string name="current_month_income">本月收入</string>
     <string name="current_month_expenditure">本月支出</string>
     <string name="current_month_balance">本月结余</string>
@@ -35,6 +35,8 @@
     <!-- Statistics Fragment -->
     <string name="calendar_statistics">日历</string>
     <string name="list_statistics">列表</string>
+    <string name="unconfirmed">取消</string>
+    <string name="confirmed">确认</string>
 
     <!-- Account Fragment -->
     <string name="net_amount">净资产</string>

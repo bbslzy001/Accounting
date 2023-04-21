@@ -14,8 +14,6 @@ import android.view.ViewGroup;
 import com.example.accounting.R;
 import com.example.accounting.databinding.FragmentHomeBinding;
 import com.example.accounting.ui.viewmodel.fragment.HomeFragmentViewModel;
-import com.example.accounting.utils.HomeRvItemDecoration;
-import com.example.accounting.utils.adapter.HomeRvAdapter;
 
 public class HomeFragment extends Fragment
 {
@@ -31,8 +29,6 @@ public class HomeFragment extends Fragment
         viewModel = new ViewModelProvider(this).get(HomeFragmentViewModel.class);
         binding.setViewModel(viewModel);
 
-        initRecyclerView();
-
         return binding.getRoot();
     }
 
@@ -40,17 +36,5 @@ public class HomeFragment extends Fragment
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-    }
-
-    /**
-     * 初始化滚动视图
-     */
-    private void initRecyclerView()
-    {
-        HomeRvAdapter adapter = new HomeRvAdapter();
-        binding.recyclerView.setAdapter(adapter);
-        HomeRvItemDecoration itemDecoration = new HomeRvItemDecoration(this.getContext(), adapter);
-        binding.recyclerView.addItemDecoration(itemDecoration);
-        binding.recyclerView.addOnItemTouchListener(itemDecoration);
     }
 }
