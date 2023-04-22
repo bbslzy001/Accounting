@@ -1,17 +1,11 @@
 package com.example.accounting.ui.view.fragment.statistics;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.NumberPicker;
 
-import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
+import com.example.accounting.BR;
 import com.example.accounting.R;
+import com.example.accounting.base.BaseFragment;
 import com.example.accounting.databinding.FragmentStatsListBinding;
 import com.example.accounting.ui.viewmodel.fragment.statistics.ListStatsFragViewModel;
 import com.example.accounting.utils.TxnRvItemDecoration;
@@ -20,36 +14,39 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.Locale;
 
-public class ListStatsFragment extends Fragment
+public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, ListStatsFragViewModel>
 {
-    private FragmentStatsListBinding binding;
-    private ListStatsFragViewModel viewModel;
-
     private int[] years;
     private int[][] months;
     private int currentYear;
     private int currentMonth;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    protected int getLayoutId()
     {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_stats_list, container, false);
-        binding.setLifecycleOwner(this);
+        return R.layout.fragment_stats_list;
+    }
 
-        viewModel = new ViewModelProvider(this).get(ListStatsFragViewModel.class);
-        binding.setViewModel(viewModel);
+    @Override
+    protected Class<ListStatsFragViewModel> getViewModelClass()
+    {
+        return ListStatsFragViewModel.class;
+    }
+
+    @Override
+    protected int getViewModelVariableId()
+    {
+        return BR.viewModel;
+    }
+
+    @Override
+    protected void initView()
+    {
+        super.initView();
 
         initData();
         initDatePicker();
         initRecyclerView();
-
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
     }
 
     /**
@@ -151,8 +148,8 @@ public class ListStatsFragment extends Fragment
         years = new int[]{2020, 2021, 2022};
         months = new int[][]{{4, 6, 10}, {7, 8, 9, 10, 11, 12}, {3}};
 
-        currentYear=years[years.length-1];
-        currentMonth=months[years.length-1][months[years.length-1].length-1];
+        currentYear = years[years.length - 1];
+        currentMonth = months[years.length - 1][months[years.length - 1].length - 1];
 
         updateTextButton();
     }

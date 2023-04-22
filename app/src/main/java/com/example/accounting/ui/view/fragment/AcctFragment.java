@@ -1,47 +1,42 @@
 package com.example.accounting.ui.view.fragment;
 
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.accounting.BR;
 import com.example.accounting.R;
 import com.example.accounting.application.MyApplication;
+import com.example.accounting.base.BaseFragment;
 import com.example.accounting.databinding.FragmentAcctBinding;
 import com.example.accounting.ui.viewmodel.fragment.AcctFragViewModel;
 import com.example.accounting.utils.adapter.AcctRvAdapter;
 
-public class AcctFragment extends Fragment
+public class AcctFragment extends BaseFragment<FragmentAcctBinding, AcctFragViewModel>
 {
-    private FragmentAcctBinding binding;
-    private AcctFragViewModel viewModel;
-
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    protected int getLayoutId()
     {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_acct, container, false);
-        binding.setLifecycleOwner(this);
-
-        viewModel = new ViewModelProvider(this).get(AcctFragViewModel.class);
-        binding.setViewModel(viewModel);
-
-        initRecyclerView();
-        initFloatingButton();
-
-        return binding.getRoot();
+        return R.layout.fragment_acct;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
+    protected Class<AcctFragViewModel> getViewModelClass()
     {
-        super.onCreate(savedInstanceState);
+        return AcctFragViewModel.class;
+    }
+
+    @Override
+    protected int getViewModelVariableId()
+    {
+        return BR.viewModel;
+    }
+
+    @Override
+    protected void initView()
+    {
+        super.initView();
+
+        initRecyclerView();
+        initFloatingButton();
     }
 
     /**
@@ -59,7 +54,7 @@ public class AcctFragment extends Fragment
     {
         binding.floatingButton.setOnClickListener(view ->
         {
-            viewModel.addAccountType();
+            viewModel.addAcctType();
             Toast.makeText(MyApplication.getContext(), "点击了floatButton", Toast.LENGTH_SHORT).show();
         });
     }

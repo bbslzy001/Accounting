@@ -1,31 +1,28 @@
 package com.example.accounting.ui.view.activity;
 
-import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.WindowCompat;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-
+import com.example.accounting.BR;
 import com.example.accounting.R;
+import com.example.accounting.base.BaseActivity;
 import com.example.accounting.databinding.ActivityAcctDetailsBinding;
 import com.example.accounting.ui.viewmodel.activity.AcctDetailsActViewModel;
 
-public class AcctDetailsActivity extends AppCompatActivity
+public class AcctDetailsActivity extends BaseActivity<ActivityAcctDetailsBinding, AcctDetailsActViewModel>
 {
-    private ActivityAcctDetailsBinding binding;
-    private AcctDetailsActViewModel viewModel;
+    @Override
+    protected int getLayoutId()
+    {
+        return R.layout.activity_acct_details;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    protected Class<AcctDetailsActViewModel> getViewModelClass()
     {
-        super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);  // 全屏布局
+        return AcctDetailsActViewModel.class;
+    }
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_acct_details);
-        binding.setLifecycleOwner(this);
-
-        viewModel = new ViewModelProvider(this).get(AcctDetailsActViewModel.class);
-        binding.setViewModel(viewModel);
+    @Override
+    protected int getViewModelVariableId()
+    {
+        return BR.viewModel;
     }
 }

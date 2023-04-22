@@ -1,31 +1,28 @@
 package com.example.accounting.ui.view.activity;
 
-import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.WindowCompat;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-
+import com.example.accounting.BR;
 import com.example.accounting.R;
+import com.example.accounting.base.BaseActivity;
 import com.example.accounting.databinding.ActivityDashboardBinding;
 import com.example.accounting.ui.viewmodel.activity.DashboardActViewModel;
 
-public class DashboardActivity extends AppCompatActivity
+public class DashboardActivity extends BaseActivity<ActivityDashboardBinding, DashboardActViewModel>
 {
-    private ActivityDashboardBinding binding;
-    private DashboardActViewModel viewModel;
+    @Override
+    protected int getLayoutId()
+    {
+        return R.layout.activity_dashboard;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    protected Class<DashboardActViewModel> getViewModelClass()
     {
-        super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);  // 全屏布局
+        return DashboardActViewModel.class;
+    }
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard);
-        binding.setLifecycleOwner(this);
-
-        viewModel = new ViewModelProvider(this).get(DashboardActViewModel.class);
-        binding.setViewModel(viewModel);
+    @Override
+    protected int getViewModelVariableId()
+    {
+        return BR.viewModel;
     }
 }

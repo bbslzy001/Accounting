@@ -23,7 +23,7 @@ public class AcctFragViewModel extends ViewModel
         return items;
     }
 
-    public void addAccountType()
+    public void addAcctType()
     {
         acctTypeRepository.insert(new AcctType(0, "信用卡", 99.99));
         acctTypeRepository.insert(new AcctType(0, "信用卡", -99.99));

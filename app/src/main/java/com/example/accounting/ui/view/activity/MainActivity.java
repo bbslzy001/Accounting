@@ -1,41 +1,48 @@
 package com.example.accounting.ui.view.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.WindowCompat;
-import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.accounting.BR;
 import com.example.accounting.R;
 import com.example.accounting.application.MyApplication;
+import com.example.accounting.base.BaseActivity;
 import com.example.accounting.databinding.ActivityMainBinding;
 import com.example.accounting.ui.viewmodel.ShareViewModel;
 import com.example.accounting.ui.viewmodel.activity.MainActViewModel;
 import com.example.accounting.utils.adapter.MainVpAdapter;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainActViewModel>
 {
-    private ActivityMainBinding binding;
-    private MainActViewModel viewModel;
     private ShareViewModel shareViewModel;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    protected int getLayoutId()
     {
-        super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);  // 全屏布局
+        return R.layout.activity_main;
+    }
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        binding.setLifecycleOwner(this);
+    @Override
+    protected Class<MainActViewModel> getViewModelClass()
+    {
+        return MainActViewModel.class;
+    }
 
-        viewModel = new ViewModelProvider(this).get(MainActViewModel.class);
-        binding.setViewModel(viewModel);
+    @Override
+    protected int getViewModelVariableId()
+    {
+        return BR.viewModel;
+    }
+
+    @Override
+    protected void initView()
+    {
+        super.initView();
 
         shareViewModel = new ViewModelProvider(this).get(ShareViewModel.class);
 

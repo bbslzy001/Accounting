@@ -1,44 +1,39 @@
 package com.example.accounting.ui.view.fragment;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
+import com.example.accounting.BR;
 import com.example.accounting.R;
+import com.example.accounting.base.BaseFragment;
 import com.example.accounting.databinding.FragmentAnalBinding;
 import com.example.accounting.ui.viewmodel.fragment.AnalFragViewModel;
 import com.example.accounting.utils.adapter.AnalVpAdapter;
 import com.google.android.material.tabs.TabLayoutMediator;
 
-public class AnalFragment extends Fragment
+public class AnalFragment extends BaseFragment<FragmentAnalBinding, AnalFragViewModel>
 {
-    private FragmentAnalBinding binding;
-    private AnalFragViewModel viewModel;
-
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    protected int getLayoutId()
     {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_anal, container, false);
-        binding.setLifecycleOwner(this);
-
-        viewModel = new ViewModelProvider(this).get(AnalFragViewModel.class);
-        binding.setViewModel(viewModel);
-
-        initTab();
-
-        return binding.getRoot();
+        return R.layout.fragment_anal;
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState)
+    protected Class<AnalFragViewModel> getViewModelClass()
     {
-        super.onCreate(savedInstanceState);
+        return AnalFragViewModel.class;
+    }
+
+    @Override
+    protected int getViewModelVariableId()
+    {
+        return BR.viewModel;
+    }
+
+    @Override
+    protected void initView()
+    {
+        super.initView();
+
+        initTab();
     }
 
     /**
