@@ -6,17 +6,17 @@
         android:title="@string/home" />
     <item
         android:id="@+id/navigation_analyse"
-        android:icon="@drawable/ic_analyse"
-        android:title="@string/analyse" />
+        android:icon="@drawable/ic_anal"
+        android:title="@string/anal" />
     <item
         android:id="@+id/navigation_empty"
         android:title="" />
     <item
         android:id="@+id/navigation_statistics"
-        android:icon="@drawable/ic_statistics"
-        android:title="@string/statistics" />
+        android:icon="@drawable/ic_stats"
+        android:title="@string/stats" />
     <item
         android:id="@+id/navigation_account"
-        android:icon="@drawable/ic_account"
-        android:title="@string/account" />
+        android:icon="@drawable/ic_acct"
+        android:title="@string/acct" />
 </menu>

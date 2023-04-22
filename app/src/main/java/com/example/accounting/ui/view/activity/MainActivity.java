@@ -14,15 +14,15 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.accounting.R;
 import com.example.accounting.application.MyApplication;
-import com.example.accounting.ui.viewmodel.ShareViewModel;
-import com.example.accounting.ui.viewmodel.activity.MainActivityViewModel;
-import com.example.accounting.utils.adapter.MainVpAdapter;
 import com.example.accounting.databinding.ActivityMainBinding;
+import com.example.accounting.ui.viewmodel.ShareViewModel;
+import com.example.accounting.ui.viewmodel.activity.MainActViewModel;
+import com.example.accounting.utils.adapter.MainVpAdapter;
 
 public class MainActivity extends AppCompatActivity
 {
     private ActivityMainBinding binding;
-    private MainActivityViewModel viewModel;
+    private MainActViewModel viewModel;
     private ShareViewModel shareViewModel;
 
     @Override
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setLifecycleOwner(this);
 
-        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        viewModel = new ViewModelProvider(this).get(MainActViewModel.class);
         binding.setViewModel(viewModel);
 
         shareViewModel = new ViewModelProvider(this).get(ShareViewModel.class);
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity
                 MenuItem menuItem = binding.topAppBar.getMenu().findItem(R.id.display);
                 if (Boolean.TRUE.equals(shareViewModel.getButtonState().getValue()))
                     menuItem.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_list));
-                else menuItem.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_calendar));
+                else menuItem.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_cal));
                 shareViewModel.setButtonState();
             }
             else if (id == R.id.search) startActivity(new Intent(this, SearchActivity.class));
@@ -171,11 +171,11 @@ public class MainActivity extends AppCompatActivity
      */
     private void updateTopAppBar(int position)
     {
-        String[] titles = new String[]{this.getString(R.string.app_name), this.getString(R.string.analyse), this.getString(R.string.statistics), this.getString(R.string.account)};
+        String[] titles = new String[]{this.getString(R.string.app_name), this.getString(R.string.anal), this.getString(R.string.stats), this.getString(R.string.acct)};
         viewModel.getTopAppBarTitle().setValue(titles[position]);
         binding.topAppBar.getMenu().clear();
         if (position == 0) binding.topAppBar.inflateMenu(R.menu.home_top_bar_menu);
-        else if (position == 2) binding.topAppBar.inflateMenu(R.menu.statistics_top_bar_menu);
+        else if (position == 2) binding.topAppBar.inflateMenu(R.menu.stats_top_bar_menu);
     }
 
     /**

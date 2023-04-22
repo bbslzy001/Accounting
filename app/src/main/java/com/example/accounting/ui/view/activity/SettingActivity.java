@@ -9,12 +9,12 @@ import android.os.Bundle;
 
 import com.example.accounting.R;
 import com.example.accounting.databinding.ActivitySettingBinding;
-import com.example.accounting.ui.viewmodel.activity.SettingActivityViewModel;
+import com.example.accounting.ui.viewmodel.activity.SettingActViewModel;
 
 public class SettingActivity extends AppCompatActivity
 {
     private ActivitySettingBinding binding;
-    private SettingActivityViewModel viewModel;
+    private SettingActViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -25,7 +25,7 @@ public class SettingActivity extends AppCompatActivity
         binding = DataBindingUtil.setContentView(this, R.layout.activity_setting);
         binding.setLifecycleOwner(this);
 
-        viewModel = new ViewModelProvider(this).get(SettingActivityViewModel.class);
+        viewModel = new ViewModelProvider(this).get(SettingActViewModel.class);
         binding.setViewModel(viewModel);
     }
 }

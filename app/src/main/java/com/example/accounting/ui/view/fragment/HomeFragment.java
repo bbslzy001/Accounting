@@ -13,12 +13,12 @@ import android.view.ViewGroup;
 
 import com.example.accounting.R;
 import com.example.accounting.databinding.FragmentHomeBinding;
-import com.example.accounting.ui.viewmodel.fragment.HomeFragmentViewModel;
+import com.example.accounting.ui.viewmodel.fragment.HomeFragViewModel;
 
 public class HomeFragment extends Fragment
 {
     private FragmentHomeBinding binding;
-    private HomeFragmentViewModel viewModel;
+    private HomeFragViewModel viewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -26,7 +26,7 @@ public class HomeFragment extends Fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         binding.setLifecycleOwner(this);
 
-        viewModel = new ViewModelProvider(this).get(HomeFragmentViewModel.class);
+        viewModel = new ViewModelProvider(this).get(HomeFragViewModel.class);
         binding.setViewModel(viewModel);
 
         return binding.getRoot();

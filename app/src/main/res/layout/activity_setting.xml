@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.accounting.ui.viewmodel.activity.SettingActivityViewModel" />
+            type="com.example.accounting.ui.viewmodel.activity.SettingActViewModel" />
     </data>
 
     <RelativeLayout

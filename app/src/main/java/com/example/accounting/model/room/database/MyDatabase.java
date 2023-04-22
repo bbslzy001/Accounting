@@ -5,19 +5,19 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.accounting.application.MyApplication;
-import com.example.accounting.model.room.bean.AccountType;
-import com.example.accounting.model.room.bean.TradeInfo;
-import com.example.accounting.model.room.bean.TradeType;
-import com.example.accounting.model.room.dao.AccountTypeDao;
-import com.example.accounting.model.room.dao.HomeRvItemDao;
-import com.example.accounting.model.room.dao.TradeInfoDao;
-import com.example.accounting.model.room.dao.TradeTypeDao;
+import com.example.accounting.model.room.bean.AcctType;
+import com.example.accounting.model.room.bean.TxnInfo;
+import com.example.accounting.model.room.bean.TxnType;
+import com.example.accounting.model.room.dao.AcctTypeDao;
+import com.example.accounting.model.room.dao.TxnInfoDao;
+import com.example.accounting.model.room.dao.TxnRvItemDao;
+import com.example.accounting.model.room.dao.TxnTypeDao;
 
 @Database(
         entities = {
-                TradeInfo.class,
-                AccountType.class,
-                TradeType.class
+                TxnInfo.class,
+                AcctType.class,
+                TxnType.class
         },
         version = 1
 )
@@ -26,11 +26,11 @@ public abstract class MyDatabase extends RoomDatabase
     private static final String DB_NAME = "Accounting.db";
     private static MyDatabase myDatabase;
 
-    public abstract TradeInfoDao getTradeInfoDao();
-    public abstract AccountTypeDao getAccountDao();
-    public abstract TradeTypeDao getTradeTypeDao();
+    public abstract TxnInfoDao getTradeInfoDao();
+    public abstract AcctTypeDao getAccountDao();
+    public abstract TxnTypeDao getTradeTypeDao();
 
-    public abstract HomeRvItemDao getHomeRecyclerViewItemDao();
+    public abstract TxnRvItemDao getHomeRecyclerViewItemDao();
 
     public static MyDatabase getMyDatabaseInstance()
     {

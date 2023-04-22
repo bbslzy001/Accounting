@@ -9,12 +9,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.accounting.R;
 import com.example.accounting.databinding.ActivityDashboardBinding;
-import com.example.accounting.ui.viewmodel.activity.DashboardActivityViewModel;
+import com.example.accounting.ui.viewmodel.activity.DashboardActViewModel;
 
 public class DashboardActivity extends AppCompatActivity
 {
     private ActivityDashboardBinding binding;
-    private DashboardActivityViewModel viewModel;
+    private DashboardActViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -25,7 +25,7 @@ public class DashboardActivity extends AppCompatActivity
         binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard);
         binding.setLifecycleOwner(this);
 
-        viewModel = new ViewModelProvider(this).get(DashboardActivityViewModel.class);
+        viewModel = new ViewModelProvider(this).get(DashboardActViewModel.class);
         binding.setViewModel(viewModel);
     }
 }

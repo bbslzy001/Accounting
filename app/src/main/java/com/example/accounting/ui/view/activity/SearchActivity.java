@@ -9,12 +9,12 @@ import android.os.Bundle;
 
 import com.example.accounting.R;
 import com.example.accounting.databinding.ActivitySearchBinding;
-import com.example.accounting.ui.viewmodel.activity.SearchActivityViewModel;
+import com.example.accounting.ui.viewmodel.activity.SearchActViewModel;
 
 public class SearchActivity extends AppCompatActivity
 {
     private ActivitySearchBinding binding;
-    private SearchActivityViewModel viewModel;
+    private SearchActViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -25,7 +25,7 @@ public class SearchActivity extends AppCompatActivity
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search);
         binding.setLifecycleOwner(this);
 
-        viewModel = new ViewModelProvider(this).get(SearchActivityViewModel.class);
+        viewModel = new ViewModelProvider(this).get(SearchActViewModel.class);
         binding.setViewModel(viewModel);
     }
 }

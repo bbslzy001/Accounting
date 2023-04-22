@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.accounting.ui.viewmodel.activity.AboutActivityViewModel" />
+            type="com.example.accounting.ui.viewmodel.activity.AboutActViewModel" />
     </data>
 
     <ScrollView

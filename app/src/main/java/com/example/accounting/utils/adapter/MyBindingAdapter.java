@@ -12,8 +12,8 @@ import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.accounting.R;
-import com.example.accounting.model.room.bean.AccountType;
-import com.example.accounting.model.room.bean.HomeRvItem;
+import com.example.accounting.model.room.bean.AcctType;
+import com.example.accounting.model.room.bean.TxnRvItem;
 
 import java.util.List;
 import java.util.Locale;
@@ -21,9 +21,9 @@ import java.util.Locale;
 public class MyBindingAdapter
 {
     @BindingAdapter({"app:homeRvItemList"})
-    public static void setHomeRvItemList(RecyclerView recyclerView, LiveData<List<HomeRvItem>> itemList)
+    public static void setHomeRvItemList(RecyclerView recyclerView, LiveData<List<TxnRvItem>> itemList)
     {
-        HomeRvAdapter adapter = (HomeRvAdapter) recyclerView.getAdapter();
+        TxnRvAdapter adapter = (TxnRvAdapter) recyclerView.getAdapter();
         if (adapter != null && itemList != null && itemList.getValue() != null)
         {
             adapter.setItemList(itemList.getValue());
@@ -31,9 +31,9 @@ public class MyBindingAdapter
     }
 
     @BindingAdapter({"app:accountRvItemList"})
-    public static void setAccountRvItemList(RecyclerView recyclerView, LiveData<List<AccountType>> itemList)
+    public static void setAccountRvItemList(RecyclerView recyclerView, LiveData<List<AcctType>> itemList)
     {
-        AccountRvAdapter adapter = (AccountRvAdapter) recyclerView.getAdapter();
+        AcctRvAdapter adapter = (AcctRvAdapter) recyclerView.getAdapter();
         if (adapter != null && itemList != null && itemList.getValue() != null)
         {
             adapter.setItemList(itemList.getValue());
