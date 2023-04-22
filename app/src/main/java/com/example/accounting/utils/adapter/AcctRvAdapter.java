@@ -10,7 +10,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.accounting.R;
-import com.example.accounting.application.MyApplication;
+import com.example.accounting.base.BaseApplication;
 import com.example.accounting.databinding.RvHeaderAcctBinding;
 import com.example.accounting.databinding.RvItemAcctBinding;
 import com.example.accounting.model.entity.AcctRvHeader;
@@ -136,7 +136,7 @@ public class AcctRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         @Override
         public void onClick(View view)
         {
-            Toast.makeText(MyApplication.getContext(), "点击了Item", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BaseApplication.getContext(), "点击了Item", Toast.LENGTH_SHORT).show();
         }
     }
 }

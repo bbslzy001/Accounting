@@ -1,6 +1,6 @@
 package com.example.accounting.utils.adapter;
 
-import com.example.accounting.application.MyApplication;
+import com.example.accounting.base.BaseApplication;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +14,7 @@ public class MarkdownAdapter
 
         try
         {
-            InputStream inputStream = MyApplication.getContext().getAssets().open(fileName);
+            InputStream inputStream = BaseApplication.getContext().getAssets().open(fileName);
             byte[] buffer = new byte[inputStream.available()];
             inputStream.read(buffer);
             inputStream.close();

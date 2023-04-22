@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.accounting.BR;
 import com.example.accounting.R;
-import com.example.accounting.application.MyApplication;
+import com.example.accounting.base.BaseApplication;
 import com.example.accounting.base.BaseActivity;
 import com.example.accounting.databinding.ActivityMainBinding;
 import com.example.accounting.ui.viewmodel.ShareViewModel;
@@ -193,7 +193,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainActViewM
         binding.addTradeButton.setOnClickListener(view ->
         {
             viewModel.addTradeInfo();
-            Toast.makeText(MyApplication.getContext(), "点击了Button", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BaseApplication.getContext(), "点击了Button", Toast.LENGTH_SHORT).show();
         });
     }
 }

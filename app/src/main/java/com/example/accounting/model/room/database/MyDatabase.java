@@ -4,7 +4,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.accounting.application.MyApplication;
+import com.example.accounting.base.BaseApplication;
 import com.example.accounting.model.room.bean.AcctType;
 import com.example.accounting.model.room.bean.TxnInfo;
 import com.example.accounting.model.room.bean.TxnType;
@@ -40,6 +40,6 @@ public abstract class MyDatabase extends RoomDatabase
 
     private static MyDatabase createMyDatabase()
     {
-        return Room.databaseBuilder(MyApplication.getContext(), MyDatabase.class, DB_NAME).fallbackToDestructiveMigration().build();  // 构建实例时销毁原数据库（仅开发时使用）
+        return Room.databaseBuilder(BaseApplication.getContext(), MyDatabase.class, DB_NAME).fallbackToDestructiveMigration().build();  // 构建实例时销毁原数据库（仅开发时使用）
     }
 }

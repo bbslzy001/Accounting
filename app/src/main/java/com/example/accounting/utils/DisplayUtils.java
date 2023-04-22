@@ -3,7 +3,7 @@ package com.example.accounting.utils;
 import android.content.res.Resources;
 import android.util.DisplayMetrics;
 
-import com.example.accounting.application.MyApplication;
+import com.example.accounting.base.BaseApplication;
 
 public class DisplayUtils
 {
@@ -77,7 +77,7 @@ public class DisplayUtils
     public static int getStatusBarHeight()
     {
         int height = 0;
-        Resources resources = MyApplication.getContext().getResources();
+        Resources resources = BaseApplication.getContext().getResources();
         int resourceId = resources.getIdentifier("status_bar_height", "dimen", "android");
         if (resourceId > 0) height = resources.getDimensionPixelSize(resourceId);
         return height;
@@ -89,7 +89,7 @@ public class DisplayUtils
     public static int getNavigationBarHeight()
     {
         int height = 0;
-        Resources resources = MyApplication.getContext().getResources();
+        Resources resources = BaseApplication.getContext().getResources();
         int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
         if (resourceId > 0) height = resources.getDimensionPixelSize(resourceId);
         return height;
@@ -100,7 +100,7 @@ public class DisplayUtils
      */
     public static boolean hasNavigationBar()
     {
-        Resources resources = MyApplication.getContext().getResources();
+        Resources resources = BaseApplication.getContext().getResources();
         int resourceId = resources.getIdentifier("config_showNavigationBar", "bool", "android");
         return resourceId > 0 && resources.getBoolean (resourceId);
     }

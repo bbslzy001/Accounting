@@ -1,39 +1,24 @@
 package com.example.accounting.ui.viewmodel.activity;
 
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
 
+import com.example.accounting.base.BaseActivityViewModel;
 import com.example.accounting.model.repository.AcctTypeRepository;
 import com.example.accounting.model.repository.TxnInfoRepository;
 import com.example.accounting.model.repository.TxnTypeRepository;
 import com.example.accounting.model.room.bean.AcctType;
 import com.example.accounting.model.room.bean.TxnInfo;
 import com.example.accounting.model.room.bean.TxnType;
-import com.example.accounting.utils.DisplayUtils;
 
-public class MainActViewModel extends ViewModel
+public class MainActViewModel extends BaseActivityViewModel
 {
-    private final MutableLiveData<Integer> statusHeight = new MutableLiveData<>();
-    private final MutableLiveData<Integer> navigationHeight = new MutableLiveData<>();
     private final MutableLiveData<String> topAppBarTitle = new MutableLiveData<>();
     private final AcctTypeRepository acctTypeRepository = new AcctTypeRepository();
     private final TxnTypeRepository txnTypeRepository = new TxnTypeRepository();
 
     public MainActViewModel()
     {
-        statusHeight.setValue(DisplayUtils.getStatusBarHeight());
-        navigationHeight.setValue(DisplayUtils.getNavigationBarHeight());
-    }
-
-    public LiveData<Integer> getStatusHeight()
-    {
-        return statusHeight;
-    }
-
-    public LiveData<Integer> getNavigationHeight()
-    {
-        return navigationHeight;
+        super();
     }
 
     public MutableLiveData<String> getTopAppBarTitle()

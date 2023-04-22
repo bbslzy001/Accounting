@@ -1,10 +1,11 @@
 package com.example.accounting.ui.viewmodel.fragment.analyse;
 
-import androidx.lifecycle.ViewModel;
+import com.example.accounting.base.BaseFragmentViewModel;
 
-public class MonthAnalFragViewModel extends ViewModel
+public class MonthAnalFragViewModel extends BaseFragmentViewModel
 {
     public MonthAnalFragViewModel()
     {
+        super();
     }
 }

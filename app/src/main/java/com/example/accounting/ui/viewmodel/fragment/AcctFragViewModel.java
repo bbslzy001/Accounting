@@ -1,20 +1,22 @@
 package com.example.accounting.ui.viewmodel.fragment;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
 
+import com.example.accounting.base.BaseFragmentViewModel;
 import com.example.accounting.model.repository.AcctTypeRepository;
 import com.example.accounting.model.room.bean.AcctType;
 
 import java.util.List;
 
-public class AcctFragViewModel extends ViewModel
+public class AcctFragViewModel extends BaseFragmentViewModel
 {
     private final LiveData<List<AcctType>> items;
     private final AcctTypeRepository acctTypeRepository = new AcctTypeRepository();
 
     public AcctFragViewModel()
     {
+        super();
+
         items = acctTypeRepository.queryAll();
     }
 

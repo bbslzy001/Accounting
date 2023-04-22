@@ -10,7 +10,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.accounting.R;
-import com.example.accounting.application.MyApplication;
+import com.example.accounting.base.BaseApplication;
 import com.example.accounting.databinding.RvHeaderItemTxnBinding;
 import com.example.accounting.databinding.RvSubItemTxnBinding;
 import com.example.accounting.model.entity.TxnRvGroup;
@@ -220,7 +220,7 @@ public class TxnRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         @Override
         public boolean onLongClick(View view)
         {
-            Toast.makeText(MyApplication.getContext(), "当前列表项金额：null", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BaseApplication.getContext(), "当前列表项金额：null", Toast.LENGTH_SHORT).show();
             return true;
         }
     }

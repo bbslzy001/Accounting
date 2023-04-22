@@ -4,7 +4,7 @@ import android.widget.Toast;
 
 import com.example.accounting.BR;
 import com.example.accounting.R;
-import com.example.accounting.application.MyApplication;
+import com.example.accounting.base.BaseApplication;
 import com.example.accounting.base.BaseFragment;
 import com.example.accounting.databinding.FragmentAcctBinding;
 import com.example.accounting.ui.viewmodel.fragment.AcctFragViewModel;
@@ -55,7 +55,7 @@ public class AcctFragment extends BaseFragment<FragmentAcctBinding, AcctFragView
         binding.floatingButton.setOnClickListener(view ->
         {
             viewModel.addAcctType();
-            Toast.makeText(MyApplication.getContext(), "点击了floatButton", Toast.LENGTH_SHORT).show();
+            Toast.makeText(BaseApplication.getContext(), "点击了floatButton", Toast.LENGTH_SHORT).show();
         });
     }
 }
