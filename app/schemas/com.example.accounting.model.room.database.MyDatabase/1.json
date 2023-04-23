@@ -39,13 +39,13 @@
             "notNull": false
           },
           {
-            "fieldPath": "accountTypeId",
+            "fieldPath": "acctTypeId",
             "columnName": "AT_id",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "tradeTypeId",
+            "fieldPath": "txnTypeId",
             "columnName": "TT_id",
             "affinity": "INTEGER",
             "notNull": true

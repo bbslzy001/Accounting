@@ -15,7 +15,7 @@ public class TxnRvItemRepository
     public TxnRvItemRepository()
     {
         MyDatabase myDatabase = MyDatabase.getMyDatabaseInstance();
-        txnRvItemDao = myDatabase.getHomeRecyclerViewItemDao();
+        txnRvItemDao = myDatabase.getTxnRvItemDao();
     }
 
     public LiveData<Double> queryExpenditureAmount()
@@ -42,6 +42,8 @@ public class TxnRvItemRepository
     {
         return txnRvItemDao.queryAllIncomes();
     }
+
+
 
     public LiveData<List<TxnRvItem>> queryAll()
     {

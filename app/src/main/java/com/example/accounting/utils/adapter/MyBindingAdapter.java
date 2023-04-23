@@ -2,8 +2,10 @@ package com.example.accounting.utils.adapter;
 
 import static android.graphics.Color.rgb;
 
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,9 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.accounting.R;
 import com.example.accounting.model.room.bean.AcctType;
 import com.example.accounting.model.room.bean.TxnRvItem;
+import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class MyBindingAdapter
 {
@@ -84,6 +88,44 @@ public class MyBindingAdapter
         {
             textView.setText(String.format(Locale.CHINA, "- %.2f", Math.abs(amount)));  // 去掉原有的负号，手动绘制
             textView.setTextColor(rgb(213, 0, 0));
+        }
+    }
+
+    @BindingAdapter({"app:currentTitle", "app:statsFragState"})
+    public static void setCurrentTitle(MaterialToolbar toolbar, LiveData<Integer> titleId, LiveData<String> statsFragState)
+    {
+        if (titleId != null && titleId.getValue() != null)
+        {
+            int title = titleId.getValue();
+            toolbar.setTitle(title);
+            toolbar.getMenu().clear();
+            if (title == R.string.app_name) toolbar.inflateMenu(R.menu.home_top_bar_menu);
+            else if (title == R.string.stats)
+            {
+                toolbar.inflateMenu(R.menu.stats_top_bar_menu);
+                MenuItem menuItem = toolbar.getMenu().findItem(R.id.display);
+                if (statsFragState != null && statsFragState.getValue() != null)
+                {
+                    String state = statsFragState.getValue();
+                    if (Objects.equals(state, "list")) menuItem.setIcon(R.drawable.ic_list);
+                    else menuItem.setIcon(R.drawable.ic_cal);
+                }
+            }
+        }
+    }
+
+    @BindingAdapter({"app:currentYear", "app:currentMonth"})
+    public static void setCurrentDate(Button button, LiveData<String> currentYear, LiveData<String> currentMonth)
+    {
+        if (currentYear != null && currentYear.getValue() != null && currentMonth != null && currentMonth.getValue() != null)
+        {
+            if (button.getVisibility() == View.INVISIBLE) button.setVisibility(View.VISIBLE);
+            String date = String.format(Locale.getDefault(), "%s%s ▼", currentYear.getValue(), currentMonth.getValue());
+            button.setText(date);
+        }
+        else
+        {
+            button.setVisibility(View.INVISIBLE);
         }
     }
 

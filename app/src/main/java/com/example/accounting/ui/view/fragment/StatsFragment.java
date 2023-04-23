@@ -6,13 +6,15 @@ import com.example.accounting.BR;
 import com.example.accounting.R;
 import com.example.accounting.base.BaseFragment;
 import com.example.accounting.databinding.FragmentStatsBinding;
-import com.example.accounting.ui.viewmodel.ShareViewModel;
+import com.example.accounting.ui.viewmodel.activity.MainActViewModel;
 import com.example.accounting.ui.viewmodel.fragment.StatsFragViewModel;
 import com.example.accounting.utils.adapter.StatsVpAdapter;
 
+import java.util.Objects;
+
 public class StatsFragment extends BaseFragment<FragmentStatsBinding, StatsFragViewModel>
 {
-    private ShareViewModel shareViewModel;
+    private MainActViewModel mainActViewModel;
 
     @Override
     protected int getLayoutId()
@@ -48,12 +50,11 @@ public class StatsFragment extends BaseFragment<FragmentStatsBinding, StatsFragV
         // 为了获取相同的 ViewModel 实例，需要使用相同的 LifecycleOwner，
         // MainActivity 的 LifecycleOwner 和 StatisticsFragment 的 LifecycleOwner 不同，
         // 因此，此处传递的是 MainActivity 的 LifecycleOwner
-        shareViewModel = new ViewModelProvider(requireActivity()).get(ShareViewModel.class);
-        shareViewModel.getButtonState().observe(getViewLifecycleOwner(), aBoolean ->
+        mainActViewModel = new ViewModelProvider(requireActivity()).get(MainActViewModel.class);
+        mainActViewModel.getStatsFragState().observe(this, s ->
         {
-            int currentItem = binding.viewPager.getCurrentItem();
-            if (currentItem == 0) binding.viewPager.setCurrentItem(1, false);
-            else binding.viewPager.setCurrentItem(0, false);
+            if (Objects.equals(s, "list")) binding.viewPager.setCurrentItem(0, false);
+            else binding.viewPager.setCurrentItem(1, false);
         });
     }
 }

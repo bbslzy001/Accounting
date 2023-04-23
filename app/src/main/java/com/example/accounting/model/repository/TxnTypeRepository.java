@@ -18,7 +18,7 @@ public class TxnTypeRepository
     public TxnTypeRepository()
     {
         MyDatabase myDatabase = MyDatabase.getMyDatabaseInstance();
-        txnTypeDao = myDatabase.getTradeTypeDao();
+        txnTypeDao = myDatabase.getTxnTypeDao();
         executor = Executors.newSingleThreadExecutor();
     }
 

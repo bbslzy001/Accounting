@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/display"
-        android:icon="@drawable/ic_cal"
-        android:title="显示方式"
+        android:title="@string/stats_frag_state"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/search"

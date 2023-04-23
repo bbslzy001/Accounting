@@ -18,7 +18,7 @@ public class AcctTypeRepository
     public AcctTypeRepository()
     {
         MyDatabase myDatabase = MyDatabase.getMyDatabaseInstance();
-        acctTypeDao = myDatabase.getAccountDao();
+        acctTypeDao = myDatabase.getAcctDao();
         executor = Executors.newSingleThreadExecutor();
     }
 

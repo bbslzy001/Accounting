@@ -16,16 +16,16 @@ import java.util.List;
 public interface TxnInfoDao
 {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(TxnInfo expenditure);
+    void insert(TxnInfo txnInfo);
 
     @Delete()
-    void delete(TxnInfo expenditure);
+    void delete(TxnInfo txnInfo);
 
     @Query("delete from TxnInfo")
     void deleteAll();
 
     @Update
-    void update(TxnInfo expenditure);
+    void update(TxnInfo txnInfo);
 
     @Query("select * from TxnInfo where TI_id = :id")
     LiveData<TxnInfo> queryById(int id);

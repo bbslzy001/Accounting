@@ -12,6 +12,7 @@ import com.example.accounting.model.room.dao.AcctTypeDao;
 import com.example.accounting.model.room.dao.TxnInfoDao;
 import com.example.accounting.model.room.dao.TxnRvItemDao;
 import com.example.accounting.model.room.dao.TxnTypeDao;
+import com.example.accounting.model.room.dao.YearMonthDao;
 
 @Database(
         entities = {
@@ -26,11 +27,12 @@ public abstract class MyDatabase extends RoomDatabase
     private static final String DB_NAME = "Accounting.db";
     private static MyDatabase myDatabase;
 
-    public abstract TxnInfoDao getTradeInfoDao();
-    public abstract AcctTypeDao getAccountDao();
-    public abstract TxnTypeDao getTradeTypeDao();
+    public abstract TxnInfoDao getTxnInfoDao();
+    public abstract AcctTypeDao getAcctDao();
+    public abstract TxnTypeDao getTxnTypeDao();
 
-    public abstract TxnRvItemDao getHomeRecyclerViewItemDao();
+    public abstract TxnRvItemDao getTxnRvItemDao();
+    public abstract YearMonthDao getYearMonthDao();
 
     public static MyDatabase getMyDatabaseInstance()
     {

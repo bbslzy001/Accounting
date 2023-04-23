@@ -7,19 +7,21 @@ import com.example.accounting.BR;
 import com.example.accounting.R;
 import com.example.accounting.base.BaseFragment;
 import com.example.accounting.databinding.FragmentStatsListBinding;
+import com.example.accounting.model.room.bean.YearMonth;
 import com.example.accounting.ui.viewmodel.fragment.statistics.ListStatsFragViewModel;
 import com.example.accounting.utils.TxnRvItemDecoration;
 import com.example.accounting.utils.adapter.TxnRvAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import java.util.Locale;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, ListStatsFragViewModel>
 {
-    private int[] years;
-    private int[][] months;
-    private int currentYear;
-    private int currentMonth;
+    String[] yearArray;
+    String[][] monthArray;
+    int maxYearIndex;
+    int maxMonthIndex;
 
     @Override
     protected int getLayoutId()
@@ -77,25 +79,25 @@ public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, Li
 
             // 设置年份选择器的范围和默认值
             yearPicker.setMinValue(0);
-            yearPicker.setMaxValue(years.length - 1);
-            yearPicker.setDisplayedValues(getDisplayedYears());
-            yearPicker.setValue(years.length - 1);
+            yearPicker.setMaxValue(maxYearIndex);
+            yearPicker.setDisplayedValues(yearArray);
+            yearPicker.setValue(maxYearIndex);
             yearPicker.setWrapSelectorWheel(false);  // 条目大于3时是否开启循环滚动
 
             // 设置月份选择器的范围和默认值
             monthPicker.setMinValue(0);
-            monthPicker.setMaxValue(months[years.length - 1].length - 1);
-            monthPicker.setDisplayedValues(getDisplayedMonths(years.length - 1));
-            monthPicker.setValue(months[years.length - 1].length - 1);
+            monthPicker.setMaxValue(maxMonthIndex);
+            monthPicker.setDisplayedValues(monthArray[maxYearIndex]);
+            monthPicker.setValue(maxMonthIndex);
             monthPicker.setWrapSelectorWheel(false);  // 条目大于3时是否开启循环滚动
 
             yearPicker.setOnValueChangedListener((picker, oldVal, newVal) ->
             {
-                int maxMonth = months[newVal].length - 1;
+                maxMonthIndex = monthArray[newVal].length - 1;
                 monthPicker.setDisplayedValues(null);  // 先重置数组，避免发生下标越界
-                monthPicker.setMaxValue(maxMonth);
-                monthPicker.setDisplayedValues(getDisplayedMonths(newVal));
-                monthPicker.setValue(maxMonth);
+                monthPicker.setMaxValue(maxMonthIndex);
+                monthPicker.setDisplayedValues(monthArray[newVal]);
+                monthPicker.setValue(maxMonthIndex);
             });
 
             // 添加取消和确定按钮的点击事件
@@ -106,9 +108,8 @@ public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, Li
                 int year = yearPicker.getValue();
                 int month = monthPicker.getValue();
 
-                currentYear = years[year];
-                currentMonth = months[year][month];
-                updateTextButton();
+                viewModel.setCurrentYear(yearArray[year]);
+                viewModel.setCurrentMonth(monthArray[year][month]);
 
                 // 关闭底部抽屉
                 bottomSheetDialog.dismiss();
@@ -120,46 +121,45 @@ public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, Li
         });
     }
 
-    private String[] getDisplayedYears()
-    {
-        String[] displayedYears = new String[years.length];
-        for (int i = 0; i < years.length; i++)
-        {
-            displayedYears[i] = years[i] + "年";
-        }
-        return displayedYears;
-    }
-
-    private String[] getDisplayedMonths(int index)
-    {
-        String[] displayedMonths = new String[months[index].length];
-        for (int i = 0; i < months[index].length; i++)
-        {
-            displayedMonths[i] = months[index][i] + "月";
-        }
-        return displayedMonths;
-    }
-
     /**
-     * 模拟数据从数据库获取
+     * 初始化数据（年份和月份）
      */
     private void initData()
     {
-        years = new int[]{2020, 2021, 2022};
-        months = new int[][]{{4, 6, 10}, {7, 8, 9, 10, 11, 12}, {3}};
+        viewModel.getYearMonths().observe(this, yearMonths ->
+        {
+            List<String> yearList = new ArrayList<>();
+            List<List<String>> monthList = new ArrayList<>();
+            for (YearMonth yearMonth : yearMonths)
+            {
+                String year = yearMonth.getYear() + "年";
+                if (!yearList.contains(year))
+                {
+                    yearList.add(year);
+                    List<String> months = new ArrayList<>();
+                    months.add(yearMonth.getMonth() + "月");
+                    monthList.add(months);
+                }
+                else
+                {
+                    int index = yearList.indexOf(year);
+                    List<String> months = monthList.get(index);
+                    months.add(yearMonth.getMonth() + "月");
+                }
+            }
 
-        currentYear = years[years.length - 1];
-        currentMonth = months[years.length - 1][months[years.length - 1].length - 1];
+            yearArray = yearList.toArray(new String[0]);
+            monthArray = new String[monthList.size()][];
+            for (int i = 0; i < monthList.size(); ++i)
+            {
+                List<String> months = monthList.get(i);
+                monthArray[i] = months.toArray(new String[0]);
+            }
 
-        updateTextButton();
-    }
-
-    /**
-     * 更新 TextButton 的文本
-     */
-    private void updateTextButton()
-    {
-        String date = String.format(Locale.getDefault(), "%d年%02d月 ▼", currentYear, currentMonth);
-        binding.textButton.setText(date);
+            maxYearIndex = yearArray.length - 1;
+            viewModel.setCurrentYear(yearArray[maxYearIndex]);
+            maxMonthIndex = monthArray[maxYearIndex].length - 1;
+            viewModel.setCurrentMonth(monthArray[maxYearIndex][maxMonthIndex]);
+        });
     }
 }

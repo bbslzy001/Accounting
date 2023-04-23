@@ -38,7 +38,8 @@
                     android:layout_height="match_parent"
                     app:menu="@menu/home_top_bar_menu"
                     app:navigationIcon="@drawable/ic_menu"
-                    app:title="@{viewModel.topAppBarTitle}"
+                    app:statsFragState="@{viewModel.statsFragState}"
+                    app:currentTitle="@{viewModel.topAppBarTitle}"
                     app:titleCentered="true" />
 
             </com.google.android.material.appbar.AppBarLayout>

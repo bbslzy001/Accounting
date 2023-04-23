@@ -37,6 +37,7 @@
     <string name="list_stats">列表</string>
     <string name="unconfirmed">取消</string>
     <string name="confirmed">确认</string>
+    <string name="stats_frag_state">页面状态</string>
 
     <!-- Acct Fragment -->
     <string name="net_amount">净资产</string>

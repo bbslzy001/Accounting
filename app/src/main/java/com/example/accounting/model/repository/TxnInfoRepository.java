@@ -18,7 +18,7 @@ public class TxnInfoRepository
     public TxnInfoRepository()
     {
         MyDatabase myDatabase = MyDatabase.getMyDatabaseInstance();
-        txnInfoDao = myDatabase.getTradeInfoDao();
+        txnInfoDao = myDatabase.getTxnInfoDao();
         executor = Executors.newSingleThreadExecutor();
     }
 
