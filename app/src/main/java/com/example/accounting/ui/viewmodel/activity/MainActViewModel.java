@@ -1,6 +1,8 @@
 package com.example.accounting.ui.viewmodel.activity;
 
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.accounting.R;
 import com.example.accounting.base.BaseActivityViewModel;
@@ -11,12 +13,10 @@ import com.example.accounting.model.room.bean.AcctType;
 import com.example.accounting.model.room.bean.TxnInfo;
 import com.example.accounting.model.room.bean.TxnType;
 
-import java.util.Objects;
-
 public class MainActViewModel extends BaseActivityViewModel
 {
     private final MutableLiveData<Integer> topAppBarTitle = new MutableLiveData<>(R.string.app_name);
-    private final MutableLiveData<String> statsFragState = new MutableLiveData<>("list");
+    private final MutableLiveData<Integer> statsFragState = new MutableLiveData<>(R.string.list_stats);
     private final AcctTypeRepository acctTypeRepository = new AcctTypeRepository();
     private final TxnTypeRepository txnTypeRepository = new TxnTypeRepository();
     private final TxnInfoRepository txnInfoRepository = new TxnInfoRepository();
@@ -51,13 +51,22 @@ public class MainActViewModel extends BaseActivityViewModel
 
     public void updateStatsFragState()
     {
-        String state = statsFragState.getValue();
-        state = Objects.equals(state, "list") ? "cal" : "list";
+        Integer state = statsFragState.getValue();
+        state = state == null || state == R.string.list_stats ? R.string.cal_stats : R.string.list_stats;
         statsFragState.setValue(state);
     }
 
-    public MutableLiveData<String> getStatsFragState()
+    public MutableLiveData<Integer> getStatsFragState()
     {
         return statsFragState;
+    }
+
+    public void observeStatsFragState(LifecycleOwner owner, ViewPager2 viewPager)
+    {
+        statsFragState.observe(owner, s ->
+        {
+            if (s == R.string.list_stats) viewPager.setCurrentItem(0, false);
+            else viewPager.setCurrentItem(1, false);
+        });
     }
 }

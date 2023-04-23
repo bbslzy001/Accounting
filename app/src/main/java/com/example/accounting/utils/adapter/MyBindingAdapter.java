@@ -20,7 +20,6 @@ import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 public class MyBindingAdapter
 {
@@ -92,7 +91,7 @@ public class MyBindingAdapter
     }
 
     @BindingAdapter({"app:currentTitle", "app:statsFragState"})
-    public static void setCurrentTitle(MaterialToolbar toolbar, LiveData<Integer> titleId, LiveData<String> statsFragState)
+    public static void setCurrentTitle(MaterialToolbar toolbar, LiveData<Integer> titleId, LiveData<Integer> statsFragState)
     {
         if (titleId != null && titleId.getValue() != null)
         {
@@ -106,8 +105,8 @@ public class MyBindingAdapter
                 MenuItem menuItem = toolbar.getMenu().findItem(R.id.display);
                 if (statsFragState != null && statsFragState.getValue() != null)
                 {
-                    String state = statsFragState.getValue();
-                    if (Objects.equals(state, "list")) menuItem.setIcon(R.drawable.ic_list);
+                    int state = statsFragState.getValue();
+                    if (state == R.string.list_stats) menuItem.setIcon(R.drawable.ic_list);
                     else menuItem.setIcon(R.drawable.ic_cal);
                 }
             }
