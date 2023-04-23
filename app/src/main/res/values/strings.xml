@@ -1,3 +1,50 @@
 <resources>
-    <string name="app_name">Accounting</string>
+    <!-- Application -->
+    <string name="app_name">账迹</string>
+    <string name="app_version">版本信息：1.0.0</string>
+
+    <!-- Main Activity -->
+    <string name="home">首页</string>
+    <string name="anal">分析</string>
+    <string name="stats">统计</string>
+    <string name="acct">账户</string>
+
+    <!-- Drawer -->
+    <string name="setting">设置</string>
+    <string name="about">关于</string>
+    <string name="drawer_title">帐迹</string>
+    <string name="drawer_text">记录和管理您所有账户的收支</string>
+
+    <!-- Top App Bar -->
+    <string name="search">搜索</string>
+    <string name="dashboard">设置仪表板</string>
+
+    <!-- Home Fragment -->
+    <string name="income">收：</string>
+    <string name="expenditure">支：</string>
+    <string name="current_month_income">本月收入</string>
+    <string name="current_month_expenditure">本月支出</string>
+    <string name="current_month_balance">本月结余</string>
+    <string name="add_txn_info">记一笔</string>
+
+    <!-- Anal Fragment -->
+    <string name="day_anal">日分析</string>
+    <string name="month_anal">月分析</string>
+    <string name="year_anal">年分析</string>
+
+    <!-- Stats Fragment -->
+    <string name="cal_stats">日历</string>
+    <string name="list_stats">列表</string>
+    <string name="unconfirmed">取消</string>
+    <string name="confirmed">确认</string>
+    <string name="stats_frag_state">页面状态</string>
+
+    <!-- Acct Fragment -->
+    <string name="net_amount">净资产</string>
+    <string name="total_amount">总资产</string>
+    <string name="negative_amount">负资产</string>
+    <string name="add_acct">创建新账户</string>
+
+    <!-- Acct Details Activity -->
+    <string name="acct_details">账户详情</string>
 </resources>

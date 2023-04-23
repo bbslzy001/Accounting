@@ -4,20 +4,21 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.accounting.application.MyApplication;
-import com.example.accounting.model.room.bean.AccountType;
-import com.example.accounting.model.room.bean.TradeInfo;
-import com.example.accounting.model.room.bean.TradeType;
-import com.example.accounting.model.room.dao.AccountTypeDao;
-import com.example.accounting.model.room.dao.HomeRecyclerViewItemDao;
-import com.example.accounting.model.room.dao.TradeInfoDao;
-import com.example.accounting.model.room.dao.TradeTypeDao;
+import com.example.accounting.base.BaseApplication;
+import com.example.accounting.model.room.bean.AcctType;
+import com.example.accounting.model.room.bean.TxnInfo;
+import com.example.accounting.model.room.bean.TxnType;
+import com.example.accounting.model.room.dao.AcctTypeDao;
+import com.example.accounting.model.room.dao.TxnInfoDao;
+import com.example.accounting.model.room.dao.TxnRvItemDao;
+import com.example.accounting.model.room.dao.TxnTypeDao;
+import com.example.accounting.model.room.dao.YearMonthDao;
 
 @Database(
         entities = {
-                TradeInfo.class,
-                AccountType.class,
-                TradeType.class
+                TxnInfo.class,
+                AcctType.class,
+                TxnType.class
         },
         version = 1
 )
@@ -26,11 +27,12 @@ public abstract class MyDatabase extends RoomDatabase
     private static final String DB_NAME = "Accounting.db";
     private static MyDatabase myDatabase;
 
-    public abstract TradeInfoDao getTradeInfoDao();
-    public abstract AccountTypeDao getAccountDao();
-    public abstract TradeTypeDao getTradeTypeDao();
+    public abstract TxnInfoDao getTxnInfoDao();
+    public abstract AcctTypeDao getAcctDao();
+    public abstract TxnTypeDao getTxnTypeDao();
 
-    public abstract HomeRecyclerViewItemDao getHomeRecyclerViewItemDao();
+    public abstract TxnRvItemDao getTxnRvItemDao();
+    public abstract YearMonthDao getYearMonthDao();
 
     public static MyDatabase getMyDatabaseInstance()
     {
@@ -40,6 +42,6 @@ public abstract class MyDatabase extends RoomDatabase
 
     private static MyDatabase createMyDatabase()
     {
-        return Room.databaseBuilder(MyApplication.getContext(), MyDatabase.class, DB_NAME).fallbackToDestructiveMigration().build();  // 构建实例时销毁原数据库（仅开发时使用）
+        return Room.databaseBuilder(BaseApplication.getContext(), MyDatabase.class, DB_NAME).fallbackToDestructiveMigration().build();  // 构建实例时销毁原数据库（仅开发时使用）
     }
 }

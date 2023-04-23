@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "8305efac36614211a3152a2a4d5da8be",
+    "identityHash": "89dcbba50de35fc056c3f781cdbf8edd",
     "entities": [
       {
-        "tableName": "TradeInfo",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`TI_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `TI_amount` REAL NOT NULL, `TI_date` TEXT, `TI_time` TEXT, `TI_remark` TEXT, `AT_id` INTEGER NOT NULL, `TT_id` INTEGER NOT NULL, FOREIGN KEY(`AT_id`) REFERENCES `AccountType`(`AT_id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`TT_id`) REFERENCES `TradeType`(`TT_id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "tableName": "TxnInfo",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`TI_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `TI_amount` REAL NOT NULL, `TI_date` TEXT, `TI_time` TEXT, `TI_remark` TEXT, `AT_id` INTEGER NOT NULL, `TT_id` INTEGER NOT NULL, FOREIGN KEY(`AT_id`) REFERENCES `AcctType`(`AT_id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`TT_id`) REFERENCES `TxnType`(`TT_id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -39,13 +39,13 @@
             "notNull": false
           },
           {
-            "fieldPath": "accountTypeId",
+            "fieldPath": "acctTypeId",
             "columnName": "AT_id",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "tradeTypeId",
+            "fieldPath": "txnTypeId",
             "columnName": "TT_id",
             "affinity": "INTEGER",
             "notNull": true
@@ -59,45 +59,45 @@
         },
         "indices": [
           {
-            "name": "index_TradeInfo_TI_date",
+            "name": "index_TxnInfo_TI_date",
             "unique": false,
             "columnNames": [
               "TI_date"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_TradeInfo_TI_date` ON `${TABLE_NAME}` (`TI_date`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_TxnInfo_TI_date` ON `${TABLE_NAME}` (`TI_date`)"
           },
           {
-            "name": "index_TradeInfo_TI_amount",
+            "name": "index_TxnInfo_TI_amount",
             "unique": false,
             "columnNames": [
               "TI_amount"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_TradeInfo_TI_amount` ON `${TABLE_NAME}` (`TI_amount`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_TxnInfo_TI_amount` ON `${TABLE_NAME}` (`TI_amount`)"
           },
           {
-            "name": "index_TradeInfo_AT_id",
+            "name": "index_TxnInfo_AT_id",
             "unique": false,
             "columnNames": [
               "AT_id"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_TradeInfo_AT_id` ON `${TABLE_NAME}` (`AT_id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_TxnInfo_AT_id` ON `${TABLE_NAME}` (`AT_id`)"
           },
           {
-            "name": "index_TradeInfo_TT_id",
+            "name": "index_TxnInfo_TT_id",
             "unique": false,
             "columnNames": [
               "TT_id"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_TradeInfo_TT_id` ON `${TABLE_NAME}` (`TT_id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_TxnInfo_TT_id` ON `${TABLE_NAME}` (`TT_id`)"
           }
         ],
         "foreignKeys": [
           {
-            "table": "AccountType",
+            "table": "AcctType",
             "onDelete": "CASCADE",
             "onUpdate": "CASCADE",
             "columns": [
@@ -108,7 +108,7 @@
             ]
           },
           {
-            "table": "TradeType",
+            "table": "TxnType",
             "onDelete": "CASCADE",
             "onUpdate": "CASCADE",
             "columns": [
@@ -121,7 +121,7 @@
         ]
       },
       {
-        "tableName": "AccountType",
+        "tableName": "AcctType",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AT_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `AT_type` TEXT, `AT_amount` REAL NOT NULL)",
         "fields": [
           {
@@ -153,7 +153,7 @@
         "foreignKeys": []
       },
       {
-        "tableName": "TradeType",
+        "tableName": "TxnType",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`TT_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `TT_type` TEXT)",
         "fields": [
           {
@@ -182,7 +182,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8305efac36614211a3152a2a4d5da8be')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '89dcbba50de35fc056c3f781cdbf8edd')"
     ]
   }
 }

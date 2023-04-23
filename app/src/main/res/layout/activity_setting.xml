@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.accounting.ui.viewmodel.activity.SettingActivityViewModel" />
+            type="com.example.accounting.ui.viewmodel.activity.SettingActViewModel" />
     </data>
 
     <RelativeLayout
@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="Setting"
+            android:text="@string/setting"
             android:textSize="36sp" />
 
     </RelativeLayout>

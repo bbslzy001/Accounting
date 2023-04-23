@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.accounting.ui.viewmodel.activity.SearchActivityViewModel" />
+            type="com.example.accounting.ui.viewmodel.activity.SearchActViewModel" />
     </data>
 
     <RelativeLayout
@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="Search"
+            android:text="@string/search"
             android:textSize="36sp" />
 
     </RelativeLayout>

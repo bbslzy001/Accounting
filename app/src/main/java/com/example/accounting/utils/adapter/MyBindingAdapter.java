@@ -2,50 +2,45 @@ package com.example.accounting.utils.adapter;
 
 import static android.graphics.Color.rgb;
 
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
 import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.accounting.model.room.bean.AccountType;
-import com.example.accounting.model.room.bean.HomeRecyclerViewItem;
+import com.example.accounting.R;
+import com.example.accounting.model.room.bean.AcctType;
+import com.example.accounting.model.room.bean.TxnRvItem;
+import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 public class MyBindingAdapter
 {
-    @BindingAdapter({"app:homeRecyclerViewDataList"})
-    public static void setHomeRecyclerViewDataList(RecyclerView recyclerView, LiveData<List<HomeRecyclerViewItem>> dataList)
+    @BindingAdapter({"app:homeRvItemList"})
+    public static void setHomeRvItemList(RecyclerView recyclerView, LiveData<List<TxnRvItem>> itemList)
     {
-        HomeRecyclerViewAdapter adapter = (HomeRecyclerViewAdapter) recyclerView.getAdapter();
-        if (adapter != null && dataList != null && dataList.getValue() != null)
+        TxnRvAdapter adapter = (TxnRvAdapter) recyclerView.getAdapter();
+        if (adapter != null && itemList != null && itemList.getValue() != null)
         {
-            adapter.setItemList(dataList.getValue());
+            adapter.setItemList(itemList.getValue());
         }
     }
 
-    @BindingAdapter({"app:accountRecyclerViewDataList"})
-    public static void setAccountRecyclerViewDataList(RecyclerView recyclerView, LiveData<List<AccountType>> dataList)
+    @BindingAdapter({"app:accountRvItemList"})
+    public static void setAccountRvItemList(RecyclerView recyclerView, LiveData<List<AcctType>> itemList)
     {
-        AccountRecyclerViewAdapter adapter = (AccountRecyclerViewAdapter) recyclerView.getAdapter();
-        if (adapter != null && dataList != null && dataList.getValue() != null)
+        AcctRvAdapter adapter = (AcctRvAdapter) recyclerView.getAdapter();
+        if (adapter != null && itemList != null && itemList.getValue() != null)
         {
-            adapter.setItemList(dataList.getValue());
-        }
-    }
-
-    @BindingAdapter({"app:recyclerViewItemLayout"})
-    public static void setRecyclerViewItemLayout(RecyclerView recyclerView, int itemLayoutId)
-    {
-        Object adapter = recyclerView.getAdapter();
-        if (adapter != null)
-        {
-            if (adapter instanceof HomeRecyclerViewAdapter) ((HomeRecyclerViewAdapter) adapter).setItemLayoutId(itemLayoutId);
-            else ((AccountRecyclerViewAdapter) adapter).setItemLayoutId(itemLayoutId);
+            adapter.setItemList(itemList.getValue());
         }
     }
 
@@ -58,22 +53,79 @@ public class MyBindingAdapter
         }
         else
         {
-            textView.setText(String.format(Locale.CHINA, "- %.2f", amount));
+            textView.setText(String.format(Locale.CHINA, "- %.2f", Math.abs(amount)));  // 去掉原有的负号，手动绘制
         }
     }
 
-    @BindingAdapter({"app:amount"})
-    public static void setAmount(TextView textView, double amount)
+    @BindingAdapter({"app:itemAmount"})
+    public static void setItemAmount(TextView textView, double amount)
+    {
+        textView.setText(String.format(Locale.CHINA, "%.2f", amount));
+    }
+
+    @BindingAdapter({"app:headerItemAmount"})
+    public static void setHeaderItemAmount(TextView textView, double amount)
+    {
+        textView.setText(String.format(Locale.CHINA, "%.2f", Math.abs(amount)));  // 去掉原有的负号，手动绘制
+    }
+
+    @BindingAdapter({"app:headerItemToggle"})
+    public static void setHeaderItemToggle(ImageView imageView, boolean isExpanded)
+    {
+        if (isExpanded) imageView.setImageResource(R.drawable.ic_expand_less);
+        else imageView.setImageResource(R.drawable.ic_expand_more);
+    }
+
+    @BindingAdapter({"app:subItemAmount"})
+    public static void setSubItemAmount(TextView textView, double amount)
     {
         if (amount >= 0)
         {
             textView.setText(String.format(Locale.CHINA, "+ %.2f", amount));
-            textView.setTextColor(rgb(0, 255, 0));
+            textView.setTextColor(rgb(0, 200, 83));
         }
         else
         {
-            textView.setText(String.format(Locale.CHINA, "- %.2f", amount));
-            textView.setTextColor(rgb(255, 0, 0));
+            textView.setText(String.format(Locale.CHINA, "- %.2f", Math.abs(amount)));  // 去掉原有的负号，手动绘制
+            textView.setTextColor(rgb(213, 0, 0));
+        }
+    }
+
+    @BindingAdapter({"app:currentTitle", "app:statsFragState"})
+    public static void setCurrentTitle(MaterialToolbar toolbar, LiveData<Integer> titleId, LiveData<String> statsFragState)
+    {
+        if (titleId != null && titleId.getValue() != null)
+        {
+            int title = titleId.getValue();
+            toolbar.setTitle(title);
+            toolbar.getMenu().clear();
+            if (title == R.string.app_name) toolbar.inflateMenu(R.menu.home_top_bar_menu);
+            else if (title == R.string.stats)
+            {
+                toolbar.inflateMenu(R.menu.stats_top_bar_menu);
+                MenuItem menuItem = toolbar.getMenu().findItem(R.id.display);
+                if (statsFragState != null && statsFragState.getValue() != null)
+                {
+                    String state = statsFragState.getValue();
+                    if (Objects.equals(state, "list")) menuItem.setIcon(R.drawable.ic_list);
+                    else menuItem.setIcon(R.drawable.ic_cal);
+                }
+            }
+        }
+    }
+
+    @BindingAdapter({"app:currentYear", "app:currentMonth"})
+    public static void setCurrentDate(Button button, LiveData<String> currentYear, LiveData<String> currentMonth)
+    {
+        if (currentYear != null && currentYear.getValue() != null && currentMonth != null && currentMonth.getValue() != null)
+        {
+            if (button.getVisibility() == View.INVISIBLE) button.setVisibility(View.VISIBLE);
+            String date = String.format(Locale.getDefault(), "%s%s ▼", currentYear.getValue(), currentMonth.getValue());
+            button.setText(date);
+        }
+        else
+        {
+            button.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -85,6 +137,26 @@ public class MyBindingAdapter
             ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
             layoutParams.bottomMargin = marginBottom.getValue();
             view.setLayoutParams(layoutParams);
+        }
+    }
+
+    @BindingAdapter({"app:emptyViewHeight"})
+    public static void setEmptyViewHeight(View view, LiveData<Integer> height)
+    {
+        if (height != null && height.getValue() != null)
+        {
+            ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+            layoutParams.height = height.getValue();
+            view.setLayoutParams(layoutParams);
+        }
+    }
+
+    @BindingAdapter({"app:drawerPaddingTop", "app:drawerPaddingBottom"})
+    public static void setPaddingBottom(View view, LiveData<Integer> paddingTop, LiveData<Integer> paddingBottom)
+    {
+        if (paddingTop != null && paddingTop.getValue() != null && paddingBottom != null && paddingBottom.getValue() != null)
+        {
+            view.setPadding(view.getPaddingLeft(), view.getPaddingTop() + paddingTop.getValue(), view.getPaddingRight(), view.getPaddingBottom() + paddingBottom.getValue());
         }
     }
 

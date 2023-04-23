@@ -7,21 +7,21 @@
 
         <variable
             name="viewModel"
-            type="com.example.accounting.ui.viewmodel.activity.MainActivityViewModel" />
+            type="com.example.accounting.ui.viewmodel.activity.MainActViewModel" />
     </data>
 
     <!-- DrawerLayout，用于实现侧边栏的滑动效果 -->
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
-        android:fitsSystemWindows="false"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="false">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:paddingTop="@{viewModel.statusHeight}"
             android:orientation="vertical"
+            app:paddingTop="@{viewModel.statusHeight}"
             tools:context=".ui.view.activity.MainActivity">
 
             <!-- 顶部应用栏 -->
@@ -29,15 +29,17 @@
                 android:id="@+id/app_bar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:layout_alignParentTop="true"
                 android:elevation="4dp">
 
                 <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/top_app_bar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:menu="@menu/top_bar_menu"
+                    app:menu="@menu/home_top_bar_menu"
                     app:navigationIcon="@drawable/ic_menu"
-                    app:title="@{viewModel.topAppBarTitle}"
+                    app:statsFragState="@{viewModel.statsFragState}"
+                    app:currentTitle="@{viewModel.topAppBarTitle}"
                     app:titleCentered="true" />
 
             </com.google.android.material.appbar.AppBarLayout>
@@ -45,18 +47,47 @@
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/view_pager"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/bottom_navigation"
+                android:layout_below="@id/app_bar" />
+
+            <!-- 设置当前布局的层高为8dp，避免被BottomNavigationView遮住 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/empty_view"
+                android:layout_alignTop="@id/bottom_navigation"
+                android:elevation="8dp">
+
+                <Button
+                    android:id="@+id/add_trade_button"
+                    style="?attr/materialIconButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:contentDescription="@string/add_txn_info"
+                    app:icon="@drawable/ic_add" />
+
+            </RelativeLayout>
+
+            <!-- 空视图，用于填充手机底部虚拟导航栏 -->
+            <View
+                android:id="@+id/empty_view"
+                android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1" />
+                android:layout_alignParentBottom="true"
+                app:emptyViewHeight="@{viewModel.navigationHeight}" />
 
             <com.google.android.material.bottomnavigation.BottomNavigationView
                 android:id="@+id/bottom_navigation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 app:itemRippleColor="@null"
                 app:labelVisibilityMode="labeled"
                 app:menu="@menu/bottom_navigation_menu" />
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <!-- 侧边栏 -->
         <com.google.android.material.navigation.NavigationView
@@ -64,10 +95,28 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            app:headerLayout="@layout/header_main_navigation_drawer"
-            app:marginBottom="@{viewModel.navigationHeight}"
-            app:menu="@menu/drawer_menu"
-            app:paddingTop="@{viewModel.statusHeight}" />
+            app:drawerPaddingBottom="@{viewModel.navigationHeight}"
+            app:drawerPaddingTop="@{viewModel.statusHeight}"
+            app:headerLayout="@layout/drawer_header_main"
+            app:menu="@menu/drawer_menu">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/app_version"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.navigation.NavigationView>
 
     </androidx.drawerlayout.widget.DrawerLayout>
 

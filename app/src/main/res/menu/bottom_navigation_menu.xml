@@ -3,13 +3,20 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home"
-        android:title="首页" />
+        android:title="@string/home" />
+    <item
+        android:id="@+id/navigation_analyse"
+        android:icon="@drawable/ic_anal"
+        android:title="@string/anal" />
+    <item
+        android:id="@+id/navigation_empty"
+        android:title="" />
     <item
         android:id="@+id/navigation_statistics"
-        android:icon="@drawable/ic_statistics"
-        android:title="统计" />
+        android:icon="@drawable/ic_stats"
+        android:title="@string/stats" />
     <item
         android:id="@+id/navigation_account"
-        android:icon="@drawable/ic_account_balance_wallet"
-        android:title="账户" />
+        android:icon="@drawable/ic_acct"
+        android:title="@string/acct" />
 </menu>

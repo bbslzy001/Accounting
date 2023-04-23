@@ -34,8 +34,12 @@
         <item name="android:windowLightStatusBar">false</item>
 
         <!-- Navigation bar color -->
-        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <!--        <item name="android:navigationBarColor">@color/my_theme_dark_navigation</item>-->
         <item name="android:windowLightNavigationBar">false</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentNavigation">true</item>
+
+        <!-- Application background color -->
+        <item name="colorApplicationBackground">@color/my_theme_dark_background</item>
     </style>
 </resources>

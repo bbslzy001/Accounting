@@ -1,44 +1,49 @@
 package com.example.accounting.ui.view.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
+import android.view.MenuItem;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.PopupMenu;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.WindowCompat;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.accounting.BR;
 import com.example.accounting.R;
-import com.example.accounting.application.MyApplication;
-import com.example.accounting.ui.viewmodel.activity.MainActivityViewModel;
-import com.example.accounting.utils.adapter.ViewPagerAdapter;
+import com.example.accounting.base.BaseApplication;
+import com.example.accounting.base.BaseActivity;
 import com.example.accounting.databinding.ActivityMainBinding;
+import com.example.accounting.ui.viewmodel.activity.MainActViewModel;
+import com.example.accounting.utils.adapter.MainVpAdapter;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends BaseActivity<ActivityMainBinding, MainActViewModel>
 {
-    private ActivityMainBinding binding;
-    private MainActivityViewModel viewModel;
+    @Override
+    protected int getLayoutId()
+    {
+        return R.layout.activity_main;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    protected Class<MainActViewModel> getViewModelClass()
     {
-        super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);  // 全屏布局
+        return MainActViewModel.class;
+    }
 
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        binding.setLifecycleOwner(this);
+    @Override
+    protected int getViewModelVariableId()
+    {
+        return BR.viewModel;
+    }
 
-        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        binding.setViewModel(viewModel);
+    @Override
+    protected void initView()
+    {
+        super.initView();
 
         initTopAppBar();
         initDrawer();
+        initViewPager();
         initNavigation();
+        initAddTradeButton();
 
         viewModel.fakeData();
     }
@@ -53,31 +58,12 @@ public class MainActivity extends AppCompatActivity
         binding.topAppBar.setOnMenuItemClickListener(item ->
         {
             int id = item.getItemId();
-            if (id == R.id.search) startActivity(new Intent(this, SearchActivity.class));
-            else if (id == R.id.more) openMoreMenu(binding.topAppBar.findViewById(R.id.more));
+            if (id == R.id.dashboard) startActivity(new Intent(this, DashboardActivity.class));
+            else if (id == R.id.display) viewModel.updateStatsFragState();
+            else if (id == R.id.search) startActivity(new Intent(this, SearchActivity.class));
             else return false;
             return true;
         });
-    }
-
-    /**
-     * 初始化顶部应用栏————“更多”选项————菜单栏
-     */
-    private void openMoreMenu(View view)
-    {
-        PopupMenu popupMenu = new PopupMenu(this, view);
-        popupMenu.inflate(R.menu.top_bar_more_menu);
-        popupMenu.setOnMenuItemClickListener(item ->
-        {
-            int id = item.getItemId();
-            if (id == R.id.wechat)
-                Toast.makeText(MyApplication.getContext(), "点击了wechat", Toast.LENGTH_SHORT).show();
-            else if (id == R.id.alipay)
-                Toast.makeText(MyApplication.getContext(), "点击了alipay", Toast.LENGTH_SHORT).show();
-            else return false;
-            return true;
-        });
-        popupMenu.show();
     }
 
     /**
@@ -114,38 +100,57 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
+     * 初始化 ViewPager2
+     */
+    private void initViewPager()
+    {
+        binding.viewPager.setAdapter(new MainVpAdapter(this));
+
+//        binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback()  // 由于设置了不可滑动，用户无法改变页面，故不需要覆写回调方法
+//        {
+//            @Override
+//            public void onPageSelected(int position)
+//            {
+//                binding.bottomNavigation.getMenu().getItem(position).setChecked(true);
+//                updateTopAppBar(position);
+//            }
+//        });
+
+        binding.viewPager.setUserInputEnabled(false);  // 设置 viewpager 不可滑动
+    }
+
+    /**
      * 初始化底部导航栏
      */
     private void initNavigation()
     {
-        binding.viewPager.setAdapter(new ViewPagerAdapter(this));
-        binding.viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback()
-        {
-            @Override
-            public void onPageSelected(int position)
-            {
-                binding.bottomNavigation.getMenu().getItem(position).setChecked(true);
-                updateTopAppBar(position);
-            }
-        });
+        // 设置空白标签不可选中且不可用
+        MenuItem menuItem = binding.bottomNavigation.getMenu().getItem(2);
+        menuItem.setCheckable(false);
+        menuItem.setEnabled(false);
 
         binding.bottomNavigation.setOnItemSelectedListener(item ->
         {
             int itemId = item.getItemId();
             if (itemId == R.id.navigation_home)
             {
-                binding.viewPager.setCurrentItem(0);
-                updateTopAppBar(0);
+                binding.viewPager.setCurrentItem(0, false);
+                viewModel.getTopAppBarTitle().setValue(R.string.app_name);
+            }
+            else if (itemId == R.id.navigation_analyse)
+            {
+                binding.viewPager.setCurrentItem(1, false);
+                viewModel.getTopAppBarTitle().setValue(R.string.anal);
             }
             else if (itemId == R.id.navigation_statistics)
             {
-                binding.viewPager.setCurrentItem(1);
-                updateTopAppBar(1);
+                binding.viewPager.setCurrentItem(2, false);
+                viewModel.getTopAppBarTitle().setValue(R.string.stats);
             }
             else if (itemId == R.id.navigation_account)
             {
-                binding.viewPager.setCurrentItem(2);
-                updateTopAppBar(2);
+                binding.viewPager.setCurrentItem(3, false);
+                viewModel.getTopAppBarTitle().setValue(R.string.acct);
             }
             else return false;
             return true;
@@ -153,13 +158,14 @@ public class MainActivity extends AppCompatActivity
     }
 
     /**
-     * 初始化底部导航栏————根据当前 Fragment 自动调整 TopAppBar 的 title 和 menu
+     * 初始化新增交易按钮
      */
-    private void updateTopAppBar(int position)
+    private void initAddTradeButton()
     {
-        String[] titles = new String[]{"Accounting", "Statistics", "Account"};
-        viewModel.getTopAppBarTitle().setValue(titles[position]);
-        binding.topAppBar.getMenu().clear();
-        if (position == 0) binding.topAppBar.inflateMenu(R.menu.top_bar_menu);
+        binding.addTradeButton.setOnClickListener(view ->
+        {
+            viewModel.addTradeInfo();
+            Toast.makeText(BaseApplication.getContext(), "点击了Button", Toast.LENGTH_SHORT).show();
+        });
     }
 }
