@@ -2,6 +2,7 @@ package com.example.accounting.utils.adapter;
 
 import static android.graphics.Color.rgb;
 
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.example.accounting.R;
 import com.example.accounting.model.room.bean.AcctType;
 import com.example.accounting.model.room.bean.TxnRvItem;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
 import java.util.Locale;
@@ -26,6 +28,7 @@ public class MyBindingAdapter
     @BindingAdapter({"app:homeRvItemList"})
     public static void setHomeRvItemList(RecyclerView recyclerView, LiveData<List<TxnRvItem>> itemList)
     {
+        Log.d("test", "setHomeRvItemList: ");
         TxnRvAdapter adapter = (TxnRvAdapter) recyclerView.getAdapter();
         if (adapter != null && itemList != null && itemList.getValue() != null)
         {
@@ -48,24 +51,24 @@ public class MyBindingAdapter
     {
         if (amount >= 0)
         {
-            textView.setText(String.format(Locale.CHINA, "%.2f", amount));
+            textView.setText(String.format(Locale.getDefault(), "%.2f", amount));
         }
         else
         {
-            textView.setText(String.format(Locale.CHINA, "- %.2f", Math.abs(amount)));  // 去掉原有的负号，手动绘制
+            textView.setText(String.format(Locale.getDefault(), "- %.2f", Math.abs(amount)));  // 去掉原有的负号，手动绘制
         }
     }
 
     @BindingAdapter({"app:itemAmount"})
     public static void setItemAmount(TextView textView, double amount)
     {
-        textView.setText(String.format(Locale.CHINA, "%.2f", amount));
+        textView.setText(String.format(Locale.getDefault(), "%.2f", amount));
     }
 
     @BindingAdapter({"app:headerItemAmount"})
     public static void setHeaderItemAmount(TextView textView, double amount)
     {
-        textView.setText(String.format(Locale.CHINA, "%.2f", Math.abs(amount)));  // 去掉原有的负号，手动绘制
+        textView.setText(String.format(Locale.getDefault(), "%.2f", Math.abs(amount)));  // 去掉原有的负号，手动绘制
     }
 
     @BindingAdapter({"app:headerItemToggle"})
@@ -80,12 +83,12 @@ public class MyBindingAdapter
     {
         if (amount >= 0)
         {
-            textView.setText(String.format(Locale.CHINA, "+ %.2f", amount));
+            textView.setText(String.format(Locale.getDefault(), "+ %.2f", amount));
             textView.setTextColor(rgb(0, 200, 83));
         }
         else
         {
-            textView.setText(String.format(Locale.CHINA, "- %.2f", Math.abs(amount)));  // 去掉原有的负号，手动绘制
+            textView.setText(String.format(Locale.getDefault(), "- %.2f", Math.abs(amount)));  // 去掉原有的负号，手动绘制
             textView.setTextColor(rgb(213, 0, 0));
         }
     }
@@ -125,6 +128,15 @@ public class MyBindingAdapter
         else
         {
             button.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @BindingAdapter({"app:monthIncome", "app:monthExpenditure"})
+    public static void setMonthAmount(MaterialTextView textView, LiveData<Double> income, LiveData<Double> expenditure)
+    {
+        if (income != null && income.getValue() != null && expenditure != null && expenditure.getValue() != null)
+        {
+            textView.setText(String.format(Locale.getDefault(), "收入：%.2f    支出：%.2f", income.getValue(), expenditure.getValue()));
         }
     }
 

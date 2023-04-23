@@ -43,10 +43,13 @@ public class TxnRvItemRepository
         return txnRvItemDao.queryAllIncomes();
     }
 
-
-
     public LiveData<List<TxnRvItem>> queryAll()
     {
         return txnRvItemDao.queryAll();
+    }
+
+    public LiveData<List<TxnRvItem>> queryAllByYearAndMonth(String year, String month)
+    {
+        return txnRvItemDao.queryAllByYearAndMonth(year, month);
     }
 }

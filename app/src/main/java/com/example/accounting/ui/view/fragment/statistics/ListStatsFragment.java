@@ -7,22 +7,13 @@ import com.example.accounting.BR;
 import com.example.accounting.R;
 import com.example.accounting.base.BaseFragment;
 import com.example.accounting.databinding.FragmentStatsListBinding;
-import com.example.accounting.model.room.bean.YearMonth;
 import com.example.accounting.ui.viewmodel.fragment.statistics.ListStatsFragViewModel;
 import com.example.accounting.utils.TxnRvItemDecoration;
 import com.example.accounting.utils.adapter.TxnRvAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, ListStatsFragViewModel>
 {
-    String[] yearArray;
-    String[][] monthArray;
-    int maxYearIndex;
-    int maxMonthIndex;
-
     @Override
     protected int getLayoutId()
     {
@@ -79,25 +70,25 @@ public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, Li
 
             // 设置年份选择器的范围和默认值
             yearPicker.setMinValue(0);
-            yearPicker.setMaxValue(maxYearIndex);
-            yearPicker.setDisplayedValues(yearArray);
-            yearPicker.setValue(maxYearIndex);
+            yearPicker.setMaxValue(viewModel.getYearArray().length - 1);
+            yearPicker.setDisplayedValues(viewModel.getYearArray());
+            yearPicker.setValue(viewModel.getCurrentYearIndex());
             yearPicker.setWrapSelectorWheel(false);  // 条目大于3时是否开启循环滚动
 
             // 设置月份选择器的范围和默认值
             monthPicker.setMinValue(0);
-            monthPicker.setMaxValue(maxMonthIndex);
-            monthPicker.setDisplayedValues(monthArray[maxYearIndex]);
-            monthPicker.setValue(maxMonthIndex);
+            monthPicker.setMaxValue(viewModel.getMonthArray().length - 1);
+            monthPicker.setDisplayedValues(viewModel.getMonthArray());
+            monthPicker.setValue(viewModel.getCurrentMonthIndex());
             monthPicker.setWrapSelectorWheel(false);  // 条目大于3时是否开启循环滚动
 
             yearPicker.setOnValueChangedListener((picker, oldVal, newVal) ->
             {
-                maxMonthIndex = monthArray[newVal].length - 1;
+                String[] monthArray = viewModel.getMonthArray(newVal);
                 monthPicker.setDisplayedValues(null);  // 先重置数组，避免发生下标越界
-                monthPicker.setMaxValue(maxMonthIndex);
-                monthPicker.setDisplayedValues(monthArray[newVal]);
-                monthPicker.setValue(maxMonthIndex);
+                monthPicker.setMaxValue(monthArray.length - 1);
+                monthPicker.setDisplayedValues(monthArray);
+                monthPicker.setValue(monthArray.length - 1);
             });
 
             // 添加取消和确定按钮的点击事件
@@ -108,8 +99,8 @@ public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, Li
                 int year = yearPicker.getValue();
                 int month = monthPicker.getValue();
 
-                viewModel.setCurrentYear(yearArray[year]);
-                viewModel.setCurrentMonth(monthArray[year][month]);
+                viewModel.setCurrentYear(year);
+                viewModel.setCurrentMonth(year, month);
 
                 // 关闭底部抽屉
                 bottomSheetDialog.dismiss();
@@ -126,40 +117,9 @@ public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, Li
      */
     private void initData()
     {
-        viewModel.getYearMonths().observe(this, yearMonths ->
-        {
-            List<String> yearList = new ArrayList<>();
-            List<List<String>> monthList = new ArrayList<>();
-            for (YearMonth yearMonth : yearMonths)
-            {
-                String year = yearMonth.getYear() + "年";
-                if (!yearList.contains(year))
-                {
-                    yearList.add(year);
-                    List<String> months = new ArrayList<>();
-                    months.add(yearMonth.getMonth() + "月");
-                    monthList.add(months);
-                }
-                else
-                {
-                    int index = yearList.indexOf(year);
-                    List<String> months = monthList.get(index);
-                    months.add(yearMonth.getMonth() + "月");
-                }
-            }
-
-            yearArray = yearList.toArray(new String[0]);
-            monthArray = new String[monthList.size()][];
-            for (int i = 0; i < monthList.size(); ++i)
-            {
-                List<String> months = monthList.get(i);
-                monthArray[i] = months.toArray(new String[0]);
-            }
-
-            maxYearIndex = yearArray.length - 1;
-            viewModel.setCurrentYear(yearArray[maxYearIndex]);
-            maxMonthIndex = monthArray[maxYearIndex].length - 1;
-            viewModel.setCurrentMonth(monthArray[maxYearIndex][maxMonthIndex]);
-        });
+        viewModel.initYearMonthList();
+        viewModel.observeYearMonthList(this);
+        viewModel.initCurrentYearAndMonth();
+        viewModel.observeCurrentYearAndMonth(this);
     }
 }
