@@ -26,8 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                app:currentMonth="@{viewModel.currentMonth}"
-                app:currentYear="@{viewModel.currentYear}"
+                app:currentYearAndMonth="@{viewModel.currentYearAndMonth}"
                 app:rippleColor="@null" />
 
             <com.google.android.material.textview.MaterialTextView

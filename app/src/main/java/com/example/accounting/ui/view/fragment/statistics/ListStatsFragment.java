@@ -37,7 +37,6 @@ public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, Li
     {
         super.initView();
 
-        initData();
         initDatePicker();
         initRecyclerView();
     }
@@ -110,16 +109,5 @@ public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, Li
             bottomSheetDialog.setContentView(bottomSheetView);
             bottomSheetDialog.show();
         });
-    }
-
-    /**
-     * 初始化数据（年份和月份）
-     */
-    private void initData()
-    {
-        viewModel.initYearMonthList();
-        viewModel.observeYearMonthList(this);
-        viewModel.initCurrentYearAndMonth();
-        viewModel.observeCurrentYearAndMonth(this);
     }
 }

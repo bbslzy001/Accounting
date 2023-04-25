@@ -1,13 +1,12 @@
 package com.example.accounting.ui.viewmodel.fragment.statistics;
 
-import android.util.Log;
-
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.Transformations;
 
 import com.example.accounting.base.BaseFragmentViewModel;
+import com.example.accounting.model.entity.YearAndMonth;
 import com.example.accounting.model.repository.TxnRvItemRepository;
 import com.example.accounting.model.repository.YearMonthRepository;
 import com.example.accounting.model.room.bean.TxnRvItem;
@@ -15,16 +14,15 @@ import com.example.accounting.model.room.bean.YearMonth;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ListStatsFragViewModel extends BaseFragmentViewModel
 {
     private final MutableLiveData<Double> monthIncome = new MutableLiveData<>();
     private final MutableLiveData<Double> monthExpenditure = new MutableLiveData<>();
-    private final MutableLiveData<String> currentYear = new MutableLiveData<>();
-    private final MutableLiveData<String> currentMonth = new MutableLiveData<>();
+    private final MutableLiveData<YearAndMonth> currentYearAndMonth = new MutableLiveData<>();
     private LiveData<List<TxnRvItem>> itemList;  // 获取实时年月对应的交易记录列表
     private LiveData<List<YearMonth>> yearMonthList;  // 获取实时年月列表
-
     private List<String> yearList;  // 根据实时年月列表计算年列表
     private List<List<String>> monthList;  // 根据实时年月列表计算月列表
     private final TxnRvItemRepository txnRvItemRepository = new TxnRvItemRepository();
@@ -33,6 +31,18 @@ public class ListStatsFragViewModel extends BaseFragmentViewModel
     public ListStatsFragViewModel()
     {
         super();
+        initYearMonthList();
+        initItemList();
+    }
+
+    private void initItemList()
+    {
+        itemList = Transformations.switchMap(currentYearAndMonth, yearAndMonth ->
+        {
+            String year = yearAndMonth.getYear().substring(0, yearAndMonth.getYear().length() - 1);
+            String month = yearAndMonth.getMonth().substring(0, yearAndMonth.getMonth().length() - 1);
+            return txnRvItemRepository.queryAllByYearAndMonth(year, month);
+        });
     }
 
     public String[] getYearArray()
@@ -42,7 +52,7 @@ public class ListStatsFragViewModel extends BaseFragmentViewModel
 
     public String[] getMonthArray()
     {
-        int yearIndex = yearList.indexOf(currentYear.getValue());
+        int yearIndex = yearList.indexOf(Objects.requireNonNull(currentYearAndMonth.getValue()).getYear());
         return monthList.get(yearIndex).toArray(new String[0]);
     }
 
@@ -53,25 +63,27 @@ public class ListStatsFragViewModel extends BaseFragmentViewModel
 
     public int getCurrentYearIndex()
     {
-        return yearList.indexOf(currentYear.getValue());
+        return yearList.indexOf(Objects.requireNonNull(currentYearAndMonth.getValue()).getYear());
     }
 
     public int getCurrentMonthIndex()
     {
-        int yearIndex = yearList.indexOf(currentYear.getValue());
-        return monthList.get(yearIndex).indexOf(currentMonth.getValue());
+        int yearIndex = yearList.indexOf(Objects.requireNonNull(currentYearAndMonth.getValue()).getYear());
+        return monthList.get(yearIndex).indexOf(currentYearAndMonth.getValue().getMonth());
     }
 
     public void setCurrentYear(int yearIndex)
     {
         String year = yearList.get(yearIndex);
-        currentYear.setValue(year);
+        String month = Objects.requireNonNull(currentYearAndMonth.getValue()).getMonth();
+        currentYearAndMonth.setValue(new YearAndMonth(year, month));
     }
 
     public void setCurrentMonth(int yearIndex, int monthIndex)
     {
+        String year = yearList.get(yearIndex);
         String month = monthList.get(yearIndex).get(monthIndex);
-        this.currentMonth.setValue(month);
+        currentYearAndMonth.setValue(new YearAndMonth(year, month));
     }
 
     public LiveData<List<TxnRvItem>> getItemList()
@@ -79,14 +91,9 @@ public class ListStatsFragViewModel extends BaseFragmentViewModel
         return itemList;
     }
 
-    public MutableLiveData<String> getCurrentYear()
+    public MutableLiveData<YearAndMonth> getCurrentYearAndMonth()
     {
-        return currentYear;
-    }
-
-    public MutableLiveData<String> getCurrentMonth()
-    {
-        return currentMonth;
+        return currentYearAndMonth;
     }
 
     public MutableLiveData<Double> getMonthIncome()
@@ -99,12 +106,12 @@ public class ListStatsFragViewModel extends BaseFragmentViewModel
         return monthExpenditure;
     }
 
-    public void observeYearMonthList(LifecycleOwner owner)
+    public void initYearMonthList()
     {
-        Log.d("test", "监听年月列表变化");
-        yearMonthList.observe(owner, yearMonthList ->
+        yearMonthList = yearMonthRepository.queryAll();
+
+        yearMonthList.observeForever(yearMonthList ->
         {
-            Log.d("test", "检测到年月列表变化");
             List<String> yearList = new ArrayList<>();
             List<List<String>> monthList = new ArrayList<>();
             for (YearMonth yearMonth : yearMonthList)
@@ -127,64 +134,29 @@ public class ListStatsFragViewModel extends BaseFragmentViewModel
 
             this.yearList = yearList;
             this.monthList = monthList;
+            initCurrentYearAndMonth();
         });
-    }
-
-    public void observeCurrentYearAndMonth(LifecycleOwner owner)
-    {
-        Log.d("test", "监听年月变化");
-        currentYear.observe(owner, s ->
-        {
-            Log.d("test", "检测到年变化");
-            Log.d("test", "observeCurrentYearAndMonth: "+currentYear.getValue()+" "+currentMonth.getValue());
-            if(currentYear.getValue()!=null&&currentMonth.getValue()!=null) itemList = txnRvItemRepository.queryAllByYearAndMonth(currentYear.getValue().substring(0,currentYear.getValue().length()-1), currentMonth.getValue().substring(0,currentMonth.getValue().length()-1));
-        });
-        currentMonth.observe(owner, s ->
-        {
-            Log.d("test", "检测到月变化");
-            Log.d("test", "observeCurrentYearAndMonth: "+currentYear.getValue().substring(0,currentYear.getValue().length()-1)+" "+currentMonth.getValue().substring(0,currentMonth.getValue().length()-1));
-            if(currentYear.getValue()!=null&&currentMonth.getValue()!=null) itemList = txnRvItemRepository.queryAllByYearAndMonth(currentYear.getValue().substring(0,currentYear.getValue().length()-1), currentMonth.getValue().substring(0,currentMonth.getValue().length()-1));
-        });
-    }
-
-    public void initYearMonthList()
-    {
-        Log.d("test", "初始化年月列表");
-        yearMonthList = yearMonthRepository.queryAll();
     }
 
     public void initCurrentYearAndMonth()
     {
-        if (yearList == null || monthList == null) {
-            // if yearList or monthList is null, wait for LiveData to update them
-            Log.d("test", "年列表和月列表没有更新，监听年列表和月列表变化");
+        if (yearList == null || monthList == null)
+        {
             yearMonthList.observeForever(new Observer<>()
             {
                 @Override
                 public void onChanged(List<YearMonth> yearMonths)
                 {
-                    Log.d("test", "年列表和月列表异步更新");
                     yearMonthList.removeObserver(this);
                     initCurrentYearAndMonth();
                 }
             });
-        } else {
-            // initialize currentYear and currentMonth
-            Log.d("test", "年列表和月列表正常更新");
-            currentYear.setValue(yearList.get(yearList.size() - 1));
-            currentMonth.setValue(monthList.get(yearList.size() - 1).get(monthList.get(yearList.size() - 1).size() - 1));
         }
-//        currentYear.setValue(yearList.get(yearList.size() - 1));
-//        currentMonth.setValue(monthList.get(yearList.size() - 1).get(monthList.get(yearList.size() - 1).size() - 1));
-    }
-
-    public void setMonthIncome(Double monthIncome)
-    {
-        this.monthIncome.setValue(monthIncome);
-    }
-
-    public void setMonthExpenditure(Double monthExpenditure)
-    {
-        this.monthExpenditure.setValue(monthExpenditure);
+        else
+        {
+            String year = yearList.get(yearList.size() - 1);
+            String month = monthList.get(yearList.size() - 1).get(monthList.get(yearList.size() - 1).size() - 1);
+            currentYearAndMonth.setValue(new YearAndMonth(year, month));
+        }
     }
 }

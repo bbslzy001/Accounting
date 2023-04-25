@@ -2,7 +2,6 @@ package com.example.accounting.utils.adapter;
 
 import static android.graphics.Color.rgb;
 
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,7 @@ import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.accounting.R;
+import com.example.accounting.model.entity.YearAndMonth;
 import com.example.accounting.model.room.bean.AcctType;
 import com.example.accounting.model.room.bean.TxnRvItem;
 import com.google.android.material.appbar.MaterialToolbar;
@@ -28,7 +28,6 @@ public class MyBindingAdapter
     @BindingAdapter({"app:homeRvItemList"})
     public static void setHomeRvItemList(RecyclerView recyclerView, LiveData<List<TxnRvItem>> itemList)
     {
-        Log.d("test", "setHomeRvItemList: ");
         TxnRvAdapter adapter = (TxnRvAdapter) recyclerView.getAdapter();
         if (adapter != null && itemList != null && itemList.getValue() != null)
         {
@@ -116,13 +115,14 @@ public class MyBindingAdapter
         }
     }
 
-    @BindingAdapter({"app:currentYear", "app:currentMonth"})
-    public static void setCurrentDate(Button button, LiveData<String> currentYear, LiveData<String> currentMonth)
+    @BindingAdapter({"app:currentYearAndMonth"})
+    public static void setCurrentDate(Button button, LiveData<YearAndMonth> currentYearAndMonth)
     {
-        if (currentYear != null && currentYear.getValue() != null && currentMonth != null && currentMonth.getValue() != null)
+        if (currentYearAndMonth != null && currentYearAndMonth.getValue() != null)
         {
             if (button.getVisibility() == View.INVISIBLE) button.setVisibility(View.VISIBLE);
-            String date = String.format(Locale.getDefault(), "%s%s ▼", currentYear.getValue(), currentMonth.getValue());
+            YearAndMonth yearAndMonth = currentYearAndMonth.getValue();
+            String date = String.format(Locale.getDefault(), "%s%s ▼", yearAndMonth.getYear(), yearAndMonth.getMonth());
             button.setText(date);
         }
         else
