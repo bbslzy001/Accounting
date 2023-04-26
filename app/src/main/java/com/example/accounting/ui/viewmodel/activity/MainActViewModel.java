@@ -42,11 +42,31 @@ public class MainActViewModel extends BaseActivityViewModel
     public void addTradeInfo()
     {
         txnInfoRepository.insert(new TxnInfo(0, 10, "2022/04/01", "20:55:00", "nothing", 1, 1));
+        txnInfoRepository.insert(new TxnInfo(0, 10, "2022/04/03", "20:55:00", "nothing", 1, 1));
+        txnInfoRepository.insert(new TxnInfo(0, 10, "2022/04/11", "20:55:00", "nothing", 1, 1));
+        txnInfoRepository.insert(new TxnInfo(0, 10, "2022/04/19", "20:55:00", "nothing", 1, 1));
+        txnInfoRepository.insert(new TxnInfo(0, 10, "2022/04/23", "20:55:00", "nothing", 1, 1));
+        txnInfoRepository.insert(new TxnInfo(0, 10, "2022/04/24", "20:55:00", "nothing", 1, 1));
         txnInfoRepository.insert(new TxnInfo(0, 10, "2022/05/02", "21:55:55", "nothing", 1, 1));
+        txnInfoRepository.insert(new TxnInfo(0, 10, "2022/05/22", "21:55:55", "nothing", 1, 1));
+        txnInfoRepository.insert(new TxnInfo(0, 10, "2022/05/12", "21:55:55", "nothing", 1, 1));
+        txnInfoRepository.insert(new TxnInfo(0, 10, "2022/05/16", "21:55:55", "nothing", 1, 1));
         txnInfoRepository.insert(new TxnInfo(0, 10, "2023/04/03", "22:55:00", "nothing", 1, 1));
+        txnInfoRepository.insert(new TxnInfo(0, 10, "2023/04/08", "22:55:00", "nothing", 1, 1));
+        txnInfoRepository.insert(new TxnInfo(0, 10, "2023/04/09", "22:55:00", "nothing", 1, 1));
+        txnInfoRepository.insert(new TxnInfo(0, 10, "2023/04/01", "22:55:00", "nothing", 1, 1));
         txnInfoRepository.insert(new TxnInfo(0, -10, "2020/06/03", "22:55:00", "nothing", 1, 1));
-        txnInfoRepository.insert(new TxnInfo(0, -10, "2023/01/03", "22:55:00", "nothing", 1, 1));
+        txnInfoRepository.insert(new TxnInfo(0, -10, "2020/06/06", "22:55:00", "nothing", 1, 1));
+        txnInfoRepository.insert(new TxnInfo(0, -10, "2020/06/07", "22:55:00", "nothing", 1, 1));
+        txnInfoRepository.insert(new TxnInfo(0, -10, "2020/06/22", "22:55:00", "nothing", 1, 1));
+        txnInfoRepository.insert(new TxnInfo(0, -10, "2023/01/19", "22:55:00", "nothing", 1, 1));
+        txnInfoRepository.insert(new TxnInfo(0, -10, "2023/01/01", "22:55:00", "nothing", 1, 1));
+        txnInfoRepository.insert(new TxnInfo(0, -10, "2023/01/09", "22:55:00", "nothing", 1, 1));
         txnInfoRepository.insert(new TxnInfo(0, -10, "2021/08/03", "22:55:00", "nothing", 1, 1));
+        txnInfoRepository.insert(new TxnInfo(0, -10, "2021/08/13", "22:55:00", "nothing", 1, 1));
+        txnInfoRepository.insert(new TxnInfo(0, -10, "2021/08/23", "22:55:00", "nothing", 1, 1));
+        txnInfoRepository.insert(new TxnInfo(0, -10, "2021/08/31", "22:55:00", "nothing", 1, 1));
+        txnInfoRepository.insert(new TxnInfo(0, -10, "2021/08/29", "22:55:00", "nothing", 1, 1));
     }
 
     public void updateStatsFragState()

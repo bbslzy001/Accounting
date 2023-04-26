@@ -136,7 +136,7 @@ public class MyBindingAdapter
     {
         if (income != null && income.getValue() != null && expenditure != null && expenditure.getValue() != null)
         {
-            textView.setText(String.format(Locale.getDefault(), "收入：%.2f    支出：%.2f", income.getValue(), expenditure.getValue()));
+            textView.setText(String.format(Locale.getDefault(), "收：%.2f    支：%.2f", income.getValue(), expenditure.getValue()));
         }
     }
 

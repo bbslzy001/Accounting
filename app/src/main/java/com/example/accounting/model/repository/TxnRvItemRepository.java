@@ -18,34 +18,14 @@ public class TxnRvItemRepository
         txnRvItemDao = myDatabase.getTxnRvItemDao();
     }
 
-    public LiveData<Double> queryExpenditureAmount()
+    public LiveData<Double> queryIncomeByYearAndMonth(String year, String month)
     {
-        return txnRvItemDao.queryExpenditureAmount();
+        return txnRvItemDao.queryIncomeByYearAndMonth(year, month);
     }
 
-    public LiveData<Double> queryIncomeAmount()
+    public LiveData<Double> queryExpenditureByYearAndMonth(String year, String month)
     {
-        return txnRvItemDao.queryIncomeAmount();
-    }
-
-    public LiveData<Double> queryTotalAmount()
-    {
-        return txnRvItemDao.queryTotalAmount();
-    }
-
-    public LiveData<List<TxnRvItem>> queryAllExpenditures()
-    {
-        return txnRvItemDao.queryAllExpenditures();
-    }
-
-    public LiveData<List<TxnRvItem>> queryAllIncomes()
-    {
-        return txnRvItemDao.queryAllIncomes();
-    }
-
-    public LiveData<List<TxnRvItem>> queryAll()
-    {
-        return txnRvItemDao.queryAll();
+        return txnRvItemDao.queryExpenditureByYearAndMonth(year, month);
     }
 
     public LiveData<List<TxnRvItem>> queryAllByYearAndMonth(String year, String month)

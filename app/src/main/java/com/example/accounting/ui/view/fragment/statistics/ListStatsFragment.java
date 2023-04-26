@@ -39,6 +39,7 @@ public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, Li
 
         initDatePicker();
         initRecyclerView();
+        observeYearMonthList();
     }
 
     /**
@@ -53,6 +54,9 @@ public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, Li
         binding.recyclerView.addOnItemTouchListener(itemDecoration);
     }
 
+    /**
+     * 初始化日期选择器
+     */
     private void initDatePicker()
     {
         binding.textButton.setOnClickListener(view ->
@@ -109,5 +113,13 @@ public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, Li
             bottomSheetDialog.setContentView(bottomSheetView);
             bottomSheetDialog.show();
         });
+    }
+
+    /**
+     * 观察年月列表
+     */
+    private void observeYearMonthList()
+    {
+        viewModel.observeYearMonthList(this);
     }
 }
