@@ -3,14 +3,19 @@ package com.example.accounting.ui.view.fragment.statistics;
 import android.view.View;
 import android.widget.NumberPicker;
 
+import androidx.fragment.app.DialogFragment;
+
 import com.example.accounting.BR;
 import com.example.accounting.R;
 import com.example.accounting.base.BaseFragment;
 import com.example.accounting.databinding.FragmentStatsListBinding;
+import com.example.accounting.ui.view.fragment.dialog.EditTxnFragment;
 import com.example.accounting.ui.viewmodel.fragment.statistics.ListStatsFragViewModel;
 import com.example.accounting.utils.TxnRvItemDecoration;
 import com.example.accounting.utils.adapter.TxnRvAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+
+import java.util.Objects;
 
 public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, ListStatsFragViewModel>
 {
@@ -48,6 +53,13 @@ public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, Li
     private void initRecyclerView()
     {
         TxnRvAdapter adapter = new TxnRvAdapter();
+        adapter.setOnItemClickListener(((groupIndex, position) -> {
+            int index = position-groupIndex;
+            int id = Objects.requireNonNull(viewModel.getItemList().getValue()).get(index).getTxnInfoId();
+            EditTxnFragment editTxnFragment = new EditTxnFragment(id);
+            editTxnFragment.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Material_NoActionBar_Fullscreen);
+            editTxnFragment.show(requireActivity().getSupportFragmentManager(), "EditTxnFragment");
+        }));
         binding.recyclerView.setAdapter(adapter);
         TxnRvItemDecoration itemDecoration = new TxnRvItemDecoration(this.getContext(), adapter);
         binding.recyclerView.addItemDecoration(itemDecoration);

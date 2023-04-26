@@ -3,14 +3,12 @@ package com.example.accounting.utils.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.accounting.R;
-import com.example.accounting.base.BaseApplication;
 import com.example.accounting.databinding.RvHeaderItemTxnBinding;
 import com.example.accounting.databinding.RvSubItemTxnBinding;
 import com.example.accounting.model.entity.TxnRvGroup;
@@ -31,6 +29,18 @@ public class TxnRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public static final int SUB_ITEM = 1;  // 列表项
     private List<TxnRvGroup> groupList = new ArrayList<>();  // 所有 Group 所构成的 List
     private List<ItemInfo> itemInfoList = new ArrayList<>();  // 所有 Item 的信息 所构成的 List
+
+    private OnItemClickListener onItemClickListener;
+
+    public interface OnItemClickListener
+    {
+        void onItemClick(int groupIndex, int position);
+    }
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener)
+    {
+        this.onItemClickListener = onItemClickListener;
+    }
 
     public TxnRvAdapter()
     {
@@ -220,8 +230,13 @@ public class TxnRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         @Override
         public boolean onLongClick(View view)
         {
-            Toast.makeText(BaseApplication.getContext(), "当前列表项金额：null", Toast.LENGTH_SHORT).show();
-            return true;
+            if (onItemClickListener != null)
+            {
+                int position = getAdapterPosition();  // 获取ViewHolder的位置
+                onItemClickListener.onItemClick(itemInfoList.get(position).groupIndex, position);
+                return true;
+            }
+            return false;
         }
     }
 
