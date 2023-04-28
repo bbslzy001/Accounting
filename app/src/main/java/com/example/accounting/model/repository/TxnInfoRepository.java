@@ -27,6 +27,11 @@ public class TxnInfoRepository
         executor.execute(()-> txnInfoDao.insert(txnInfo));
     }
 
+    public LiveData<TxnInfo> queryById(int id)
+    {
+        return txnInfoDao.queryById(id);
+    }
+
     public LiveData<List<TxnInfo>> queryAll()
     {
         return txnInfoDao.queryAll();

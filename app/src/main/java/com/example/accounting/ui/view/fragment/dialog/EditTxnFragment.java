@@ -12,10 +12,8 @@ import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
-import java.util.TimeZone;
 
 public class EditTxnFragment extends BaseDialogFragment<FragmentEditTxnBinding, EditTxnFragViewModel>
 {
@@ -49,32 +47,50 @@ public class EditTxnFragment extends BaseDialogFragment<FragmentEditTxnBinding, 
     protected void initView()
     {
         super.initView();
-        viewModel.setTxnInfoId(txnInfoId);
-        ArrayAdapter<String> adapterForTvnAcct = new ArrayAdapter<>(requireContext(), R.layout.text_field_list_item, viewModel.getTxnAcctList());
+        viewModel.initTxnInfo(txnInfoId);
+        viewModel.getIsAllCompleted().observe(this, isAllCompleted ->
+        {
+            if (isAllCompleted == 0)
+            {
+                initUI();
+            }
+        });
+    }
+
+    private void initUI()
+    {
+        initTopBar();
+        initDatePicker();
+        initTimePicker();
+        initSpinner();
+        initToggleButton();
+        initAmountText();
+        initRemarkText();
+    }
+
+    private void initRemarkText()
+    {
+        binding.txnRemark.setText(viewModel.getRemark());
+    }
+
+    private void initSpinner()
+    {
+        ArrayAdapter<String> adapterForTvnAcct = new ArrayAdapter<>(requireContext(), R.layout.text_field_list_item, viewModel.getAcctTypeArray());
         binding.txnAcct.setAdapter(adapterForTvnAcct);
-        binding.txnAcct.setText(viewModel.getTxnAcctList()[0], false);
-        ArrayAdapter<String> adapterForTvnType = new ArrayAdapter<>(requireContext(), R.layout.text_field_list_item, viewModel.getTxnTypeList());
+        binding.txnAcct.setText(viewModel.getAcctTypeArray()[0], false);
+        ArrayAdapter<String> adapterForTvnType = new ArrayAdapter<>(requireContext(), R.layout.text_field_list_item, viewModel.getTxnTypeArray());
         binding.txnType.setAdapter(adapterForTvnType);
-        binding.txnType.setText(viewModel.getTxnTypeList()[2], false);
-        binding.txnAmount.setText(String.valueOf(viewModel.getAmount()));
-        binding.close.setOnClickListener(view -> dismiss());
-        binding.save.setOnClickListener(view -> dismiss());
+        binding.txnType.setText(viewModel.getTxnTypeArray()[2], false);
+    }
+
+    private void initDatePicker()
+    {
         binding.txnDate.setOnClickListener(view ->
         {
-            String dateString = "2022/01/01"; // 指定日期字符串
-            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC")); // 创建UTC时区的Calendar对象
-            String[] dateParts = dateString.split("/"); // 分割日期字符串
-            int year = Integer.parseInt(dateParts[0]); // 获取年份
-            int month = Integer.parseInt(dateParts[1]) - 1; // 获取月份（Calendar月份从0开始）
-            int day = Integer.parseInt(dateParts[2]); // 获取日
-            calendar.set(year, month, day, 0, 0, 0); // 设置Calendar对象的时间为指定日期的第一个时刻
-            calendar.set(Calendar.MILLISECOND, 0); // 将毫秒数设置为0
-            long milliseconds = calendar.getTimeInMillis(); // 获取时间戳
-
             // 创建MaterialDatePicker
             MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
                     .setTitleText("选择日期")
-                    .setSelection(milliseconds)
+                    .setSelection(viewModel.getMilliseconds())
                     //.setSelection(MaterialDatePicker.todayInUtcMilliseconds())  设置为当前日期
                     .build();
 
@@ -92,13 +108,17 @@ public class EditTxnFragment extends BaseDialogFragment<FragmentEditTxnBinding, 
             // 显示日期选择器
             datePicker.show(requireActivity().getSupportFragmentManager(), "datePicker");
         });
+    }
+
+    private void initTimePicker()
+    {
         binding.txnTime.setOnClickListener(view ->
         {
             // 创建 MaterialTimePicker
             MaterialTimePicker timePicker = new MaterialTimePicker.Builder()
                     .setTimeFormat(TimeFormat.CLOCK_24H)
-                    .setHour(12)
-                    .setMinute(0)
+                    .setHour(viewModel.getHour())
+                    .setMinute(viewModel.getMinute())
                     .setTitleText("选择时间")
                     .build();
 
@@ -117,5 +137,22 @@ public class EditTxnFragment extends BaseDialogFragment<FragmentEditTxnBinding, 
             // 显示时间选择器
             timePicker.show(requireActivity().getSupportFragmentManager(), "timePicker");
         });
+    }
+
+    private void initToggleButton()
+    {
+        if (viewModel.isIncome()) binding.toggleButton.check(binding.toggleButton.getChildAt(0).getId());
+        else binding.toggleButton.check(binding.toggleButton.getChildAt(1).getId());
+    }
+
+    private void initAmountText()
+    {
+        binding.txnAmount.setText(String.valueOf(viewModel.getAmount()));
+    }
+
+    private void initTopBar()
+    {
+        binding.close.setOnClickListener(view -> dismiss());
+        binding.save.setOnClickListener(view -> dismiss());
     }
 }
