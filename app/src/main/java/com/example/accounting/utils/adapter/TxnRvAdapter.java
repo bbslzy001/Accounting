@@ -30,16 +30,17 @@ public class TxnRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private List<TxnRvGroup> groupList = new ArrayList<>();  // 所有 Group 所构成的 List
     private List<ItemInfo> itemInfoList = new ArrayList<>();  // 所有 Item 的信息 所构成的 List
 
-    private OnItemClickListener onItemClickListener;
+    private OnSubItemClickListener onSubItemClickListener;
 
-    public interface OnItemClickListener
+    public interface OnSubItemClickListener
     {
         void onItemClick(int groupIndex, int position);
+        void onItemLongClick(int groupIndex, int position);
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener)
+    public void setOnSubItemClickListener(OnSubItemClickListener onSubItemClickListener)
     {
-        this.onItemClickListener = onItemClickListener;
+        this.onSubItemClickListener = onSubItemClickListener;
     }
 
     public TxnRvAdapter()
@@ -216,7 +217,7 @@ public class TxnRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    private class SubItemViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener
+    private class SubItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener
     {
         private final RvSubItemTxnBinding binding;
 
@@ -224,16 +225,27 @@ public class TxnRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         {
             super(binding.getRoot());
             this.binding = binding;
-            this.binding.getRoot().setOnLongClickListener(this);  // 整个 SubItemViewHolder 的长点击事件绑定
+            this.binding.getRoot().setOnClickListener(this);  // 整个 SubItemViewHolder 的点击事件绑定
+            this.binding.getRoot().setOnLongClickListener(this);  // 整个 SubItemViewHolder 的长按点击事件绑定
+        }
+
+        @Override
+        public void onClick(View view)
+        {
+            if (onSubItemClickListener != null)
+            {
+                int position = getAdapterPosition();  // 获取ViewHolder的位置
+                onSubItemClickListener.onItemClick(itemInfoList.get(position).groupIndex, position);
+            }
         }
 
         @Override
         public boolean onLongClick(View view)
         {
-            if (onItemClickListener != null)
+            if (onSubItemClickListener != null)
             {
                 int position = getAdapterPosition();  // 获取ViewHolder的位置
-                onItemClickListener.onItemClick(itemInfoList.get(position).groupIndex, position);
+                onSubItemClickListener.onItemLongClick(itemInfoList.get(position).groupIndex, position);
                 return true;
             }
             return false;

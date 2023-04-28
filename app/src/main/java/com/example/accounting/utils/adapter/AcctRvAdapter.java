@@ -90,7 +90,6 @@ public class AcctRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             RvItemAcctBinding binding = DataBindingUtil.inflate(inflater, R.layout.rv_item_acct, parent, false);
             return new ItemViewHolder(binding);
         }
-
     }
 
     @Override
@@ -108,10 +107,9 @@ public class AcctRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             viewHolder.binding.setAcctType(itemList.get(position - 1));  // 去掉头部
             viewHolder.binding.executePendingBindings();
         }
-
     }
 
-    public static class HeaderViewHolder extends RecyclerView.ViewHolder
+    private static class HeaderViewHolder extends RecyclerView.ViewHolder
     {
         private final RvHeaderAcctBinding binding;
 
@@ -122,7 +120,7 @@ public class AcctRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    public static class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+    private static class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         private final RvItemAcctBinding binding;
 

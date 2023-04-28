@@ -14,6 +14,7 @@ import com.example.accounting.ui.viewmodel.fragment.statistics.ListStatsFragView
 import com.example.accounting.utils.TxnRvItemDecoration;
 import com.example.accounting.utils.adapter.TxnRvAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.util.Objects;
 
@@ -53,13 +54,41 @@ public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, Li
     private void initRecyclerView()
     {
         TxnRvAdapter adapter = new TxnRvAdapter();
-        adapter.setOnItemClickListener(((groupIndex, position) -> {
-            int index = position-groupIndex;
-            int id = Objects.requireNonNull(viewModel.getItemList().getValue()).get(index).getTxnInfoId();
-            EditTxnFragment editTxnFragment = new EditTxnFragment(id);
-            editTxnFragment.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Material_NoActionBar_Fullscreen);
-            editTxnFragment.show(requireActivity().getSupportFragmentManager(), "EditTxnFragment");
-        }));
+        adapter.setOnSubItemClickListener(new TxnRvAdapter.OnSubItemClickListener()
+        {
+            @Override
+            public void onItemClick(int groupIndex, int position)
+            {
+                new MaterialAlertDialogBuilder(requireActivity())
+                        .setTitle("交易信息")
+                        .setMessage("123123456\n123456\n121221\n122121\n122121")
+                        .setPositiveButton("关闭", null)
+                        .show();
+            }
+
+            @Override
+            public void onItemLongClick(int groupIndex, int position)
+            {
+                new MaterialAlertDialogBuilder(requireActivity())
+                        .setTitle("执行操作")
+                        .setNeutralButton("取消",null)
+                        .setNegativeButton("删除", (dialogInterface, i) ->
+                        {
+                            int index = position - groupIndex;
+                            int id = Objects.requireNonNull(viewModel.getItemList().getValue()).get(index).getTxnInfoId();
+                            viewModel.deleteTxnInfo(id);
+                        })
+                        .setPositiveButton("编辑", (dialogInterface, i) ->
+                        {
+                            int index = position - groupIndex;
+                            int id = Objects.requireNonNull(viewModel.getItemList().getValue()).get(index).getTxnInfoId();
+                            EditTxnFragment editTxnFragment = new EditTxnFragment(id);
+                            editTxnFragment.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Material_NoActionBar_Fullscreen);
+                            editTxnFragment.show(requireActivity().getSupportFragmentManager(), "EditTxnFragment");
+                        })
+                        .show();
+            }
+        });
         binding.recyclerView.setAdapter(adapter);
         TxnRvItemDecoration itemDecoration = new TxnRvItemDecoration(this.getContext(), adapter);
         binding.recyclerView.addItemDecoration(itemDecoration);

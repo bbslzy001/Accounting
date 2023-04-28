@@ -109,6 +109,10 @@ public class ListStatsFragViewModel extends BaseFragmentViewModel
         currentYearAndMonth.setValue(new YearAndMonth(year, month));
     }
 
+    public void deleteTxnInfo(int id)
+    {
+    }
+
     public LiveData<List<TxnRvItem>> getItemList()
     {
         return itemList;
