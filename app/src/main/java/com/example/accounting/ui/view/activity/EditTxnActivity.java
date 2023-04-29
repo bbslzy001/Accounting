@@ -1,12 +1,13 @@
-package com.example.accounting.ui.view.fragment.dialog;
+package com.example.accounting.ui.view.activity;
 
 import android.widget.ArrayAdapter;
 
 import com.example.accounting.BR;
 import com.example.accounting.R;
-import com.example.accounting.base.BaseDialogFragment;
-import com.example.accounting.databinding.FragmentEditTxnBinding;
-import com.example.accounting.ui.viewmodel.fragment.dialog.EditTxnFragViewModel;
+import com.example.accounting.base.BaseActivity;
+import com.example.accounting.databinding.ActivityEditTxnBinding;
+import com.example.accounting.model.room.bean.TxnRvItem;
+import com.example.accounting.ui.viewmodel.activity.EditTxnActViewModel;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
@@ -15,20 +16,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class EditTxnFragment extends BaseDialogFragment<FragmentEditTxnBinding, EditTxnFragViewModel>
+public class EditTxnActivity extends BaseActivity<ActivityEditTxnBinding, EditTxnActViewModel>
 {
-    private final int txnInfoId;
-
     @Override
     protected int getLayoutId()
     {
-        return R.layout.fragment_edit_txn;
+        return R.layout.activity_edit_txn;
     }
 
     @Override
-    protected Class<EditTxnFragViewModel> getViewModelClass()
+    protected Class<EditTxnActViewModel> getViewModelClass()
     {
-        return EditTxnFragViewModel.class;
+        return EditTxnActViewModel.class;
     }
 
     @Override
@@ -37,17 +36,12 @@ public class EditTxnFragment extends BaseDialogFragment<FragmentEditTxnBinding, 
         return BR.viewModel;
     }
 
-    public EditTxnFragment(int txnInfoId)
-    {
-        super();
-        this.txnInfoId = txnInfoId;
-    }
-
     @Override
     protected void initView()
     {
         super.initView();
-        viewModel.initTxnInfo(txnInfoId);
+        viewModel.setTxnRvItem((TxnRvItem) getIntent().getSerializableExtra("txnRvItem"));
+        viewModel.initTxnInfo();
         viewModel.getIsAllCompleted().observe(this, isAllCompleted ->
         {
             if (isAllCompleted == 0)
@@ -70,21 +64,22 @@ public class EditTxnFragment extends BaseDialogFragment<FragmentEditTxnBinding, 
 
     private void initRemarkText()
     {
-        binding.txnRemark.setText(viewModel.getRemark());
+        binding.txnRemark.setText(viewModel.getTxnRvItem().getRemark());
     }
 
     private void initSpinner()
     {
-        ArrayAdapter<String> adapterForTvnAcct = new ArrayAdapter<>(requireContext(), R.layout.text_field_list_item, viewModel.getAcctTypeArray());
+        ArrayAdapter<String> adapterForTvnAcct = new ArrayAdapter<>(this, R.layout.text_field_list_item, viewModel.getAcctTypeArray());
         binding.txnAcct.setAdapter(adapterForTvnAcct);
-        binding.txnAcct.setText(viewModel.getAcctTypeArray()[0], false);
-        ArrayAdapter<String> adapterForTvnType = new ArrayAdapter<>(requireContext(), R.layout.text_field_list_item, viewModel.getTxnTypeArray());
+        binding.txnAcct.setText(viewModel.getTxnRvItem().getAcctType(), false);
+        ArrayAdapter<String> adapterForTvnType = new ArrayAdapter<>(this, R.layout.text_field_list_item, viewModel.getTxnTypeArray());
         binding.txnType.setAdapter(adapterForTvnType);
-        binding.txnType.setText(viewModel.getTxnTypeArray()[2], false);
+        binding.txnType.setText(viewModel.getTxnRvItem().getTxnType(), false);
     }
 
     private void initDatePicker()
     {
+        binding.txnDate.setText(viewModel.getTxnRvItem().getDate());
         binding.txnDate.setOnClickListener(view ->
         {
             // 创建MaterialDatePicker
@@ -106,12 +101,13 @@ public class EditTxnFragment extends BaseDialogFragment<FragmentEditTxnBinding, 
             });
 
             // 显示日期选择器
-            datePicker.show(requireActivity().getSupportFragmentManager(), "datePicker");
+            datePicker.show(getSupportFragmentManager(), "datePicker");
         });
     }
 
     private void initTimePicker()
     {
+        binding.txnTime.setText(viewModel.getTxnRvItem().getTime());
         binding.txnTime.setOnClickListener(view ->
         {
             // 创建 MaterialTimePicker
@@ -135,24 +131,24 @@ public class EditTxnFragment extends BaseDialogFragment<FragmentEditTxnBinding, 
             });
 
             // 显示时间选择器
-            timePicker.show(requireActivity().getSupportFragmentManager(), "timePicker");
+            timePicker.show(getSupportFragmentManager(), "timePicker");
         });
     }
 
     private void initToggleButton()
     {
-        if (viewModel.isIncome()) binding.toggleButton.check(binding.toggleButton.getChildAt(0).getId());
+        if (viewModel.getTxnRvItem().getAmount() > 0) binding.toggleButton.check(binding.toggleButton.getChildAt(0).getId());
         else binding.toggleButton.check(binding.toggleButton.getChildAt(1).getId());
     }
 
     private void initAmountText()
     {
-        binding.txnAmount.setText(String.valueOf(viewModel.getAmount()));
+        binding.txnAmount.setText(String.valueOf(Math.abs(viewModel.getTxnRvItem().getAmount())));
     }
 
     private void initTopBar()
     {
-        binding.close.setOnClickListener(view -> dismiss());
-        binding.save.setOnClickListener(view -> dismiss());
+        binding.close.setOnClickListener(view -> finish());
+        binding.save.setOnClickListener(view -> finish());
     }
 }

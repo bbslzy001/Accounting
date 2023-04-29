@@ -24,6 +24,8 @@
         <activity
             android:name=".ui.view.activity.SearchActivity"
             android:exported="false" />
+        <activity android:name=".ui.view.activity.EditTxnActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.view.activity.MainActivity"
             android:exported="true">

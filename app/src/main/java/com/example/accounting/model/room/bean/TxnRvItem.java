@@ -1,6 +1,8 @@
 package com.example.accounting.model.room.bean;
 
-public class TxnRvItem
+import java.io.Serializable;
+
+public class TxnRvItem implements Serializable
 {
     private int txnInfoId;
     private double amount;

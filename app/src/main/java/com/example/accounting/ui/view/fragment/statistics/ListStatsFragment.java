@@ -1,15 +1,15 @@
 package com.example.accounting.ui.view.fragment.statistics;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.NumberPicker;
-
-import androidx.fragment.app.DialogFragment;
 
 import com.example.accounting.BR;
 import com.example.accounting.R;
 import com.example.accounting.base.BaseFragment;
 import com.example.accounting.databinding.FragmentStatsListBinding;
-import com.example.accounting.ui.view.fragment.dialog.EditTxnFragment;
+import com.example.accounting.model.room.bean.TxnRvItem;
+import com.example.accounting.ui.view.activity.EditTxnActivity;
 import com.example.accounting.ui.viewmodel.fragment.statistics.ListStatsFragViewModel;
 import com.example.accounting.utils.TxnRvItemDecoration;
 import com.example.accounting.utils.adapter.TxnRvAdapter;
@@ -59,9 +59,11 @@ public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, Li
             @Override
             public void onItemClick(int groupIndex, int position)
             {
+                int index = position - groupIndex;
+                TxnRvItem txnRvItem = Objects.requireNonNull(viewModel.getItemList().getValue()).get(index);
                 new MaterialAlertDialogBuilder(requireActivity())
                         .setTitle("交易信息")
-                        .setMessage("123123456\n123456\n121221\n122121\n122121")
+                        .setMessage("交易类型：" + txnRvItem.getTxnType() + "\n交易账户：" + txnRvItem.getAcctType() + "\n交易金额：" + txnRvItem.getAmount() + "\n交易日期：" + txnRvItem.getDate() + "\n交易时间：" + txnRvItem.getTime() + "\n交易备注：" + txnRvItem.getRemark())
                         .setPositiveButton("关闭", null)
                         .show();
             }
@@ -69,22 +71,19 @@ public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, Li
             @Override
             public void onItemLongClick(int groupIndex, int position)
             {
+                int index = position - groupIndex;
                 new MaterialAlertDialogBuilder(requireActivity())
                         .setTitle("执行操作")
-                        .setNeutralButton("取消",null)
+                        .setNeutralButton("取消", null)
                         .setNegativeButton("删除", (dialogInterface, i) ->
                         {
-                            int index = position - groupIndex;
                             int id = Objects.requireNonNull(viewModel.getItemList().getValue()).get(index).getTxnInfoId();
                             viewModel.deleteTxnInfo(id);
                         })
                         .setPositiveButton("编辑", (dialogInterface, i) ->
                         {
-                            int index = position - groupIndex;
-                            int id = Objects.requireNonNull(viewModel.getItemList().getValue()).get(index).getTxnInfoId();
-                            EditTxnFragment editTxnFragment = new EditTxnFragment(id);
-                            editTxnFragment.setStyle(DialogFragment.STYLE_NO_TITLE, android.R.style.Theme_Material_NoActionBar_Fullscreen);
-                            editTxnFragment.show(requireActivity().getSupportFragmentManager(), "EditTxnFragment");
+                            TxnRvItem txnRvItem = Objects.requireNonNull(viewModel.getItemList().getValue()).get(index);
+                            startActivity(new Intent(requireActivity(), EditTxnActivity.class).putExtra("txnRvItem", txnRvItem));
                         })
                         .show();
             }

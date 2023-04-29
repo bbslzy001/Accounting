@@ -6,12 +6,14 @@
 
         <variable
             name="viewModel"
-            type="com.example.accounting.ui.viewmodel.fragment.dialog.EditTxnFragViewModel" />
+            type="com.example.accounting.ui.viewmodel.activity.EditTxnActViewModel" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:marginBottom="@{viewModel.navigationHeight}"
+        app:paddingTop="@{viewModel.statusHeight}">
 
         <LinearLayout
             android:id="@+id/title"
