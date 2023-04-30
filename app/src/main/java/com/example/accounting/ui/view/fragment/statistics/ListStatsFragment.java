@@ -59,7 +59,7 @@ public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, Li
             @Override
             public void onItemClick(int groupIndex, int position)
             {
-                int index = position - groupIndex;
+                int index = position - groupIndex - 1;
                 TxnRvItem txnRvItem = Objects.requireNonNull(viewModel.getItemList().getValue()).get(index);
                 new MaterialAlertDialogBuilder(requireActivity())
                         .setTitle("交易信息")
@@ -71,7 +71,7 @@ public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, Li
             @Override
             public void onItemLongClick(int groupIndex, int position)
             {
-                int index = position - groupIndex;
+                int index = position - groupIndex - 1;
                 new MaterialAlertDialogBuilder(requireActivity())
                         .setTitle("执行操作")
                         .setNeutralButton("取消", null)
