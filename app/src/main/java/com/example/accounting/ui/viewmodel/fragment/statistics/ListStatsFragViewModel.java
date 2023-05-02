@@ -1,15 +1,20 @@
 package com.example.accounting.ui.viewmodel.fragment.statistics;
 
+import android.content.res.Resources;
+
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.Transformations;
 
+import com.example.accounting.base.BaseApplication;
 import com.example.accounting.base.BaseFragmentViewModel;
 import com.example.accounting.model.entity.YearAndMonth;
+import com.example.accounting.model.repository.TxnInfoRepository;
 import com.example.accounting.model.repository.TxnRvItemRepository;
 import com.example.accounting.model.repository.YearMonthRepository;
+import com.example.accounting.model.room.bean.TxnInfo;
 import com.example.accounting.model.room.bean.TxnRvItem;
 import com.example.accounting.model.room.bean.YearMonth;
 
@@ -28,6 +33,7 @@ public class ListStatsFragViewModel extends BaseFragmentViewModel
     private final List<List<String>> monthList = new ArrayList<>();  // 根据实时年月列表计算月列表
     private final TxnRvItemRepository txnRvItemRepository = new TxnRvItemRepository();
     private final YearMonthRepository yearMonthRepository = new YearMonthRepository();
+    private final TxnInfoRepository txnInfoRepository = new TxnInfoRepository();
 
     public ListStatsFragViewModel()
     {
@@ -111,6 +117,17 @@ public class ListStatsFragViewModel extends BaseFragmentViewModel
 
     public void deleteTxnInfo(int id)
     {
+        txnInfoRepository.deleteById(id);
+    }
+
+    public LiveData<TxnInfo> queryTxnInfo(int id)
+    {
+        return txnInfoRepository.queryById(id);
+    }
+
+    public void insertTxnInfo(TxnInfo txnInfo)
+    {
+        txnInfoRepository.insert(txnInfo);
     }
 
     public LiveData<List<TxnRvItem>> getItemList()
@@ -170,9 +187,19 @@ public class ListStatsFragViewModel extends BaseFragmentViewModel
         }
         else
         {
+            if (currentYearAndMonth.getValue() != null) return;
             String year = yearList.get(yearList.size() - 1);
             String month = monthList.get(yearList.size() - 1).get(monthList.get(yearList.size() - 1).size() - 1);
             currentYearAndMonth.setValue(new YearAndMonth(year, month));
         }
+    }
+
+    public int getNavigationBarHeight()
+    {
+        int height = 0;
+        Resources resources = BaseApplication.getContext().getResources();
+        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) height = resources.getDimensionPixelSize(resourceId);
+        return height;
     }
 }

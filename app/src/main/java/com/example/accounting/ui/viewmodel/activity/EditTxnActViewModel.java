@@ -6,13 +6,16 @@ import androidx.lifecycle.Observer;
 
 import com.example.accounting.base.BaseActivityViewModel;
 import com.example.accounting.model.repository.AcctTypeRepository;
+import com.example.accounting.model.repository.TxnInfoRepository;
 import com.example.accounting.model.repository.TxnTypeRepository;
 import com.example.accounting.model.room.bean.AcctType;
+import com.example.accounting.model.room.bean.TxnInfo;
 import com.example.accounting.model.room.bean.TxnRvItem;
 import com.example.accounting.model.room.bean.TxnType;
 
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 import java.util.TimeZone;
 
 public class EditTxnActViewModel extends BaseActivityViewModel
@@ -28,6 +31,7 @@ public class EditTxnActViewModel extends BaseActivityViewModel
 
     private final AcctTypeRepository acctTypeRepository = new AcctTypeRepository();
     private final TxnTypeRepository txnTypeRepository = new TxnTypeRepository();
+    private final TxnInfoRepository txnInfoRepository = new TxnInfoRepository();
     private MutableLiveData<Integer> isAllCompleted = new MutableLiveData<>(2);
 
     public MutableLiveData<Integer> getIsAllCompleted()
@@ -133,5 +137,29 @@ public class EditTxnActViewModel extends BaseActivityViewModel
     public void setTxnRvItem(TxnRvItem txnRvItem)
     {
         this.txnRvItem = txnRvItem;
+    }
+
+    public void update(int incomeOrExpense, String amountText, String date, String time, String remark, String acctType, String txnType)
+    {
+        double amount = incomeOrExpense == 0 ? Double.parseDouble(amountText) : -Double.parseDouble(amountText);
+        int acctTypeId = 0;
+        int txnTypeId = 0;
+        for (AcctType type : Objects.requireNonNull(acctTypeListLiveData.getValue()))
+        {
+            if (type.getType().equals(acctType))
+            {
+                acctTypeId = type.getId();
+                break;
+            }
+        }
+        for (TxnType type : Objects.requireNonNull(txnTypeListLiveData.getValue()))
+        {
+            if (type.getType().equals(txnType))
+            {
+                txnTypeId = type.getId();
+                break;
+            }
+        }
+        txnInfoRepository.update(new TxnInfo(txnRvItem.getTxnInfoId(), amount, date, time, remark, acctTypeId, txnTypeId));
     }
 }

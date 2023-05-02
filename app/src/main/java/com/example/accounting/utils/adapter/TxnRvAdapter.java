@@ -34,8 +34,9 @@ public class TxnRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     public interface OnSubItemClickListener
     {
-        void onItemClick(int groupIndex, int position);
-        void onItemLongClick(int groupIndex, int position);
+        void onItemClick(int txnInfoId);
+
+        void onItemLongClick(int txnInfoId);
     }
 
     public void setOnSubItemClickListener(OnSubItemClickListener onSubItemClickListener)
@@ -97,14 +98,16 @@ public class TxnRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         for (int groupIndex = 0; groupIndex < groupList.size(); ++groupIndex)
         {
             // 记录列表头
-            itemInfoList.add(new ItemInfo(groupIndex, HEADER_ITEM, -1));
+            itemInfoList.add(new ItemInfo(groupIndex, HEADER_ITEM, -1, -1));
 
             // 记录对应的列表项
             TxnRvGroup group = groupList.get(groupIndex);
             if (group.isExpanded())
             {
                 for (int subItemIndex = 0; subItemIndex < group.getItemCount() - 1; ++subItemIndex)
-                    itemInfoList.add(new ItemInfo(groupIndex, SUB_ITEM, subItemIndex));
+                {
+                    itemInfoList.add(new ItemInfo(groupIndex, SUB_ITEM, subItemIndex, group.getSubItem(subItemIndex).getTxnInfoId()));
+                }
             }
         }
         this.itemInfoList = itemInfoList;
@@ -126,7 +129,7 @@ public class TxnRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             // 遍历每个交易信息，将其转换为子项
             for (TxnRvItem item : Objects.requireNonNull(subList))
             {
-                TxnRvSubItem subItem = new TxnRvSubItem(item.getTxnType(), item.getTime(), item.getAmount());
+                TxnRvSubItem subItem = new TxnRvSubItem(item.getTxnInfoId(), item.getTxnType(), item.getTime(), item.getAmount());
                 subItemList.add(subItem);
             }
 
@@ -235,7 +238,7 @@ public class TxnRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             if (onSubItemClickListener != null)
             {
                 int position = getAdapterPosition();  // 获取ViewHolder的位置
-                onSubItemClickListener.onItemClick(itemInfoList.get(position).groupIndex, position);
+                onSubItemClickListener.onItemClick(itemInfoList.get(position).txnInfoId);
             }
         }
 
@@ -244,8 +247,9 @@ public class TxnRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         {
             if (onSubItemClickListener != null)
             {
+
                 int position = getAdapterPosition();  // 获取ViewHolder的位置
-                onSubItemClickListener.onItemLongClick(itemInfoList.get(position).groupIndex, position);
+                onSubItemClickListener.onItemLongClick(itemInfoList.get(position).txnInfoId);
                 return true;
             }
             return false;
@@ -257,6 +261,7 @@ public class TxnRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         private final int groupIndex;
         private final int itemType;
         private final int subItemIndex;
+        private final int txnInfoId;
 
         /**
          * ItemInfo 的构造函数，用于保存一个 Item 的信息
@@ -265,11 +270,12 @@ public class TxnRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
          * @param itemType     当前 Item 属于 列表头类型 还是 列表项类型
          * @param subItemIndex 当前 Item 属于 当前 Group 的第几个列表项：列表头值为 -1，列表项从 0 开始计数
          */
-        public ItemInfo(int groupIndex, int itemType, int subItemIndex)
+        public ItemInfo(int groupIndex, int itemType, int subItemIndex, int txnInfoId)
         {
             this.groupIndex = groupIndex;
             this.itemType = itemType;
             this.subItemIndex = subItemIndex;
+            this.txnInfoId = txnInfoId;
         }
     }
 }

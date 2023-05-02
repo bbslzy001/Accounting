@@ -15,6 +15,7 @@ import com.google.android.material.timepicker.TimeFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
 
 public class EditTxnActivity extends BaseActivity<ActivityEditTxnBinding, EditTxnActViewModel>
 {
@@ -149,6 +150,18 @@ public class EditTxnActivity extends BaseActivity<ActivityEditTxnBinding, EditTx
     private void initTopBar()
     {
         binding.close.setOnClickListener(view -> finish());
-        binding.save.setOnClickListener(view -> finish());
+        binding.save.setOnClickListener(view ->
+        {
+            viewModel.update(
+                    binding.toggleButton.getCheckedButtonId() == binding.button1.getId() ? 0 : 1,
+                    Objects.requireNonNull(binding.txnAmount.getText()).toString(),
+                    Objects.requireNonNull(binding.txnDate.getText()).toString(),
+                    Objects.requireNonNull(binding.txnTime.getText()).toString(),
+                    Objects.requireNonNull(binding.txnRemark.getText()).toString(),
+                    binding.txnAcct.getText().toString(),
+                    binding.txnType.getText().toString()
+            );
+            finish();
+        });
     }
 }

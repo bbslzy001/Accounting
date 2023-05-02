@@ -12,6 +12,10 @@ public class TxnRvItem implements Serializable
     private String acctType;
     private String txnType;
 
+    public TxnRvItem()
+    {
+    }
+
     public TxnRvItem(int txnInfoId, double amount, String date, String time, String remark, String acctType, String txnType)
     {
         this.txnInfoId = txnInfoId;

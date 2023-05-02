@@ -2,12 +2,17 @@ package com.example.accounting.ui.view.fragment.statistics;
 
 import android.content.Intent;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.NumberPicker;
+
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
 import com.example.accounting.BR;
 import com.example.accounting.R;
 import com.example.accounting.base.BaseFragment;
 import com.example.accounting.databinding.FragmentStatsListBinding;
+import com.example.accounting.model.room.bean.TxnInfo;
 import com.example.accounting.model.room.bean.TxnRvItem;
 import com.example.accounting.ui.view.activity.EditTxnActivity;
 import com.example.accounting.ui.viewmodel.fragment.statistics.ListStatsFragViewModel;
@@ -15,6 +20,7 @@ import com.example.accounting.utils.TxnRvItemDecoration;
 import com.example.accounting.utils.adapter.TxnRvAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Objects;
 
@@ -57,10 +63,17 @@ public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, Li
         adapter.setOnSubItemClickListener(new TxnRvAdapter.OnSubItemClickListener()
         {
             @Override
-            public void onItemClick(int groupIndex, int position)
+            public void onItemClick(int txnInfoId)
             {
-                int index = position - groupIndex - 1;
-                TxnRvItem txnRvItem = Objects.requireNonNull(viewModel.getItemList().getValue()).get(index);
+                TxnRvItem txnRvItem = new TxnRvItem();
+                for(TxnRvItem item: Objects.requireNonNull(viewModel.getItemList().getValue()))
+                {
+                    if(item.getTxnInfoId()==txnInfoId)
+                    {
+                        txnRvItem = item;
+                        break;
+                    }
+                }
                 new MaterialAlertDialogBuilder(requireActivity())
                         .setTitle("交易信息")
                         .setMessage("交易类型：" + txnRvItem.getTxnType() + "\n交易账户：" + txnRvItem.getAcctType() + "\n交易金额：" + txnRvItem.getAmount() + "\n交易日期：" + txnRvItem.getDate() + "\n交易时间：" + txnRvItem.getTime() + "\n交易备注：" + txnRvItem.getRemark())
@@ -69,20 +82,46 @@ public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, Li
             }
 
             @Override
-            public void onItemLongClick(int groupIndex, int position)
+            public void onItemLongClick(int txnInfoId)
             {
-                int index = position - groupIndex - 1;
                 new MaterialAlertDialogBuilder(requireActivity())
                         .setTitle("执行操作")
                         .setNeutralButton("取消", null)
                         .setNegativeButton("删除", (dialogInterface, i) ->
                         {
-                            int id = Objects.requireNonNull(viewModel.getItemList().getValue()).get(index).getTxnInfoId();
-                            viewModel.deleteTxnInfo(id);
+                            final TxnInfo[] backup = {null};
+                            LiveData<TxnInfo> backupLiveData = viewModel.queryTxnInfo(txnInfoId);
+                            backupLiveData.observeForever(new Observer<>()
+                            {
+                                @Override
+                                public void onChanged(TxnInfo txnInfo)
+                                {
+                                    if (txnInfo != null)
+                                    {
+                                        backup[0] = txnInfo;
+                                        backupLiveData.removeObserver(this);
+                                        viewModel.deleteTxnInfo(txnInfoId);
+                                        Snackbar snackbar = Snackbar.make(requireView(), "数据已删除", Snackbar.LENGTH_LONG);
+                                        snackbar.setAction("撤销", view -> viewModel.insertTxnInfo(backup[0]));
+                                        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) snackbar.getView().getLayoutParams();
+                                        params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, params.bottomMargin+viewModel.getNavigationBarHeight());
+                                        snackbar.getView().setLayoutParams(params);
+                                        snackbar.show();
+                                    }
+                                }
+                            });
                         })
                         .setPositiveButton("编辑", (dialogInterface, i) ->
                         {
-                            TxnRvItem txnRvItem = Objects.requireNonNull(viewModel.getItemList().getValue()).get(index);
+                            TxnRvItem txnRvItem = new TxnRvItem();
+                            for(TxnRvItem item: Objects.requireNonNull(viewModel.getItemList().getValue()))
+                            {
+                                if(item.getTxnInfoId()==txnInfoId)
+                                {
+                                    txnRvItem = item;
+                                    break;
+                                }
+                            }
                             startActivity(new Intent(requireActivity(), EditTxnActivity.class).putExtra("txnRvItem", txnRvItem));
                         })
                         .show();
