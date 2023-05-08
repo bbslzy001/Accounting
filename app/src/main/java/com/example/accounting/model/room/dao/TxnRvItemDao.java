@@ -40,4 +40,18 @@ public interface TxnRvItemDao
             "where date like :year || '/' || :month || '/%' " +
             "order by date asc, time asc")
     LiveData<List<TxnRvItem>> queryAllByYearAndMonth(String year, String month);
+
+    @Query("select TxnInfo.TI_id as txnInfoId, " +
+            "TxnInfo.TI_amount as amount, " +
+            "TxnInfo.TI_date as date, " +
+            "TxnInfo.TI_time as time, " +
+            "TxnInfo.TI_remark as remark, " +
+            "AcctType.AT_type as acctType, " +
+            "TxnType.TT_type as txnType " +
+            "from TxnInfo " +
+            "inner join AcctType on TxnInfo.AT_id = AcctType.AT_id " +
+            "inner join TxnType on TxnInfo.TT_id = TxnType.TT_id " +
+            "where TxnInfo.AT_id = :acctId " +
+            "order by date asc, time asc")
+    LiveData<List<TxnRvItem>> queryAllByAcctId(int acctId);
 }

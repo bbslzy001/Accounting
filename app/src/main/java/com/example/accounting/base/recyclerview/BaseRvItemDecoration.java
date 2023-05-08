@@ -1,37 +1,37 @@
-package com.example.accounting.utils;
+package com.example.accounting.base.recyclerview;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.accounting.R;
-import com.example.accounting.model.entity.TxnRvGroup;
-import com.example.accounting.utils.adapter.TxnRvAdapter;
 
-import java.util.Locale;
 import java.util.Objects;
 
-public class TxnRvItemDecoration extends RecyclerView.ItemDecoration implements RecyclerView.OnItemTouchListener
+public abstract class BaseRvItemDecoration<A extends BaseRvAdapter, G extends BaseRvGroup> extends RecyclerView.ItemDecoration implements RecyclerView.OnItemTouchListener
 {
-    private final TxnRvAdapter adapter;
-    private final Context context;
-    private HeaderCoordinate headerCoordinate;
-    private TxnRvGroup currentGroup;
-    private View currentHeaderView;
+    protected final A adapter;
+    protected final Context context;
+    protected HeaderCoordinate headerCoordinate;
+    protected G currentGroup;
+    protected View currentHeaderView;
 
-    public TxnRvItemDecoration(Context context, TxnRvAdapter adapter)
+    public BaseRvItemDecoration(Context context, A adapter)
     {
         this.context = context;
         this.adapter = adapter;
     }
+
+    /**
+     * 创建一个新的悬浮列表头
+     */
+    protected abstract View createHeaderView(RecyclerView recyclerView, G group);
 
     /**
      * 初始化 HeaderInfo
@@ -39,7 +39,7 @@ public class TxnRvItemDecoration extends RecyclerView.ItemDecoration implements 
     private void initHeaderCoordinate(RecyclerView recyclerView, int firstVisiblePosition)
     {
         int firstVisibleViewType = adapter.getItemViewType(firstVisiblePosition); // 获取第一个可见的 item 的类型
-        if (firstVisibleViewType == TxnRvAdapter.HEADER_ITEM)  // 如果是列表头
+        if (firstVisibleViewType == BaseRvAdapter.HEADER_ITEM)  // 如果是列表头
         {
             headerCoordinate = new HeaderCoordinate(recyclerView.getChildAt(firstVisiblePosition));
         }
@@ -72,7 +72,7 @@ public class TxnRvItemDecoration extends RecyclerView.ItemDecoration implements 
             initHeaderCoordinate(parent, firstVisiblePosition);  // 初始化 headerInfo
 
         int groupIndex = adapter.getGroupIndex(firstVisiblePosition);  // 获取所有 view 对应的 group 下标
-        TxnRvGroup group = adapter.getGroupList().get(groupIndex); // 获取当前组对象
+        G group = (G) adapter.getGroupList().get(groupIndex); // 获取当前组对象
 
         if (currentGroup == null || currentGroup != group)
         {
@@ -81,23 +81,6 @@ public class TxnRvItemDecoration extends RecyclerView.ItemDecoration implements 
         }
 
         drawFloatingHeader(c);
-    }
-
-    /**
-     * 创建一个新的悬浮列表头
-     */
-    private View createHeaderView(RecyclerView recyclerView, TxnRvGroup group)
-    {
-        View headerView = LayoutInflater.from(context).inflate(R.layout.rv_header_item_txn, recyclerView, false);
-        TextView dateTextView = headerView.findViewById(R.id.header_date);
-        TextView incomeTextView = headerView.findViewById(R.id.header_income);
-        TextView expenseTextView = headerView.findViewById(R.id.header_expenditure);
-        ImageView imageView = headerView.findViewById(R.id.header_toggle);
-        dateTextView.setText(group.getHeaderItem().getDate());
-        incomeTextView.setText(String.format(Locale.getDefault(), "%.2f", group.getHeaderItem().getIncome()));
-        expenseTextView.setText(String.format(Locale.getDefault(), "%.2f", group.getHeaderItem().getExpenditure()));
-        imageView.setImageResource(group.isExpanded() ? R.drawable.ic_expand_less : R.drawable.ic_expand_more);
-        return headerView;
     }
 
     /**

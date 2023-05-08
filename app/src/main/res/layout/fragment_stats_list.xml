@@ -48,7 +48,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:scrollbars="vertical"
-            app:homeRvItemList="@{viewModel.itemList}"
+            app:txnForDayRvItemList="@{viewModel.itemList}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     </LinearLayout>

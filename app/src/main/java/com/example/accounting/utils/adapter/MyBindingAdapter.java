@@ -25,10 +25,20 @@ import java.util.Locale;
 
 public class MyBindingAdapter
 {
-    @BindingAdapter({"app:homeRvItemList"})
-    public static void setHomeRvItemList(RecyclerView recyclerView, LiveData<List<TxnRvItem>> itemList)
+    @BindingAdapter({"app:txnForDayRvItemList"})
+    public static void setTxnForDayRvItemList(RecyclerView recyclerView, LiveData<List<TxnRvItem>> itemList)
     {
-        TxnRvAdapter adapter = (TxnRvAdapter) recyclerView.getAdapter();
+        TxnForDayRvAdapter adapter = (TxnForDayRvAdapter) recyclerView.getAdapter();
+        if (adapter != null && itemList != null && itemList.getValue() != null)
+        {
+            adapter.setItemList(itemList.getValue());
+        }
+    }
+
+    @BindingAdapter({"app:txnForMonthRvItemList"})
+    public static void setTxnForMonthRvItemList(RecyclerView recyclerView, LiveData<List<TxnRvItem>> itemList)
+    {
+        TxnForMonthRvAdapter adapter = (TxnForMonthRvAdapter) recyclerView.getAdapter();
         if (adapter != null && itemList != null && itemList.getValue() != null)
         {
             adapter.setItemList(itemList.getValue());

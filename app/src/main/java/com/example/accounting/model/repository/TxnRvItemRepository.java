@@ -32,4 +32,9 @@ public class TxnRvItemRepository
     {
         return txnRvItemDao.queryAllByYearAndMonth(year, month);
     }
+
+    public LiveData<List<TxnRvItem>> queryAllByAcctId(int acctId)
+    {
+        return txnRvItemDao.queryAllByAcctId(acctId);
+    }
 }

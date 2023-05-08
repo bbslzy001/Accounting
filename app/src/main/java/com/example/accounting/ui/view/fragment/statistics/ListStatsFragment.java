@@ -16,8 +16,8 @@ import com.example.accounting.model.room.bean.TxnInfo;
 import com.example.accounting.model.room.bean.TxnRvItem;
 import com.example.accounting.ui.view.activity.EditTxnActivity;
 import com.example.accounting.ui.viewmodel.fragment.statistics.ListStatsFragViewModel;
-import com.example.accounting.utils.TxnRvItemDecoration;
-import com.example.accounting.utils.adapter.TxnRvAdapter;
+import com.example.accounting.utils.TxnForDayRvItemDecoration;
+import com.example.accounting.utils.adapter.TxnForDayRvAdapter;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
@@ -59,8 +59,8 @@ public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, Li
      */
     private void initRecyclerView()
     {
-        TxnRvAdapter adapter = new TxnRvAdapter();
-        adapter.setOnSubItemClickListener(new TxnRvAdapter.OnSubItemClickListener()
+        TxnForDayRvAdapter adapter = new TxnForDayRvAdapter();
+        adapter.setOnSubItemClickListener(new TxnForDayRvAdapter.OnSubItemClickListener()
         {
             @Override
             public void onItemClick(int txnInfoId)
@@ -128,7 +128,7 @@ public class ListStatsFragment extends BaseFragment<FragmentStatsListBinding, Li
             }
         });
         binding.recyclerView.setAdapter(adapter);
-        TxnRvItemDecoration itemDecoration = new TxnRvItemDecoration(this.getContext(), adapter);
+        TxnForDayRvItemDecoration itemDecoration = new TxnForDayRvItemDecoration(this.getContext(), adapter);
         binding.recyclerView.addItemDecoration(itemDecoration);
         binding.recyclerView.addOnItemTouchListener(itemDecoration);
     }
