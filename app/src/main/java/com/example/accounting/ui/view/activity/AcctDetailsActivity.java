@@ -44,7 +44,7 @@ public class AcctDetailsActivity extends BaseActivity<ActivityAcctDetailsBinding
     }
 
     /**
-     * 初始化顶部标题栏
+     * 初始化顶部应用栏
      */
     private void initTopAppbar()
     {

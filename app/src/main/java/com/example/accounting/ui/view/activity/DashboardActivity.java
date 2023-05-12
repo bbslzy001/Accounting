@@ -25,4 +25,19 @@ public class DashboardActivity extends BaseActivity<ActivityDashboardBinding, Da
     {
         return BR.viewModel;
     }
+
+    @Override
+    protected void initView()
+    {
+        super.initView();
+        initTopAppBar();
+    }
+
+    /**
+     * 初始化顶部应用栏
+     */
+    private void initTopAppBar()
+    {
+        binding.topAppBar.setNavigationOnClickListener(view -> finish());
+    }
 }

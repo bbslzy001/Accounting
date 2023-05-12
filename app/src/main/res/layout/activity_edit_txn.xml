@@ -15,45 +15,60 @@
         app:marginBottom="@{viewModel.navigationHeight}"
         app:paddingTop="@{viewModel.statusHeight}">
 
-        <LinearLayout
-            android:id="@+id/title"
+<!--        <LinearLayout-->
+<!--            android:id="@+id/title"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:gravity="start|center"-->
+<!--            android:paddingVertical="8dp">-->
+
+<!--            <Button-->
+<!--                android:id="@+id/close"-->
+<!--                style="?attr/materialIconButtonStyle"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:contentDescription="关闭"-->
+<!--                app:icon="@drawable/ic_close" />-->
+
+<!--            <com.google.android.material.textview.MaterialTextView-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginHorizontal="8dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="编辑交易"-->
+<!--                android:textSize="24sp" />-->
+
+<!--            <Button-->
+<!--                android:id="@+id/save"-->
+<!--                style="@style/Widget.Material3.Button.TextButton"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="保存"-->
+<!--                android:textSize="16sp"-->
+<!--                app:rippleColor="@null" />-->
+
+<!--        </LinearLayout>-->
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:gravity="start|center"
-            android:paddingVertical="8dp">
+            android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/close"
-                style="?attr/materialIconButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="关闭"
-                app:icon="@drawable/ic_close" />
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@drawable/ic_close"
+                app:menu="@menu/edit_txn_top_bar_menu"
+                app:title="编辑交易" />
 
-            <com.google.android.material.textview.MaterialTextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="8dp"
-                android:layout_weight="1"
-                android:text="编辑交易"
-                android:textSize="24sp" />
-
-            <Button
-                android:id="@+id/save"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="保存"
-                android:textSize="16sp"
-                app:rippleColor="@null" />
-
-        </LinearLayout>
+        </com.google.android.material.appbar.AppBarLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_below="@id/title"
+            android:layout_below="@id/appBarLayout"
             android:layout_alignParentBottom="true"
             android:orientation="vertical"
             android:paddingHorizontal="16dp">

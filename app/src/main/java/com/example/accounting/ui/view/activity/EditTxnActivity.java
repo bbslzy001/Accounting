@@ -54,7 +54,7 @@ public class EditTxnActivity extends BaseActivity<ActivityEditTxnBinding, EditTx
 
     private void initUI()
     {
-        initTopBar();
+        initTopAppBar();
         initDatePicker();
         initTimePicker();
         initSpinner();
@@ -147,21 +147,28 @@ public class EditTxnActivity extends BaseActivity<ActivityEditTxnBinding, EditTx
         binding.txnAmount.setText(String.valueOf(Math.abs(viewModel.getTxnRvItem().getAmount())));
     }
 
-    private void initTopBar()
+    /**
+     * 初始化顶部应用栏
+     */
+    private void initTopAppBar()
     {
-        binding.close.setOnClickListener(view -> finish());
-        binding.save.setOnClickListener(view ->
+        binding.topAppBar.setNavigationOnClickListener(view -> finish());
+        binding.topAppBar.setOnMenuItemClickListener(menuItem ->
         {
-            viewModel.update(
-                    binding.toggleButton.getCheckedButtonId() == binding.button1.getId() ? 0 : 1,
-                    Objects.requireNonNull(binding.txnAmount.getText()).toString(),
-                    Objects.requireNonNull(binding.txnDate.getText()).toString(),
-                    Objects.requireNonNull(binding.txnTime.getText()).toString(),
-                    Objects.requireNonNull(binding.txnRemark.getText()).toString(),
-                    binding.txnAcct.getText().toString(),
-                    binding.txnType.getText().toString()
-            );
-            finish();
+            if (menuItem.getItemId() == R.id.save)
+            {
+                viewModel.update(
+                        binding.toggleButton.getCheckedButtonId() == binding.button1.getId() ? 0 : 1,
+                        Objects.requireNonNull(binding.txnAmount.getText()).toString(),
+                        Objects.requireNonNull(binding.txnDate.getText()).toString(),
+                        Objects.requireNonNull(binding.txnTime.getText()).toString(),
+                        Objects.requireNonNull(binding.txnRemark.getText()).toString(),
+                        binding.txnAcct.getText().toString(),
+                        binding.txnType.getText().toString()
+                );
+                finish();
+            }
+            return false;
         });
     }
 }

@@ -9,28 +9,55 @@
             type="com.example.accounting.ui.viewmodel.activity.AboutActViewModel" />
     </data>
 
-    <ScrollView
-        android:id="@+id/scrollView2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:marginBottom="@{viewModel.navigationHeight}"
         app:paddingTop="@{viewModel.statusHeight}">
 
-        <LinearLayout
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/text"
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                android:lineSpacingExtra="2dp"
-                android:paddingVertical="20dp"
-                android:text="@{viewModel.markdownToHtml}"
-                android:textSize="16sp" />
+                android:layout_height="?attr/actionBarSize"
+                app:navigationIcon="@drawable/ic_arrow_back"
+                app:title="@string/about" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/appBarLayout">
+
+            <ScrollView
+                android:id="@+id/scrollView2"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/text"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:lineSpacingExtra="2dp"
+                        android:text="@{viewModel.markdownToHtml}"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+            </ScrollView>
 
         </LinearLayout>
-    </ScrollView>
+
+    </RelativeLayout>
 
 </layout>
