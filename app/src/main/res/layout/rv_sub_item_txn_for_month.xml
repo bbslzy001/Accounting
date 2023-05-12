@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="txnRvSubItem"
-            type="com.example.accounting.model.entity.TxnRvSubItem" />
+            name="subItem"
+            type="com.example.accounting.model.entity.TxnForMonthRvSubItem" />
     </data>
 
     <LinearLayout
@@ -35,14 +35,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|top"
-                android:text="@{txnRvSubItem.txnType}"
+                android:text="@{subItem.txnType}"
                 android:textSize="16sp" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|bottom"
-                android:text="@{txnRvSubItem.time}"
+                android:text="@{subItem.time}"
                 android:textColor="#C0C0C0"
                 android:textSize="12sp" />
 
@@ -53,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
             android:textSize="16sp"
-            app:subItemAmount="@{txnRvSubItem.amount}" />
+            app:subItemAmount="@{subItem.amount}" />
 
     </LinearLayout>
 </layout>

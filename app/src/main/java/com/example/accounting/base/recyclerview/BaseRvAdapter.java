@@ -113,7 +113,7 @@ public abstract class BaseRvAdapter<G extends BaseRvGroup> extends RecyclerView.
         LayoutInflater inflater = LayoutInflater.from(parent.getContext()); // 必须设置为 parent，否则匹配不上
         if (viewType == HEADER_ITEM)
         {
-            return onCreateHeaderViewHolder(inflater, parent);
+            return onCreateHeaderItemViewHolder(inflater, parent);
         }
         else
         {
@@ -128,7 +128,7 @@ public abstract class BaseRvAdapter<G extends BaseRvGroup> extends RecyclerView.
         G group = groupList.get(itemInfo.groupIndex); // 获取当前 Item 对应的 Group
         if (itemInfo.itemType == HEADER_ITEM)
         {
-            onBindHeaderViewHolder(viewHolder, group, position);
+            onBindHeaderItemViewHolder(viewHolder, group, position);
         }
         else
         {
@@ -136,21 +136,55 @@ public abstract class BaseRvAdapter<G extends BaseRvGroup> extends RecyclerView.
         }
     }
 
-    protected abstract RecyclerView.ViewHolder onCreateHeaderViewHolder(LayoutInflater inflater, ViewGroup parent);
+    protected abstract RecyclerView.ViewHolder onCreateHeaderItemViewHolder(LayoutInflater inflater, ViewGroup parent);
 
     protected abstract RecyclerView.ViewHolder onCreateSubItemViewHolder(LayoutInflater inflater, ViewGroup parent);
 
-    protected abstract void onBindHeaderViewHolder(RecyclerView.ViewHolder viewHolder, G group, int position);
+    protected abstract void onBindHeaderItemViewHolder(RecyclerView.ViewHolder viewHolder, G group, int position);
 
     protected abstract void onBindSubItemViewHolder(RecyclerView.ViewHolder viewHolder, G group, int position, ItemInfo itemInfo);
 
-    /**
-     * @param groupIndex   Group 在 groupList 中的下标
-     * @param itemType     HEADER_ITEM 或 SUB_ITEM
-     * @param subItemIndex 如果是列表项，表示在当前 Group 中的下标
-     * @param txnInfoId    如果是列表项，表示对应的 txnInfoId
-     */
-    protected record ItemInfo(int groupIndex, int itemType, int subItemIndex, int txnInfoId)
+    protected static class ItemInfo
     {
+        private final int groupIndex;
+        private final int itemType;
+        private final int subItemIndex;
+        private final int txnInfoId;
+
+        /**
+         * ItemInfo 的构造函数，用于保存一个 Item 的信息
+         *
+         * @param groupIndex   当前 Item 属于第几个 Group，从 0 开始计数
+         * @param itemType     当前 Item 属于 列表头类型 还是 列表项类型
+         * @param subItemIndex 当前 Item 属于 当前 Group 的第几个列表项：列表头值为 -1，列表项从 0 开始计数
+         * @param txnInfoId    当前 Item 对应的 TxnInfo 的 id
+         */
+        public ItemInfo(int groupIndex, int itemType, int subItemIndex, int txnInfoId)
+        {
+            this.groupIndex = groupIndex;
+            this.itemType = itemType;
+            this.subItemIndex = subItemIndex;
+            this.txnInfoId = txnInfoId;
+        }
+
+        public int getGroupIndex()
+        {
+            return groupIndex;
+        }
+
+        public int getItemType()
+        {
+            return itemType;
+        }
+
+        public int getSubItemIndex()
+        {
+            return subItemIndex;
+        }
+
+        public int getTxnInfoId()
+        {
+            return txnInfoId;
+        }
     }
 }

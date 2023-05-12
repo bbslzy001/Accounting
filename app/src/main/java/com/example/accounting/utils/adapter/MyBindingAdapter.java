@@ -25,7 +25,7 @@ import java.util.Locale;
 
 public class MyBindingAdapter
 {
-    @BindingAdapter({"app:txnForDayRvItemList"})
+    @BindingAdapter({"txnForDayRvItemList"})
     public static void setTxnForDayRvItemList(RecyclerView recyclerView, LiveData<List<TxnRvItem>> itemList)
     {
         TxnForDayRvAdapter adapter = (TxnForDayRvAdapter) recyclerView.getAdapter();
@@ -35,7 +35,7 @@ public class MyBindingAdapter
         }
     }
 
-    @BindingAdapter({"app:txnForMonthRvItemList"})
+    @BindingAdapter({"txnForMonthRvItemList"})
     public static void setTxnForMonthRvItemList(RecyclerView recyclerView, LiveData<List<TxnRvItem>> itemList)
     {
         TxnForMonthRvAdapter adapter = (TxnForMonthRvAdapter) recyclerView.getAdapter();
@@ -45,7 +45,7 @@ public class MyBindingAdapter
         }
     }
 
-    @BindingAdapter({"app:accountRvItemList"})
+    @BindingAdapter({"accountRvItemList"})
     public static void setAccountRvItemList(RecyclerView recyclerView, LiveData<List<AcctType>> itemList)
     {
         AcctRvAdapter adapter = (AcctRvAdapter) recyclerView.getAdapter();
@@ -55,7 +55,7 @@ public class MyBindingAdapter
         }
     }
 
-    @BindingAdapter({"app:cardAmount"})
+    @BindingAdapter({"cardAmount"})
     public static void setCardAmount(TextView textView, double amount)
     {
         if (amount >= 0)
@@ -68,26 +68,26 @@ public class MyBindingAdapter
         }
     }
 
-    @BindingAdapter({"app:itemAmount"})
+    @BindingAdapter({"itemAmount"})
     public static void setItemAmount(TextView textView, double amount)
     {
         textView.setText(String.format(Locale.getDefault(), "%.2f", amount));
     }
 
-    @BindingAdapter({"app:headerItemAmount"})
+    @BindingAdapter({"headerItemAmount"})
     public static void setHeaderItemAmount(TextView textView, double amount)
     {
         textView.setText(String.format(Locale.getDefault(), "%.2f", Math.abs(amount)));  // 去掉原有的负号，手动绘制
     }
 
-    @BindingAdapter({"app:headerItemToggle"})
+    @BindingAdapter({"headerItemToggle"})
     public static void setHeaderItemToggle(ImageView imageView, boolean isExpanded)
     {
         if (isExpanded) imageView.setImageResource(R.drawable.ic_expand_less);
         else imageView.setImageResource(R.drawable.ic_expand_more);
     }
 
-    @BindingAdapter({"app:subItemAmount"})
+    @BindingAdapter({"subItemAmount"})
     public static void setSubItemAmount(TextView textView, double amount)
     {
         if (amount >= 0)
@@ -102,7 +102,7 @@ public class MyBindingAdapter
         }
     }
 
-    @BindingAdapter({"app:currentTitle", "app:statsFragState"})
+    @BindingAdapter({"currentTitle", "statsFragState"})
     public static void setCurrentTitle(MaterialToolbar toolbar, LiveData<Integer> titleId, LiveData<Integer> statsFragState)
     {
         if (titleId != null && titleId.getValue() != null)
@@ -125,7 +125,7 @@ public class MyBindingAdapter
         }
     }
 
-    @BindingAdapter({"app:currentYearAndMonth"})
+    @BindingAdapter({"currentYearAndMonth"})
     public static void setCurrentDate(Button button, LiveData<YearAndMonth> currentYearAndMonth)
     {
         if (currentYearAndMonth != null && currentYearAndMonth.getValue() != null)
@@ -141,7 +141,7 @@ public class MyBindingAdapter
         }
     }
 
-    @BindingAdapter({"app:monthIncome", "app:monthExpenditure"})
+    @BindingAdapter({"monthIncome", "monthExpenditure"})
     public static void setMonthAmount(MaterialTextView textView, LiveData<Double> income, LiveData<Double> expenditure)
     {
         if (income != null && income.getValue() != null && expenditure != null && expenditure.getValue() != null)
@@ -150,7 +150,7 @@ public class MyBindingAdapter
         }
     }
 
-    @BindingAdapter({"app:marginBottom"})
+    @BindingAdapter({"marginBottom"})
     public static void setMarginBottom(View view, LiveData<Integer> marginBottom)
     {
         if (marginBottom != null && marginBottom.getValue() != null)
@@ -161,7 +161,7 @@ public class MyBindingAdapter
         }
     }
 
-    @BindingAdapter({"app:emptyViewHeight"})
+    @BindingAdapter({"emptyViewHeight"})
     public static void setEmptyViewHeight(View view, LiveData<Integer> height)
     {
         if (height != null && height.getValue() != null)
@@ -172,7 +172,7 @@ public class MyBindingAdapter
         }
     }
 
-    @BindingAdapter({"app:drawerPaddingTop", "app:drawerPaddingBottom"})
+    @BindingAdapter({"drawerPaddingTop", "drawerPaddingBottom"})
     public static void setPaddingBottom(View view, LiveData<Integer> paddingTop, LiveData<Integer> paddingBottom)
     {
         if (paddingTop != null && paddingTop.getValue() != null && paddingBottom != null && paddingBottom.getValue() != null)
@@ -181,7 +181,7 @@ public class MyBindingAdapter
         }
     }
 
-    @BindingAdapter({"app:paddingTop"})
+    @BindingAdapter({"paddingTop"})
     public static void setPaddingTop(View view, LiveData<Integer> paddingTop)
     {
         if (paddingTop != null && paddingTop.getValue() != null)

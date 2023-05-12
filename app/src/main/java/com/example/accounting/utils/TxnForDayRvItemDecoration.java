@@ -10,12 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.accounting.R;
 import com.example.accounting.base.recyclerview.BaseRvItemDecoration;
-import com.example.accounting.model.entity.TxnRvGroup;
+import com.example.accounting.model.entity.TxnForDayRvGroup;
 import com.example.accounting.utils.adapter.TxnForDayRvAdapter;
 
 import java.util.Locale;
 
-public class TxnForDayRvItemDecoration extends BaseRvItemDecoration<TxnForDayRvAdapter, TxnRvGroup>
+public class TxnForDayRvItemDecoration extends BaseRvItemDecoration<TxnForDayRvAdapter, TxnForDayRvGroup>
 {
 
     public TxnForDayRvItemDecoration(Context context, TxnForDayRvAdapter adapter)
@@ -24,9 +24,9 @@ public class TxnForDayRvItemDecoration extends BaseRvItemDecoration<TxnForDayRvA
     }
 
     @Override
-    protected View createHeaderView(RecyclerView recyclerView, TxnRvGroup group)
+    protected View createHeaderView(RecyclerView recyclerView, TxnForDayRvGroup group)
     {
-        View headerView = LayoutInflater.from(context).inflate(R.layout.rv_header_item_txn, recyclerView, false);
+        View headerView = LayoutInflater.from(context).inflate(R.layout.rv_header_item_txn_for_day, recyclerView, false);
         TextView dateTextView = headerView.findViewById(R.id.header_date);
         TextView incomeTextView = headerView.findViewById(R.id.header_income);
         TextView expenseTextView = headerView.findViewById(R.id.header_expenditure);

@@ -5,12 +5,12 @@
     <data>
 
         <variable
-            name="baseRvGroup"
-            type="com.example.accounting.base.recyclerview.BaseRvGroup" />
+            name="group"
+            type="com.example.accounting.model.entity.TxnForMonthRvGroup" />
 
         <variable
-            name="txnRvHeaderItem"
-            type="com.example.accounting.model.entity.TxnRvHeaderItem" />
+            name="headerItem"
+            type="com.example.accounting.model.entity.TxnForMonthRvHeaderItem" />
     </data>
 
     <LinearLayout
@@ -26,7 +26,7 @@
             android:id="@+id/header_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{txnRvHeaderItem.date}"
+            android:text="@{headerItem.date}"
             android:textSize="16sp" />
 
         <LinearLayout
@@ -52,7 +52,7 @@
                 android:paddingEnd="16dp"
                 android:textColor="@color/my_theme_positive"
                 android:textSize="16sp"
-                app:headerItemAmount="@{txnRvHeaderItem.income}" />
+                app:headerItemAmount="@{headerItem.income}" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/my_theme_negative"
                 android:textSize="16sp"
-                app:headerItemAmount="@{txnRvHeaderItem.expenditure}" />
+                app:headerItemAmount="@{headerItem.expenditure}" />
 
         </LinearLayout>
 
@@ -75,7 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:scaleType="fitCenter"
-            app:headerItemToggle="@{baseRvGroup.expanded}" />
+            app:headerItemToggle="@{group.expanded}" />
 
     </LinearLayout>
 </layout>

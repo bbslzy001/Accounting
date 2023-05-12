@@ -1,5 +1,7 @@
 package com.example.accounting.model.room.bean;
 
+import androidx.room.Ignore;
+
 import java.io.Serializable;
 
 public class TxnRvItem implements Serializable
@@ -12,6 +14,7 @@ public class TxnRvItem implements Serializable
     private String acctType;
     private String txnType;
 
+    @Ignore
     public TxnRvItem()
     {
     }
