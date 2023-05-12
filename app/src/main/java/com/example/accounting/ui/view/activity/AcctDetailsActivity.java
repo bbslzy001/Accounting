@@ -36,7 +36,7 @@ public class AcctDetailsActivity extends BaseActivity<ActivityAcctDetailsBinding
     protected void initView()
     {
         super.initView();
-        int acctId = getIntent().getIntExtra("acctId",-1);
+        int acctId = getIntent().getIntExtra("acctId", -1);
         viewModel.initAcctType(acctId);
         viewModel.initItemList(acctId);
         initTopAppbar();
@@ -60,9 +60,9 @@ public class AcctDetailsActivity extends BaseActivity<ActivityAcctDetailsBinding
         adapter.setOnSubItemClickListener(txnInfoId ->
         {
             TxnRvItem txnRvItem = new TxnRvItem();
-            for(TxnRvItem item: Objects.requireNonNull(viewModel.getItemList().getValue()))
+            for (TxnRvItem item : Objects.requireNonNull(viewModel.getItemList().getValue()))
             {
-                if(item.getTxnInfoId()==txnInfoId)
+                if (item.getTxnInfoId() == txnInfoId)
                 {
                     txnRvItem = item;
                     break;
