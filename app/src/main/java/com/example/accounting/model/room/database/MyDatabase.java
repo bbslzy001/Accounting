@@ -28,10 +28,13 @@ public abstract class MyDatabase extends RoomDatabase
     private static MyDatabase myDatabase;
 
     public abstract TxnInfoDao getTxnInfoDao();
+
     public abstract AcctTypeDao getAcctDao();
+
     public abstract TxnTypeDao getTxnTypeDao();
 
     public abstract TxnRvItemDao getTxnRvItemDao();
+
     public abstract YearMonthDao getYearMonthDao();
 
     public static MyDatabase getMyDatabaseInstance()
@@ -42,6 +45,8 @@ public abstract class MyDatabase extends RoomDatabase
 
     private static MyDatabase createMyDatabase()
     {
-        return Room.databaseBuilder(BaseApplication.getContext(), MyDatabase.class, DB_NAME).fallbackToDestructiveMigration().build();  // 构建实例时销毁原数据库（仅开发时使用）
+        return Room.databaseBuilder(BaseApplication.getContext(), MyDatabase.class, DB_NAME)
+                .fallbackToDestructiveMigration()  // 构建实例时销毁原数据库（仅开发时使用）
+                .build();
     }
 }

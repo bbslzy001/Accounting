@@ -24,6 +24,9 @@ public interface TxnInfoDao
     @Query("delete from TxnInfo")
     void deleteAll();
 
+    @Query("delete from TxnInfo where TI_id = :id")
+    void deleteById(int id);
+
     @Update
     void update(TxnInfo txnInfo);
 

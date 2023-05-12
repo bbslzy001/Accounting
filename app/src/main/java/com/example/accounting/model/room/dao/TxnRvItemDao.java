@@ -11,14 +11,21 @@ import java.util.List;
 @Dao
 public interface TxnRvItemDao
 {
-    @Query("select SUM(TI_amount) from TxnInfo where TI_amount < 0")
-    LiveData<Double> queryExpenditureAmount();
+    @Query("select ifnull(sum(TxnInfo.TI_amount), 0.0) as totalAmount " +
+            "from TxnInfo " +
+            "inner join AcctType on TxnInfo.AT_id = AcctType.AT_id " +
+            "inner join TxnType on TxnInfo.TT_id = TxnType.TT_id " +
+            "where TxnInfo.TI_date like :year || '/' || :month || '/%' " +
+            "and TxnInfo.TI_amount > 0")
+    LiveData<Double> queryIncomeByYearAndMonth(String year, String month);
 
-    @Query("select SUM(TI_amount) from TxnInfo where TI_amount >= 0")
-    LiveData<Double> queryIncomeAmount();
-
-    @Query("select SUM(TI_amount) from TxnInfo")
-    LiveData<Double> queryTotalAmount();
+    @Query("select ifnull(sum(TxnInfo.TI_amount), 0.0) as totalAmount " +
+            "from TxnInfo " +
+            "inner join AcctType on TxnInfo.AT_id = AcctType.AT_id " +
+            "inner join TxnType on TxnInfo.TT_id = TxnType.TT_id " +
+            "where TxnInfo.TI_date like :year || '/' || :month || '/%' " +
+            "and TxnInfo.TI_amount < 0")
+    LiveData<Double> queryExpenditureByYearAndMonth(String year, String month);
 
     @Query("select TxnInfo.TI_id as txnInfoId, " +
             "TxnInfo.TI_amount as amount, " +
@@ -30,10 +37,9 @@ public interface TxnRvItemDao
             "from TxnInfo " +
             "inner join AcctType on TxnInfo.AT_id = AcctType.AT_id " +
             "inner join TxnType on TxnInfo.TT_id = TxnType.TT_id " +
-            "where TxnInfo.TI_amount < 0 " +
-            "order by date asc, time asc"
-    )
-    LiveData<List<TxnRvItem>> queryAllExpenditures();
+            "where date like :year || '/' || :month || '/%' " +
+            "order by date asc, time asc")
+    LiveData<List<TxnRvItem>> queryAllByYearAndMonth(String year, String month);
 
     @Query("select TxnInfo.TI_id as txnInfoId, " +
             "TxnInfo.TI_amount as amount, " +
@@ -45,22 +51,7 @@ public interface TxnRvItemDao
             "from TxnInfo " +
             "inner join AcctType on TxnInfo.AT_id = AcctType.AT_id " +
             "inner join TxnType on TxnInfo.TT_id = TxnType.TT_id " +
-            "where TxnInfo.TI_amount >= 0 " +
-            "order by date asc, time asc"
-    )
-    LiveData<List<TxnRvItem>> queryAllIncomes();
-
-    @Query("select TxnInfo.TI_id as txnInfoId, " +
-            "TxnInfo.TI_amount as amount, " +
-            "TxnInfo.TI_date as date, " +
-            "TxnInfo.TI_time as time, " +
-            "TxnInfo.TI_remark as remark, " +
-            "AcctType.AT_type as acctType, " +
-            "TxnType.TT_type as txnType " +
-            "from TxnInfo " +
-            "inner join AcctType on TxnInfo.AT_id = AcctType.AT_id " +
-            "inner join TxnType on TxnInfo.TT_id = TxnType.TT_id " +
-            "order by date asc, time asc"
-    )
-    LiveData<List<TxnRvItem>> queryAll();
+            "where TxnInfo.AT_id = :acctId " +
+            "order by date asc, time asc")
+    LiveData<List<TxnRvItem>> queryAllByAcctId(int acctId);
 }

@@ -14,27 +14,38 @@ import androidx.lifecycle.LiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.accounting.R;
+import com.example.accounting.model.entity.YearAndMonth;
 import com.example.accounting.model.room.bean.AcctType;
 import com.example.accounting.model.room.bean.TxnRvItem;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 
 public class MyBindingAdapter
 {
-    @BindingAdapter({"app:homeRvItemList"})
-    public static void setHomeRvItemList(RecyclerView recyclerView, LiveData<List<TxnRvItem>> itemList)
+    @BindingAdapter({"txnForDayRvItemList"})
+    public static void setTxnForDayRvItemList(RecyclerView recyclerView, LiveData<List<TxnRvItem>> itemList)
     {
-        TxnRvAdapter adapter = (TxnRvAdapter) recyclerView.getAdapter();
+        TxnForDayRvAdapter adapter = (TxnForDayRvAdapter) recyclerView.getAdapter();
         if (adapter != null && itemList != null && itemList.getValue() != null)
         {
             adapter.setItemList(itemList.getValue());
         }
     }
 
-    @BindingAdapter({"app:accountRvItemList"})
+    @BindingAdapter({"txnForMonthRvItemList"})
+    public static void setTxnForMonthRvItemList(RecyclerView recyclerView, LiveData<List<TxnRvItem>> itemList)
+    {
+        TxnForMonthRvAdapter adapter = (TxnForMonthRvAdapter) recyclerView.getAdapter();
+        if (adapter != null && itemList != null && itemList.getValue() != null)
+        {
+            adapter.setItemList(itemList.getValue());
+        }
+    }
+
+    @BindingAdapter({"accountRvItemList"})
     public static void setAccountRvItemList(RecyclerView recyclerView, LiveData<List<AcctType>> itemList)
     {
         AcctRvAdapter adapter = (AcctRvAdapter) recyclerView.getAdapter();
@@ -44,55 +55,55 @@ public class MyBindingAdapter
         }
     }
 
-    @BindingAdapter({"app:cardAmount"})
+    @BindingAdapter({"cardAmount"})
     public static void setCardAmount(TextView textView, double amount)
     {
         if (amount >= 0)
         {
-            textView.setText(String.format(Locale.CHINA, "%.2f", amount));
+            textView.setText(String.format(Locale.getDefault(), "%.2f", amount));
         }
         else
         {
-            textView.setText(String.format(Locale.CHINA, "- %.2f", Math.abs(amount)));  // 去掉原有的负号，手动绘制
+            textView.setText(String.format(Locale.getDefault(), "- %.2f", Math.abs(amount)));  // 去掉原有的负号，手动绘制
         }
     }
 
-    @BindingAdapter({"app:itemAmount"})
+    @BindingAdapter({"itemAmount"})
     public static void setItemAmount(TextView textView, double amount)
     {
-        textView.setText(String.format(Locale.CHINA, "%.2f", amount));
+        textView.setText(String.format(Locale.getDefault(), "%.2f", amount));
     }
 
-    @BindingAdapter({"app:headerItemAmount"})
+    @BindingAdapter({"headerItemAmount"})
     public static void setHeaderItemAmount(TextView textView, double amount)
     {
-        textView.setText(String.format(Locale.CHINA, "%.2f", Math.abs(amount)));  // 去掉原有的负号，手动绘制
+        textView.setText(String.format(Locale.getDefault(), "%.2f", Math.abs(amount)));  // 去掉原有的负号，手动绘制
     }
 
-    @BindingAdapter({"app:headerItemToggle"})
+    @BindingAdapter({"headerItemToggle"})
     public static void setHeaderItemToggle(ImageView imageView, boolean isExpanded)
     {
         if (isExpanded) imageView.setImageResource(R.drawable.ic_expand_less);
         else imageView.setImageResource(R.drawable.ic_expand_more);
     }
 
-    @BindingAdapter({"app:subItemAmount"})
+    @BindingAdapter({"subItemAmount"})
     public static void setSubItemAmount(TextView textView, double amount)
     {
         if (amount >= 0)
         {
-            textView.setText(String.format(Locale.CHINA, "+ %.2f", amount));
+            textView.setText(String.format(Locale.getDefault(), "+ %.2f", amount));
             textView.setTextColor(rgb(0, 200, 83));
         }
         else
         {
-            textView.setText(String.format(Locale.CHINA, "- %.2f", Math.abs(amount)));  // 去掉原有的负号，手动绘制
+            textView.setText(String.format(Locale.getDefault(), "- %.2f", Math.abs(amount)));  // 去掉原有的负号，手动绘制
             textView.setTextColor(rgb(213, 0, 0));
         }
     }
 
-    @BindingAdapter({"app:currentTitle", "app:statsFragState"})
-    public static void setCurrentTitle(MaterialToolbar toolbar, LiveData<Integer> titleId, LiveData<String> statsFragState)
+    @BindingAdapter({"currentTitle", "statsFragState"})
+    public static void setCurrentTitle(MaterialToolbar toolbar, LiveData<Integer> titleId, LiveData<Integer> statsFragState)
     {
         if (titleId != null && titleId.getValue() != null)
         {
@@ -106,21 +117,22 @@ public class MyBindingAdapter
                 MenuItem menuItem = toolbar.getMenu().findItem(R.id.display);
                 if (statsFragState != null && statsFragState.getValue() != null)
                 {
-                    String state = statsFragState.getValue();
-                    if (Objects.equals(state, "list")) menuItem.setIcon(R.drawable.ic_list);
+                    int state = statsFragState.getValue();
+                    if (state == R.string.list_stats) menuItem.setIcon(R.drawable.ic_list);
                     else menuItem.setIcon(R.drawable.ic_cal);
                 }
             }
         }
     }
 
-    @BindingAdapter({"app:currentYear", "app:currentMonth"})
-    public static void setCurrentDate(Button button, LiveData<String> currentYear, LiveData<String> currentMonth)
+    @BindingAdapter({"currentYearAndMonth"})
+    public static void setCurrentDate(Button button, LiveData<YearAndMonth> currentYearAndMonth)
     {
-        if (currentYear != null && currentYear.getValue() != null && currentMonth != null && currentMonth.getValue() != null)
+        if (currentYearAndMonth != null && currentYearAndMonth.getValue() != null)
         {
             if (button.getVisibility() == View.INVISIBLE) button.setVisibility(View.VISIBLE);
-            String date = String.format(Locale.getDefault(), "%s%s ▼", currentYear.getValue(), currentMonth.getValue());
+            YearAndMonth yearAndMonth = currentYearAndMonth.getValue();
+            String date = String.format(Locale.getDefault(), "%s%s ▼", yearAndMonth.getYear(), yearAndMonth.getMonth());
             button.setText(date);
         }
         else
@@ -129,7 +141,25 @@ public class MyBindingAdapter
         }
     }
 
-    @BindingAdapter({"app:marginBottom"})
+    @BindingAdapter({"monthIncome", "monthExpenditure"})
+    public static void setMonthAmount(MaterialTextView textView, LiveData<Double> income, LiveData<Double> expenditure)
+    {
+        if (income != null && income.getValue() != null && expenditure != null && expenditure.getValue() != null)
+        {
+            textView.setText(String.format(Locale.getDefault(), "收：%.2f    支：%.2f", income.getValue(), expenditure.getValue()));
+        }
+    }
+
+    @BindingAdapter({"acctDetailedTitle"})
+    public static void setAcctDetailedTitle(MaterialToolbar toolbar, LiveData<AcctType> acctType)
+    {
+        if (acctType != null && acctType.getValue() != null)
+        {
+            toolbar.setTitle(acctType.getValue().getType());
+        }
+    }
+
+    @BindingAdapter({"marginBottom"})
     public static void setMarginBottom(View view, LiveData<Integer> marginBottom)
     {
         if (marginBottom != null && marginBottom.getValue() != null)
@@ -140,7 +170,7 @@ public class MyBindingAdapter
         }
     }
 
-    @BindingAdapter({"app:emptyViewHeight"})
+    @BindingAdapter({"emptyViewHeight"})
     public static void setEmptyViewHeight(View view, LiveData<Integer> height)
     {
         if (height != null && height.getValue() != null)
@@ -151,7 +181,7 @@ public class MyBindingAdapter
         }
     }
 
-    @BindingAdapter({"app:drawerPaddingTop", "app:drawerPaddingBottom"})
+    @BindingAdapter({"drawerPaddingTop", "drawerPaddingBottom"})
     public static void setPaddingBottom(View view, LiveData<Integer> paddingTop, LiveData<Integer> paddingBottom)
     {
         if (paddingTop != null && paddingTop.getValue() != null && paddingBottom != null && paddingBottom.getValue() != null)
@@ -160,7 +190,7 @@ public class MyBindingAdapter
         }
     }
 
-    @BindingAdapter({"app:paddingTop"})
+    @BindingAdapter({"paddingTop"})
     public static void setPaddingTop(View view, LiveData<Integer> paddingTop)
     {
         if (paddingTop != null && paddingTop.getValue() != null)

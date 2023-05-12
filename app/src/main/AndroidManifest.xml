@@ -16,13 +16,19 @@
             android:name=".ui.view.activity.AboutActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.view.activity.SettingActivity"
+            android:name=".ui.view.activity.AcctDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.view.activity.DashboardActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.view.activity.EditTxnActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.view.activity.SearchActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.view.activity.SettingActivity"
             android:exported="false" />
         <activity
             android:name=".ui.view.activity.MainActivity"

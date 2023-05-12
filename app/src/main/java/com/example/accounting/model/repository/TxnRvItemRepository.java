@@ -18,35 +18,23 @@ public class TxnRvItemRepository
         txnRvItemDao = myDatabase.getTxnRvItemDao();
     }
 
-    public LiveData<Double> queryExpenditureAmount()
+    public LiveData<Double> queryIncomeByYearAndMonth(String year, String month)
     {
-        return txnRvItemDao.queryExpenditureAmount();
+        return txnRvItemDao.queryIncomeByYearAndMonth(year, month);
     }
 
-    public LiveData<Double> queryIncomeAmount()
+    public LiveData<Double> queryExpenditureByYearAndMonth(String year, String month)
     {
-        return txnRvItemDao.queryIncomeAmount();
+        return txnRvItemDao.queryExpenditureByYearAndMonth(year, month);
     }
 
-    public LiveData<Double> queryTotalAmount()
+    public LiveData<List<TxnRvItem>> queryAllByYearAndMonth(String year, String month)
     {
-        return txnRvItemDao.queryTotalAmount();
+        return txnRvItemDao.queryAllByYearAndMonth(year, month);
     }
 
-    public LiveData<List<TxnRvItem>> queryAllExpenditures()
+    public LiveData<List<TxnRvItem>> queryAllByAcctId(int acctId)
     {
-        return txnRvItemDao.queryAllExpenditures();
-    }
-
-    public LiveData<List<TxnRvItem>> queryAllIncomes()
-    {
-        return txnRvItemDao.queryAllIncomes();
-    }
-
-
-
-    public LiveData<List<TxnRvItem>> queryAll()
-    {
-        return txnRvItemDao.queryAll();
+        return txnRvItemDao.queryAllByAcctId(acctId);
     }
 }

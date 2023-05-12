@@ -26,17 +26,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                app:currentMonth="@{viewModel.currentMonth}"
-                app:currentYear="@{viewModel.currentYear}"
+                app:currentYearAndMonth="@{viewModel.currentYearAndMonth}"
                 app:rippleColor="@null" />
 
             <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/text_view"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="end|center"
                 android:paddingHorizontal="16dp"
-                android:textColor="?attr/colorPrimary" />
+                android:textColor="?attr/colorPrimary"
+                app:monthExpenditure="@{viewModel.monthExpenditure}"
+                app:monthIncome="@{viewModel.monthIncome}" />
 
         </LinearLayout>
 
@@ -46,7 +48,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:scrollbars="vertical"
-            app:homeRvItemList="@{viewModel.items}"
+            app:txnForDayRvItemList="@{viewModel.itemList}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     </LinearLayout>

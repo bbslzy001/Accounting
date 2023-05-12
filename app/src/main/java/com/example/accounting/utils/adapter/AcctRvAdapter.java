@@ -3,14 +3,12 @@ package com.example.accounting.utils.adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.accounting.R;
-import com.example.accounting.base.BaseApplication;
 import com.example.accounting.databinding.RvHeaderAcctBinding;
 import com.example.accounting.databinding.RvItemAcctBinding;
 import com.example.accounting.model.entity.AcctRvHeader;
@@ -26,6 +24,18 @@ public class AcctRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private AcctRvHeader header;
     private List<AcctType> itemList = new ArrayList<>();
+
+    private AcctRvAdapter.OnItemClickListener onItemClickListener;
+
+    public interface OnItemClickListener
+    {
+        void onItemClick(int txnInfoId);
+    }
+
+    public void setOnItemClickListener(AcctRvAdapter.OnItemClickListener onItemClickListener)
+    {
+        this.onItemClickListener = onItemClickListener;
+    }
 
     public AcctRvAdapter()
     {
@@ -90,7 +100,6 @@ public class AcctRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             RvItemAcctBinding binding = DataBindingUtil.inflate(inflater, R.layout.rv_item_acct, parent, false);
             return new ItemViewHolder(binding);
         }
-
     }
 
     @Override
@@ -108,10 +117,9 @@ public class AcctRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             viewHolder.binding.setAcctType(itemList.get(position - 1));  // 去掉头部
             viewHolder.binding.executePendingBindings();
         }
-
     }
 
-    public static class HeaderViewHolder extends RecyclerView.ViewHolder
+    private class HeaderViewHolder extends RecyclerView.ViewHolder
     {
         private final RvHeaderAcctBinding binding;
 
@@ -122,7 +130,7 @@ public class AcctRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
-    public static class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+    private class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
     {
         private final RvItemAcctBinding binding;
 
@@ -136,7 +144,11 @@ public class AcctRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         @Override
         public void onClick(View view)
         {
-            Toast.makeText(BaseApplication.getContext(), "点击了Item", Toast.LENGTH_SHORT).show();
+            if (onItemClickListener != null)
+            {
+                int position = getAdapterPosition();  // 获取ViewHolder的位置
+                onItemClickListener.onItemClick(itemList.get(position - 1).getId());
+            }
         }
     }
 }
