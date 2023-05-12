@@ -36,8 +36,19 @@ public class AcctDetailsActivity extends BaseActivity<ActivityAcctDetailsBinding
     protected void initView()
     {
         super.initView();
-        viewModel.initItemList(getIntent().getIntExtra("acctId",-1));
+        int acctId = getIntent().getIntExtra("acctId",-1);
+        viewModel.initAcctType(acctId);
+        viewModel.initItemList(acctId);
+        initTopAppbar();
         initRecyclerView();
+    }
+
+    /**
+     * 初始化顶部标题栏
+     */
+    private void initTopAppbar()
+    {
+        binding.topAppBar.setNavigationOnClickListener(view -> finish());
     }
 
     /**

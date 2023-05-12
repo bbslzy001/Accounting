@@ -72,30 +72,35 @@ public class TxnForMonthRvAdapter extends BaseRvAdapter<TxnForMonthRvGroup>
     {
         List<TxnForMonthRvGroup> groupList = new ArrayList<>();
 
-        // 将 itemList 按照日期分组
-        Map<String, List<TxnRvItem>> map = itemList.stream().collect(Collectors.groupingBy(TxnRvItem::getDate, LinkedHashMap::new, Collectors.toList()));
-
-        // 遍历每个日期分组
-        for (String date : map.keySet())
+        // 按月份分组
+        Map<String, List<TxnRvItem>> map = itemList.stream().collect(Collectors.groupingBy(item ->
         {
-            List<TxnRvItem> subList = map.get(date);
+            String[] dateArr = item.getDate().split("/");
+            return dateArr[0] + "/" + dateArr[1];
+        }, LinkedHashMap::new, Collectors.toList()));
+
+        // 遍历每个月份分组
+        for (String month : map.keySet())
+        {
+            List<TxnRvItem> subList = map.get(month);
             List<TxnForMonthRvSubItem> subItemList = new ArrayList<>();
 
-            // 遍历每个交易信息，将其转换为子项
+            // 遍历每个交易信息,将其转换为子项
             for (TxnRvItem item : Objects.requireNonNull(subList))
             {
-                TxnForMonthRvSubItem subItem = new TxnForMonthRvSubItem(item.getTxnInfoId(), item.getTxnType(), item.getTime(), item.getAmount());
+                String[] dateArr = item.getDate().split("/");
+                TxnForMonthRvSubItem subItem = new TxnForMonthRvSubItem(item.getTxnInfoId(), item.getTxnType(), dateArr[2] + "日 " + item.getTime(), item.getAmount());
                 subItemList.add(subItem);
             }
 
-            // 计算该日期的总支出和总收入
-            double expenditure = Objects.requireNonNull(subList).stream().filter(item -> item.getAmount() < 0).mapToDouble(TxnRvItem::getAmount).sum();
-            double income = Objects.requireNonNull(subList).stream().filter(item -> item.getAmount() > 0).mapToDouble(TxnRvItem::getAmount).sum();
+            // 计算该月的总支出和总收入
+            double expenditure = subList.stream().filter(item -> item.getAmount() < 0).mapToDouble(TxnRvItem::getAmount).sum();
+            double income = subList.stream().filter(item -> item.getAmount() > 0).mapToDouble(TxnRvItem::getAmount).sum();
 
-            // 创建日期头部项
-            TxnForMonthRvHeaderItem headerItem = new TxnForMonthRvHeaderItem(date, expenditure, income);
+            // 创建月份头部项
+            TxnForMonthRvHeaderItem headerItem = new TxnForMonthRvHeaderItem(month, expenditure, income);
 
-            // 将日期头部项和子项列表构建为分组项，加入 groupList 中
+            // 将月份头部项和子项列表构建为分组项,加入 groupList 中
             TxnForMonthRvGroup group = new TxnForMonthRvGroup(headerItem, subItemList);
             groupList.add(group);
         }

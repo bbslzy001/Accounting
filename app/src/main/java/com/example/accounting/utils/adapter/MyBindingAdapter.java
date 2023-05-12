@@ -150,6 +150,15 @@ public class MyBindingAdapter
         }
     }
 
+    @BindingAdapter({"acctDetailedTitle"})
+    public static void setAcctDetailedTitle(MaterialToolbar toolbar, LiveData<AcctType> acctType)
+    {
+        if (acctType != null && acctType.getValue() != null)
+        {
+            toolbar.setTitle(acctType.getValue().getType());
+        }
+    }
+
     @BindingAdapter({"marginBottom"})
     public static void setMarginBottom(View view, LiveData<Integer> marginBottom)
     {
