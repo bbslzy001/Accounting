@@ -2,13 +2,11 @@ package com.example.accounting.ui.view.activity;
 
 import android.content.Intent;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import androidx.core.view.GravityCompat;
 
 import com.example.accounting.BR;
 import com.example.accounting.R;
-import com.example.accounting.base.BaseApplication;
 import com.example.accounting.base.BaseActivity;
 import com.example.accounting.databinding.ActivityMainBinding;
 import com.example.accounting.ui.viewmodel.activity.MainActViewModel;
@@ -162,10 +160,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainActViewM
      */
     private void initAddTradeButton()
     {
-        binding.addTradeButton.setOnClickListener(view ->
-        {
-            viewModel.addTradeInfo();
-            Toast.makeText(BaseApplication.getContext(), "点击了Button", Toast.LENGTH_SHORT).show();
-        });
+        binding.addTradeButton.setOnClickListener(view -> startActivity(new Intent(this, AddTxnActivity.class)));
     }
 }
