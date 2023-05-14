@@ -25,17 +25,40 @@
         <com.necer.view.WeekBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="8dp" />
+            android:paddingVertical="8dp"
+            app:calendarBackground="?android:attr/colorBackground"
+            app:defaultCheckedBackground="@drawable/calendar_default_checked"
+            app:defaultCheckedLunarTextColor="?attr/colorPrimaryGrey"
+            app:defaultCheckedSolarTextColor="?attr/colorOnSurfaceVariant"
+            app:defaultUnCheckedLunarTextColor="?attr/colorPrimaryGrey"
+            app:defaultUnCheckedSolarTextColor="?attr/colorOnSurfaceVariant"
+            app:todayCheckedBackground="@drawable/calendar_today_checked"
+            app:todayCheckedLunarTextColor="?attr/colorPrimaryGrey"
+            app:todayCheckedSolarTextColor="?attr/colorOnSurfaceVariant"
+            app:todayUnCheckedLunarTextColor="?attr/colorPrimaryGrey"
+            app:todayUnCheckedSolarTextColor="?attr/colorOnSurfaceVariant" />
 
         <com.necer.calendar.Miui10Calendar
             android:id="@+id/calendar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:calendarBackground="?android:attr/colorBackground"
+            app:defaultCheckedBackground="@drawable/calendar_default_checked"
+            app:defaultCheckedLunarTextColor="?attr/colorPrimaryGrey"
+            app:defaultCheckedSolarTextColor="?attr/colorOnSurfaceVariant"
+            app:defaultUnCheckedLunarTextColor="?attr/colorPrimaryGrey"
+            app:defaultUnCheckedSolarTextColor="?attr/colorOnSurfaceVariant"
+            app:todayCheckedBackground="@drawable/calendar_today_checked"
+            app:todayCheckedLunarTextColor="?attr/colorPrimaryGrey"
+            app:todayCheckedSolarTextColor="?attr/colorOnSurfaceVariant"
+            app:todayUnCheckedLunarTextColor="?attr/colorPrimaryGrey"
+            app:todayUnCheckedSolarTextColor="?attr/colorOnSurfaceVariant">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="?android:attr/colorBackground"
                 android:orientation="vertical"
                 android:scrollbars="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"

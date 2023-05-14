@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:alpha="1"
-        android:background="?attr/colorApplicationBackground"
+        android:background="?android:attr/colorBackground"
         android:orientation="horizontal"
         android:paddingHorizontal="8dp"
         android:paddingVertical="8dp">

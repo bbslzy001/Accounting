@@ -33,8 +33,16 @@ public class CalStatsFragViewModel extends BaseFragmentViewModel
     private void initItemList()
     {
         itemList = Transformations.switchMap(currentDate, currentDate ->
-                txnRvItemRepository.queryAllByDay(currentDate.toString("yyyy/MM/dd"))
-        );
+        {
+            if (currentDate != null)
+            {
+                return txnRvItemRepository.queryAllByDay(currentDate.toString("yyyy/MM/dd"));
+            }
+            else
+            {
+                return txnRvItemRepository.queryAllByDay(new LocalDate().toString("yyyy/MM/dd"));
+            }
+        });
     }
 
     public LiveData<List<TxnRvItem>> getItemList()
