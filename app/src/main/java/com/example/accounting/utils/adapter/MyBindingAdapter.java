@@ -31,7 +31,7 @@ public class MyBindingAdapter
         TxnForDayRvAdapter adapter = (TxnForDayRvAdapter) recyclerView.getAdapter();
         if (adapter != null && itemList != null && itemList.getValue() != null)
         {
-            adapter.setItemList(itemList.getValue());
+            adapter.setRvData(itemList.getValue());
         }
     }
 
@@ -41,7 +41,7 @@ public class MyBindingAdapter
         TxnForMonthRvAdapter adapter = (TxnForMonthRvAdapter) recyclerView.getAdapter();
         if (adapter != null && itemList != null && itemList.getValue() != null)
         {
-            adapter.setItemList(itemList.getValue());
+            adapter.setRvData(itemList.getValue());
         }
     }
 
@@ -61,7 +61,7 @@ public class MyBindingAdapter
         AcctRvAdapter adapter = (AcctRvAdapter) recyclerView.getAdapter();
         if (adapter != null && itemList != null && itemList.getValue() != null)
         {
-            adapter.setItemList(itemList.getValue());
+            adapter.setRvData(itemList.getValue());
         }
     }
 

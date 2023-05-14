@@ -63,7 +63,7 @@ public class AcctRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         this.header = new AcctRvHeader(netAmount, totalAmount, negativeAmount);
     }
 
-    public void setItemList(List<AcctType> itemList)
+    public void setRvData(List<AcctType> itemList)
     {
         this.itemList = itemList;
 
@@ -108,13 +108,13 @@ public class AcctRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (position == 0)
         {
             HeaderViewHolder viewHolder = (HeaderViewHolder) holder;
-            viewHolder.binding.setAcctRvHeader(header);
+            viewHolder.binding.setHeader(header);
             viewHolder.binding.executePendingBindings();
         }
         else
         {
             ItemViewHolder viewHolder = (ItemViewHolder) holder;
-            viewHolder.binding.setAcctType(itemList.get(position - 1));  // 去掉头部
+            viewHolder.binding.setItem(itemList.get(position - 1));  // 去掉头部
             viewHolder.binding.executePendingBindings();
         }
     }

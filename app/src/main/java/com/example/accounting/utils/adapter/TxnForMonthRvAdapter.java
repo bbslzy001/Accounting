@@ -68,7 +68,7 @@ public class TxnForMonthRvAdapter extends BaseRvAdapter<TxnForMonthRvGroup>
         subItemViewHolder.binding.executePendingBindings();
     }
 
-    public void setItemList(List<TxnRvItem> itemList)
+    public void setRvData(List<TxnRvItem> itemList)
     {
         List<TxnForMonthRvGroup> groupList = new ArrayList<>();
 

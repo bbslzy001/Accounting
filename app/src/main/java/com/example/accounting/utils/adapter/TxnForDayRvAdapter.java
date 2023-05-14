@@ -70,7 +70,7 @@ public class TxnForDayRvAdapter extends BaseRvAdapter<TxnForDayRvGroup>
         subItemViewHolder.binding.executePendingBindings();
     }
 
-    public void setItemList(List<TxnRvItem> itemList)
+    public void setRvData(List<TxnRvItem> itemList)
     {
         List<TxnForDayRvGroup> groupList = new ArrayList<>();
 

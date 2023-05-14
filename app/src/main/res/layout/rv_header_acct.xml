@@ -4,7 +4,7 @@
     <data>
 
         <variable
-            name="acctRvHeader"
+            name="header"
             type="com.example.accounting.model.entity.AcctRvHeader" />
     </data>
 
@@ -70,7 +70,7 @@
                     android:layout_columnWeight="1"
                     android:paddingVertical="4dp"
                     android:textSize="20sp"
-                    app:cardAmount="@{acctRvHeader.netAmount}" />
+                    app:cardAmount="@{header.netAmount}" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="0dp"
@@ -80,7 +80,7 @@
                     android:layout_columnWeight="1"
                     android:paddingVertical="4dp"
                     android:textSize="20sp"
-                    app:cardAmount="@{acctRvHeader.totalAmount}" />
+                    app:cardAmount="@{header.totalAmount}" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="0dp"
@@ -90,7 +90,7 @@
                     android:layout_columnWeight="1"
                     android:paddingVertical="4dp"
                     android:textSize="20sp"
-                    app:cardAmount="@{acctRvHeader.negativeAmount}" />
+                    app:cardAmount="@{header.negativeAmount}" />
 
             </GridLayout>
 

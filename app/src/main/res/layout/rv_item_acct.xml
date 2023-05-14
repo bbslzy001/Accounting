@@ -5,7 +5,7 @@
     <data>
 
         <variable
-            name="acctType"
+            name="item"
             type="com.example.accounting.model.room.bean.AcctType" />
     </data>
 
@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|center"
-                android:text="@{acctType.type}"
+                android:text="@{item.type}"
                 android:textSize="16sp" />
 
         </LinearLayout>
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
             android:textSize="16sp"
-            app:itemAmount="@{acctType.amount}" />
+            app:itemAmount="@{item.amount}" />
 
     </LinearLayout>
 </layout>
