@@ -54,7 +54,7 @@ public class ListStatsFragViewModel extends BaseFragmentViewModel
         {
             String year = yearAndMonth.getYear().substring(0, yearAndMonth.getYear().length() - 1);
             String month = yearAndMonth.getMonth().substring(0, yearAndMonth.getMonth().length() - 1);
-            return txnRvItemRepository.queryAllByYearAndMonth(year, month);
+            return txnRvItemRepository.queryAllByMonth(year, month);
         });
     }
 
@@ -64,13 +64,13 @@ public class ListStatsFragViewModel extends BaseFragmentViewModel
         {
             String year = yearAndMonth.getYear().substring(0, yearAndMonth.getYear().length() - 1);
             String month = yearAndMonth.getMonth().substring(0, yearAndMonth.getMonth().length() - 1);
-            return txnRvItemRepository.queryIncomeByYearAndMonth(year, month);
+            return txnRvItemRepository.queryIncomeByMonth(year, month);
         });
         monthExpenditure = Transformations.switchMap(currentYearAndMonth, yearAndMonth ->
         {
             String year = yearAndMonth.getYear().substring(0, yearAndMonth.getYear().length() - 1);
             String month = yearAndMonth.getMonth().substring(0, yearAndMonth.getMonth().length() - 1);
-            return txnRvItemRepository.queryExpenditureByYearAndMonth(year, month);
+            return txnRvItemRepository.queryExpenseByMonth(year, month);
         });
     }
 

@@ -45,6 +45,16 @@ public class MyBindingAdapter
         }
     }
 
+    @BindingAdapter({"txnForOneDayCurrentDate", "txnForOneDayRvItemList"})
+    public static void setTxnForOneDayRvItemList(RecyclerView recyclerView, String date, LiveData<List<TxnRvItem>> itemList)
+    {
+        TxnForOneDayRvAdapter adapter = (TxnForOneDayRvAdapter) recyclerView.getAdapter();
+        if (adapter != null && itemList != null && itemList.getValue() != null)
+        {
+            adapter.setRvData(date, itemList.getValue());
+        }
+    }
+
     @BindingAdapter({"accountRvItemList"})
     public static void setAccountRvItemList(RecyclerView recyclerView, LiveData<List<AcctType>> itemList)
     {
@@ -77,7 +87,7 @@ public class MyBindingAdapter
     @BindingAdapter({"headerItemAmount"})
     public static void setHeaderItemAmount(TextView textView, double amount)
     {
-        textView.setText(String.format(Locale.getDefault(), "%.2f", Math.abs(amount)));  // 去掉原有的负号，手动绘制
+        textView.setText(String.format(Locale.getDefault(), "%.2f", Math.abs(amount)));
     }
 
     @BindingAdapter({"headerItemToggle"})
@@ -126,7 +136,7 @@ public class MyBindingAdapter
     }
 
     @BindingAdapter({"currentYearAndMonth"})
-    public static void setCurrentDate(Button button, LiveData<YearAndMonth> currentYearAndMonth)
+    public static void setCurrentYearAndMonth(Button button, LiveData<YearAndMonth> currentYearAndMonth)
     {
         if (currentYearAndMonth != null && currentYearAndMonth.getValue() != null)
         {

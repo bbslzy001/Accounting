@@ -17,7 +17,7 @@ public interface TxnRvItemDao
             "inner join TxnType on TxnInfo.TT_id = TxnType.TT_id " +
             "where TxnInfo.TI_date like :year || '/' || :month || '/%' " +
             "and TxnInfo.TI_amount > 0")
-    LiveData<Double> queryIncomeByYearAndMonth(String year, String month);
+    LiveData<Double> queryIncomeByMonth(String year, String month);
 
     @Query("select ifnull(sum(TxnInfo.TI_amount), 0.0) as totalAmount " +
             "from TxnInfo " +
@@ -25,7 +25,7 @@ public interface TxnRvItemDao
             "inner join TxnType on TxnInfo.TT_id = TxnType.TT_id " +
             "where TxnInfo.TI_date like :year || '/' || :month || '/%' " +
             "and TxnInfo.TI_amount < 0")
-    LiveData<Double> queryExpenditureByYearAndMonth(String year, String month);
+    LiveData<Double> queryExpenseByMonth(String year, String month);
 
     @Query("select TxnInfo.TI_id as txnInfoId, " +
             "TxnInfo.TI_amount as amount, " +
@@ -39,7 +39,21 @@ public interface TxnRvItemDao
             "inner join TxnType on TxnInfo.TT_id = TxnType.TT_id " +
             "where date like :year || '/' || :month || '/%' " +
             "order by date asc, time asc")
-    LiveData<List<TxnRvItem>> queryAllByYearAndMonth(String year, String month);
+    LiveData<List<TxnRvItem>> queryAllByMonth(String year, String month);
+
+    @Query("select TxnInfo.TI_id as txnInfoId, " +
+            "TxnInfo.TI_amount as amount, " +
+            "TxnInfo.TI_date as date, " +
+            "TxnInfo.TI_time as time, " +
+            "TxnInfo.TI_remark as remark, " +
+            "AcctType.AT_type as acctType, " +
+            "TxnType.TT_type as txnType " +
+            "from TxnInfo " +
+            "inner join AcctType on TxnInfo.AT_id = AcctType.AT_id " +
+            "inner join TxnType on TxnInfo.TT_id = TxnType.TT_id " +
+            "where date = :date " +
+            "order by date asc, time asc")
+    LiveData<List<TxnRvItem>> queryAllByDay(String date);
 
     @Query("select TxnInfo.TI_id as txnInfoId, " +
             "TxnInfo.TI_amount as amount, " +
