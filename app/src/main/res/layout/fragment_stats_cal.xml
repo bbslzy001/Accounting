@@ -12,7 +12,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingHorizontal="8dp">
 
         <TextView
             android:id="@+id/current_date"
@@ -20,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="@{viewModel.currentDate.toString(`yyyy年MM月`)}"
-            android:textSize="24sp" />
+            android:textSize="20sp" />
 
         <com.necer.view.WeekBar
             android:layout_width="match_parent"
