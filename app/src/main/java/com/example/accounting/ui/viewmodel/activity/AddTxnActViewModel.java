@@ -81,8 +81,8 @@ public class AddTxnActViewModel extends BaseActivityViewModel
 
     public void initFormData()
     {
-        TxnInfoForm formData = new TxnInfoForm(0, null, null, null, Calendar.getInstance(), null);
-        this.formData.setValue(formData);
+        TxnInfoForm txnInfoForm = new TxnInfoForm(0, null, null, null, Calendar.getInstance(), null);
+        formData.setValue(txnInfoForm);
     }
 
     public void initDropdownData()
@@ -130,7 +130,7 @@ public class AddTxnActViewModel extends BaseActivityViewModel
         else if (txnInfoForm.getAmountText() == null) return -1;
         else if (txnInfoForm.getAcctType() == null) return -2;
         else if (txnInfoForm.getTxnType() == null) return -3;
-        else if (!isDouble(txnInfoForm.getAmountText())) return -4;
+        else if (!isPositiveDouble(txnInfoForm.getAmountText())) return -4;
         double amount = txnInfoForm.getIncomeOrExpense() == 0 ? Double.parseDouble(txnInfoForm.getAmountText()) : -Double.parseDouble(txnInfoForm.getAmountText());
         int acctTypeId = 0;
         int txnTypeId = 0;
@@ -154,12 +154,12 @@ public class AddTxnActViewModel extends BaseActivityViewModel
         return 1;
     }
 
-    private boolean isDouble(String amountText)
+    private boolean isPositiveDouble(String amountText)
     {
         try
         {
             double amount = Double.parseDouble(amountText);
-            return amount != 0.0;
+            return amount > 0.0;
         }
         catch (NumberFormatException e)
         {

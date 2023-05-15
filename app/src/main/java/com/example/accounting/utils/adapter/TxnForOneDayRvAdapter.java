@@ -152,7 +152,7 @@ public class TxnForOneDayRvAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             if (onItemClickListener != null)
             {
                 int position = getAdapterPosition();  // 获取ViewHolder的位置
-                onItemClickListener.onItemLongClick(itemList.get(position).getTxnInfoId());
+                onItemClickListener.onItemLongClick(itemList.get(position - 1).getTxnInfoId());
                 return true;
             }
             return false;

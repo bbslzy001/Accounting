@@ -19,6 +19,7 @@ import java.util.Objects;
 
 public class EditTxnActViewModel extends BaseActivityViewModel
 {
+    private int txnInfoId;
     private String[] acctTypeArray;
     private String[] txnTypeArray;
     private LiveData<List<TxnType>> txnTypeListLiveData;
@@ -81,15 +82,16 @@ public class EditTxnActViewModel extends BaseActivityViewModel
 
     public void initFormData(TxnRvItem txnRvItem)
     {
-        int incomeOrExpense = txnRvItem.getAmount()> 0 ? 0 : 1;
+        txnInfoId = txnRvItem.getTxnInfoId();
+        int incomeOrExpense = txnRvItem.getAmount() > 0 ? 0 : 1;
         String acctType = txnRvItem.getAcctType();
         String txnType = txnRvItem.getTxnType();
-        String amountText = String.valueOf(txnRvItem.getAmount());
+        String amountText = String.valueOf(Math.abs(txnRvItem.getAmount()));
         String date = txnRvItem.getDate();
         String time = txnRvItem.getTime();
         String remark = txnRvItem.getRemark();
-        TxnInfoForm formData = new TxnInfoForm(incomeOrExpense, acctType, txnType, amountText, date, time, remark);
-        this.formData.setValue(formData);
+        TxnInfoForm txnInfoForm = new TxnInfoForm(incomeOrExpense, acctType, txnType, amountText, date, time, remark);
+        formData.setValue(txnInfoForm);
     }
 
     public void initDropdownData()
@@ -135,7 +137,7 @@ public class EditTxnActViewModel extends BaseActivityViewModel
         else if (txnInfoForm.getAmountText() == null) return -1;
         else if (txnInfoForm.getAcctType() == null) return -2;
         else if (txnInfoForm.getTxnType() == null) return -3;
-        else if (!isDouble(txnInfoForm.getAmountText())) return -4;
+        else if (!isPositiveDouble(txnInfoForm.getAmountText())) return -4;
         double amount = txnInfoForm.getIncomeOrExpense() == 0 ? Double.parseDouble(txnInfoForm.getAmountText()) : -Double.parseDouble(txnInfoForm.getAmountText());
         int acctTypeId = 0;
         int txnTypeId = 0;
@@ -155,16 +157,16 @@ public class EditTxnActViewModel extends BaseActivityViewModel
                 break;
             }
         }
-        txnInfoRepository.update(new TxnInfo(0, amount, txnInfoForm.getDate(), txnInfoForm.getTime(), txnInfoForm.getRemark(), acctTypeId, txnTypeId));
+        txnInfoRepository.update(new TxnInfo(txnInfoId, amount, txnInfoForm.getDate(), txnInfoForm.getTime(), txnInfoForm.getRemark(), acctTypeId, txnTypeId));
         return 1;
     }
 
-    private boolean isDouble(String amountText)
+    private boolean isPositiveDouble(String amountText)
     {
         try
         {
             double amount = Double.parseDouble(amountText);
-            return amount != 0.0;
+            return amount > 0.0;
         }
         catch (NumberFormatException e)
         {
