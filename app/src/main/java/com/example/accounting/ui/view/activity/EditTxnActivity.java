@@ -1,6 +1,7 @@
 package com.example.accounting.ui.view.activity;
 
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import com.example.accounting.BR;
 import com.example.accounting.R;
@@ -41,53 +42,69 @@ public class EditTxnActivity extends BaseActivity<ActivityEditTxnBinding, EditTx
     protected void initView()
     {
         super.initView();
-        viewModel.setTxnRvItem((TxnRvItem) getIntent().getSerializableExtra("txnRvItem"));
-        viewModel.initTxnInfo();
-        viewModel.getIsAllCompleted().observe(this, isAllCompleted ->
+
+        viewModel.initFormData((TxnRvItem) getIntent().getSerializableExtra("txnRvItem"));
+        viewModel.initDropdownData();
+        viewModel.isAllCompleted().observe(this, isAllCompleted ->
         {
             if (isAllCompleted == 0)
             {
-                initUI();
+                initTopAppBar();
+                initToggleButton();
+                initSpinner();
+                initDatePicker();
+                initTimePicker();
             }
         });
     }
 
-    private void initUI()
+    /**
+     * 初始化顶部应用栏
+     */
+    private void initTopAppBar()
     {
-        initTopAppBar();
-        initDatePicker();
-        initTimePicker();
-        initSpinner();
-        initToggleButton();
-        initAmountText();
-        initRemarkText();
+        binding.topAppBar.setNavigationOnClickListener(view -> finish());
+        binding.topAppBar.setOnMenuItemClickListener(menuItem ->
+        {
+            if (menuItem.getItemId() == R.id.save)
+            {
+                int result = viewModel.updateTxnInfo();
+                if (result == 1) finish();
+                else
+                {
+                    String[] toastInfo = new String[]{"未知错误", "交易金额不能为空", "交易账户不能为空", "交易类型不能为空", "请填写正确的交易金额"};
+                    Toast.makeText(this, toastInfo[Math.abs(result)], Toast.LENGTH_SHORT).show();
+                }
+            }
+            return false;
+        });
     }
 
-    private void initRemarkText()
+    private void initToggleButton()
     {
-        binding.txnRemark.setText(viewModel.getTxnRvItem().getRemark());
+        binding.toggleButton.addOnButtonCheckedListener((group, checkedId, isChecked) ->
+        {
+            int incomeOrExpense = checkedId == R.id.button1 && isChecked ? 0 : 1;
+            Objects.requireNonNull(viewModel.getFormData().getValue()).setIncomeOrExpense(incomeOrExpense);
+        });
     }
 
     private void initSpinner()
     {
         ArrayAdapter<String> adapterForTvnAcct = new ArrayAdapter<>(this, R.layout.text_field_list_item, viewModel.getAcctTypeArray());
         binding.txnAcct.setAdapter(adapterForTvnAcct);
-        binding.txnAcct.setText(viewModel.getTxnRvItem().getAcctType(), false);
         ArrayAdapter<String> adapterForTvnType = new ArrayAdapter<>(this, R.layout.text_field_list_item, viewModel.getTxnTypeArray());
         binding.txnType.setAdapter(adapterForTvnType);
-        binding.txnType.setText(viewModel.getTxnRvItem().getTxnType(), false);
     }
 
     private void initDatePicker()
     {
-        binding.txnDate.setText(viewModel.getTxnRvItem().getDate());
         binding.txnDate.setOnClickListener(view ->
         {
             // 创建MaterialDatePicker
             MaterialDatePicker<Long> datePicker = MaterialDatePicker.Builder.datePicker()
                     .setTitleText("选择日期")
                     .setSelection(viewModel.getMilliseconds())
-                    //.setSelection(MaterialDatePicker.todayInUtcMilliseconds())  设置为当前日期
                     .build();
 
             // 设置日期选择器的回调函数
@@ -108,15 +125,14 @@ public class EditTxnActivity extends BaseActivity<ActivityEditTxnBinding, EditTx
 
     private void initTimePicker()
     {
-        binding.txnTime.setText(viewModel.getTxnRvItem().getTime());
         binding.txnTime.setOnClickListener(view ->
         {
             // 创建 MaterialTimePicker
             MaterialTimePicker timePicker = new MaterialTimePicker.Builder()
+                    .setTitleText("选择时间")
                     .setTimeFormat(TimeFormat.CLOCK_24H)
                     .setHour(viewModel.getHour())
                     .setMinute(viewModel.getMinute())
-                    .setTitleText("选择时间")
                     .build();
 
             // 设置时间选择器的回调函数
@@ -133,42 +149,6 @@ public class EditTxnActivity extends BaseActivity<ActivityEditTxnBinding, EditTx
 
             // 显示时间选择器
             timePicker.show(getSupportFragmentManager(), "timePicker");
-        });
-    }
-
-    private void initToggleButton()
-    {
-        if (viewModel.getTxnRvItem().getAmount() > 0) binding.toggleButton.check(binding.toggleButton.getChildAt(0).getId());
-        else binding.toggleButton.check(binding.toggleButton.getChildAt(1).getId());
-    }
-
-    private void initAmountText()
-    {
-        binding.txnAmount.setText(String.valueOf(Math.abs(viewModel.getTxnRvItem().getAmount())));
-    }
-
-    /**
-     * 初始化顶部应用栏
-     */
-    private void initTopAppBar()
-    {
-        binding.topAppBar.setNavigationOnClickListener(view -> finish());
-        binding.topAppBar.setOnMenuItemClickListener(menuItem ->
-        {
-            if (menuItem.getItemId() == R.id.save)
-            {
-                viewModel.update(
-                        binding.toggleButton.getCheckedButtonId() == binding.button1.getId() ? 0 : 1,
-                        Objects.requireNonNull(binding.txnAmount.getText()).toString(),
-                        Objects.requireNonNull(binding.txnDate.getText()).toString(),
-                        Objects.requireNonNull(binding.txnTime.getText()).toString(),
-                        Objects.requireNonNull(binding.txnRemark.getText()).toString(),
-                        binding.txnAcct.getText().toString(),
-                        binding.txnType.getText().toString()
-                );
-                finish();
-            }
-            return false;
         });
     }
 }

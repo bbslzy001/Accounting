@@ -18,6 +18,7 @@ import com.example.accounting.model.entity.YearAndMonth;
 import com.example.accounting.model.room.bean.AcctType;
 import com.example.accounting.model.room.bean.TxnRvItem;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
@@ -166,6 +167,15 @@ public class MyBindingAdapter
         if (acctType != null && acctType.getValue() != null)
         {
             toolbar.setTitle(acctType.getValue().getType());
+        }
+    }
+
+    @BindingAdapter({"incomeOrExpense"})
+    public static void setIncomeOrExpense(MaterialButtonToggleGroup group, int incomeOrExpense)
+    {
+        if (group != null)
+        {
+            group.check(group.getChildAt(incomeOrExpense).getId());
         }
     }
 

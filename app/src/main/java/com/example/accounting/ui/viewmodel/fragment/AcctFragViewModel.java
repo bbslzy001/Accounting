@@ -24,10 +24,4 @@ public class AcctFragViewModel extends BaseFragmentViewModel
     {
         return items;
     }
-
-    public void addAcctType()
-    {
-        acctTypeRepository.insert(new AcctType(0, "信用卡", 99.99));
-        acctTypeRepository.insert(new AcctType(0, "信用卡", -99.99));
-    }
 }
