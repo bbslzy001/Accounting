@@ -27,9 +27,19 @@ public interface AcctDao
     @Update
     void update(Acct acct);
 
-    @Query("select * from Acct where A_id = :id")
+    @Query("select Acct.A_id, " +
+            "Acct.A_name, " +
+            "Acct.A_amount + IFNULL(SUM(Txn.T_amount), 0.0) as A_amount " +
+            "from Acct " +
+            "left join Txn on Acct.A_id = Txn.A_id " +
+            "where Acct.A_id = :id")
     LiveData<Acct> queryById(int id);
 
-    @Query("select * from Acct")
+    @Query("select Acct.A_id, " +
+            "Acct.A_name, " +
+            "Acct.A_amount + IFNULL(SUM(Txn.T_amount), 0.0) as A_amount " +
+            "from Acct " +
+            "left join Txn on Acct.A_id = Txn.A_id " +
+            "group by Acct.A_id")
     LiveData<List<Acct>> queryAll();
 }
