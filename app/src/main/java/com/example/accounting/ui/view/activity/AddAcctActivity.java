@@ -1,5 +1,7 @@
 package com.example.accounting.ui.view.activity;
 
+import android.widget.Toast;
+
 import com.example.accounting.BR;
 import com.example.accounting.R;
 import com.example.accounting.base.BaseActivity;
@@ -30,6 +32,8 @@ public class AddAcctActivity extends BaseActivity<ActivityAddAcctBinding, AddAcc
     protected void initView()
     {
         super.initView();
+
+        viewModel.initFormData();
         initTopAppBar();
     }
 
@@ -43,7 +47,13 @@ public class AddAcctActivity extends BaseActivity<ActivityAddAcctBinding, AddAcc
         {
             if (menuItem.getItemId() == R.id.add)
             {
-                finish();
+                int result = viewModel.insertAcctType();
+                if (result == 1) finish();
+                else
+                {
+                    String[] toastInfo = new String[]{"未知错误", "账户名称不能为空", "账户金额不能为空", "请填写正确的账户金额"};
+                    Toast.makeText(this, toastInfo[Math.abs(result)], Toast.LENGTH_SHORT).show();
+                }
             }
             return false;
         });

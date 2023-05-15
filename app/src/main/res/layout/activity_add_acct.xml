@@ -24,8 +24,8 @@
                 android:id="@+id/topAppBar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:navigationIcon="@drawable/ic_close"
                 app:menu="@menu/add_top_bar_menu"
+                app:navigationIcon="@drawable/ic_close"
                 app:title="添加账户" />
 
         </com.google.android.material.appbar.AppBarLayout>
@@ -49,7 +49,8 @@
                     android:id="@+id/acct_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:text="@={viewModel.formData.type}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -64,7 +65,8 @@
                     android:id="@+id/acct_amount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:text="@={viewModel.formData.amountText}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
