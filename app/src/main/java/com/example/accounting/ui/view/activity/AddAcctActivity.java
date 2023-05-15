@@ -47,7 +47,7 @@ public class AddAcctActivity extends BaseActivity<ActivityAddAcctBinding, AddAcc
         {
             if (menuItem.getItemId() == R.id.add)
             {
-                int result = viewModel.insertAcctType();
+                int result = viewModel.insertAcct();
                 if (result == 1) finish();
                 else
                 {

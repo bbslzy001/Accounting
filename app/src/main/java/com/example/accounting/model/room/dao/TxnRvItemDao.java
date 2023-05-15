@@ -11,61 +11,61 @@ import java.util.List;
 @Dao
 public interface TxnRvItemDao
 {
-    @Query("select ifnull(sum(TxnInfo.TI_amount), 0.0) as totalAmount " +
-            "from TxnInfo " +
-            "inner join AcctType on TxnInfo.AT_id = AcctType.AT_id " +
-            "inner join TxnType on TxnInfo.TT_id = TxnType.TT_id " +
-            "where TxnInfo.TI_date like :year || '/' || :month || '/%' " +
-            "and TxnInfo.TI_amount > 0")
+    @Query("select ifnull(sum(Txn.T_amount), 0.0) as totalAmount " +
+            "from Txn " +
+            "inner join Acct on Txn.A_id = Acct.A_id " +
+            "inner join TxnType on Txn.TT_id = TxnType.TT_id " +
+            "where Txn.T_date like :year || '/' || :month || '/%' " +
+            "and Txn.T_amount > 0")
     LiveData<Double> queryIncomeByMonth(String year, String month);
 
-    @Query("select ifnull(sum(TxnInfo.TI_amount), 0.0) as totalAmount " +
-            "from TxnInfo " +
-            "inner join AcctType on TxnInfo.AT_id = AcctType.AT_id " +
-            "inner join TxnType on TxnInfo.TT_id = TxnType.TT_id " +
-            "where TxnInfo.TI_date like :year || '/' || :month || '/%' " +
-            "and TxnInfo.TI_amount < 0")
+    @Query("select ifnull(sum(Txn.T_amount), 0.0) as totalAmount " +
+            "from Txn " +
+            "inner join Acct on Txn.A_id = Acct.A_id " +
+            "inner join TxnType on Txn.TT_id = TxnType.TT_id " +
+            "where Txn.T_date like :year || '/' || :month || '/%' " +
+            "and Txn.T_amount < 0")
     LiveData<Double> queryExpenseByMonth(String year, String month);
 
-    @Query("select TxnInfo.TI_id as txnInfoId, " +
-            "TxnInfo.TI_amount as amount, " +
-            "TxnInfo.TI_date as date, " +
-            "TxnInfo.TI_time as time, " +
-            "TxnInfo.TI_remark as remark, " +
-            "AcctType.AT_type as acctType, " +
+    @Query("select Txn.T_id as txnId, " +
+            "Txn.T_amount as amount, " +
+            "Txn.T_date as date, " +
+            "Txn.T_time as time, " +
+            "Txn.T_remark as remark, " +
+            "Acct.A_name as acctName, " +
             "TxnType.TT_type as txnType " +
-            "from TxnInfo " +
-            "inner join AcctType on TxnInfo.AT_id = AcctType.AT_id " +
-            "inner join TxnType on TxnInfo.TT_id = TxnType.TT_id " +
+            "from Txn " +
+            "inner join Acct on Txn.A_id = Acct.A_id " +
+            "inner join TxnType on Txn.TT_id = TxnType.TT_id " +
             "where date like :year || '/' || :month || '/%' " +
             "order by date asc, time asc")
     LiveData<List<TxnRvItem>> queryAllByMonth(String year, String month);
 
-    @Query("select TxnInfo.TI_id as txnInfoId, " +
-            "TxnInfo.TI_amount as amount, " +
-            "TxnInfo.TI_date as date, " +
-            "TxnInfo.TI_time as time, " +
-            "TxnInfo.TI_remark as remark, " +
-            "AcctType.AT_type as acctType, " +
+    @Query("select Txn.T_id as txnId, " +
+            "Txn.T_amount as amount, " +
+            "Txn.T_date as date, " +
+            "Txn.T_time as time, " +
+            "Txn.T_remark as remark, " +
+            "Acct.A_name as acctName, " +
             "TxnType.TT_type as txnType " +
-            "from TxnInfo " +
-            "inner join AcctType on TxnInfo.AT_id = AcctType.AT_id " +
-            "inner join TxnType on TxnInfo.TT_id = TxnType.TT_id " +
+            "from Txn " +
+            "inner join Acct on Txn.A_id = Acct.A_id " +
+            "inner join TxnType on Txn.TT_id = TxnType.TT_id " +
             "where date = :date " +
             "order by date asc, time asc")
     LiveData<List<TxnRvItem>> queryAllByDay(String date);
 
-    @Query("select TxnInfo.TI_id as txnInfoId, " +
-            "TxnInfo.TI_amount as amount, " +
-            "TxnInfo.TI_date as date, " +
-            "TxnInfo.TI_time as time, " +
-            "TxnInfo.TI_remark as remark, " +
-            "AcctType.AT_type as acctType, " +
+    @Query("select Txn.T_id as txnId, " +
+            "Txn.T_amount as amount, " +
+            "Txn.T_date as date, " +
+            "Txn.T_time as time, " +
+            "Txn.T_remark as remark, " +
+            "Acct.A_name as acctName, " +
             "TxnType.TT_type as txnType " +
-            "from TxnInfo " +
-            "inner join AcctType on TxnInfo.AT_id = AcctType.AT_id " +
-            "inner join TxnType on TxnInfo.TT_id = TxnType.TT_id " +
-            "where TxnInfo.AT_id = :acctId " +
+            "from Txn " +
+            "inner join Acct on Txn.A_id = Acct.A_id " +
+            "inner join TxnType on Txn.TT_id = TxnType.TT_id " +
+            "where Txn.A_id = :acctId " +
             "order by date asc, time asc")
     LiveData<List<TxnRvItem>> queryAllByAcctId(int acctId);
 }

@@ -12,7 +12,7 @@ import com.example.accounting.R;
 import com.example.accounting.databinding.RvHeaderAcctBinding;
 import com.example.accounting.databinding.RvItemAcctBinding;
 import com.example.accounting.model.entity.AcctRvHeader;
-import com.example.accounting.model.room.bean.AcctType;
+import com.example.accounting.model.room.bean.Acct;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +23,13 @@ public class AcctRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     public static final int ITEM = 1;  // 项
 
     private AcctRvHeader header;
-    private List<AcctType> itemList = new ArrayList<>();
+    private List<Acct> itemList = new ArrayList<>();
 
     private AcctRvAdapter.OnItemClickListener onItemClickListener;
 
     public interface OnItemClickListener
     {
-        void onItemClick(int txnInfoId);
+        void onItemClick(int txnId);
     }
 
     public void setOnItemClickListener(AcctRvAdapter.OnItemClickListener onItemClickListener)
@@ -47,23 +47,23 @@ public class AcctRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         double totalAmount = 0.0;
         double negativeAmount = 0.0;
 
-        for (AcctType acctType : itemList)
+        for (Acct acct : itemList)
         {
-            netAmount += acctType.getAmount();
-            if (acctType.getAmount() > 0)
+            netAmount += acct.getAmount();
+            if (acct.getAmount() > 0)
             {
-                totalAmount += acctType.getAmount();
+                totalAmount += acct.getAmount();
             }
             else
             {
-                negativeAmount += acctType.getAmount();
+                negativeAmount += acct.getAmount();
             }
         }
 
         this.header = new AcctRvHeader(netAmount, totalAmount, negativeAmount);
     }
 
-    public void setRvData(List<AcctType> itemList)
+    public void setRvData(List<Acct> itemList)
     {
         this.itemList = itemList;
 

@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.accounting.R;
 import com.example.accounting.model.entity.YearAndMonth;
-import com.example.accounting.model.room.bean.AcctType;
+import com.example.accounting.model.room.bean.Acct;
 import com.example.accounting.model.room.bean.TxnRvItem;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButtonToggleGroup;
@@ -57,7 +57,7 @@ public class MyBindingAdapter
     }
 
     @BindingAdapter({"accountRvItemList"})
-    public static void setAccountRvItemList(RecyclerView recyclerView, LiveData<List<AcctType>> itemList)
+    public static void setAccountRvItemList(RecyclerView recyclerView, LiveData<List<Acct>> itemList)
     {
         AcctRvAdapter adapter = (AcctRvAdapter) recyclerView.getAdapter();
         if (adapter != null && itemList != null && itemList.getValue() != null)
@@ -162,11 +162,11 @@ public class MyBindingAdapter
     }
 
     @BindingAdapter({"acctDetailedTitle"})
-    public static void setAcctDetailedTitle(MaterialToolbar toolbar, LiveData<AcctType> acctType)
+    public static void setAcctDetailedTitle(MaterialToolbar toolbar, LiveData<Acct> acct)
     {
-        if (acctType != null && acctType.getValue() != null)
+        if (acct != null && acct.getValue() != null)
         {
-            toolbar.setTitle(acctType.getValue().getType());
+            toolbar.setTitle(acct.getValue().getName());
         }
     }
 

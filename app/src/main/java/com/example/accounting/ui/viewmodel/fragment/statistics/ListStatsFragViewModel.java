@@ -11,10 +11,10 @@ import androidx.lifecycle.Transformations;
 import com.example.accounting.base.BaseApplication;
 import com.example.accounting.base.BaseFragmentViewModel;
 import com.example.accounting.model.entity.YearAndMonth;
-import com.example.accounting.model.repository.TxnInfoRepository;
+import com.example.accounting.model.repository.TxnRepository;
 import com.example.accounting.model.repository.TxnRvItemRepository;
 import com.example.accounting.model.repository.YearMonthRepository;
-import com.example.accounting.model.room.bean.TxnInfo;
+import com.example.accounting.model.room.bean.Txn;
 import com.example.accounting.model.room.bean.TxnRvItem;
 import com.example.accounting.model.room.bean.YearMonth;
 
@@ -33,7 +33,7 @@ public class ListStatsFragViewModel extends BaseFragmentViewModel
     private final List<List<String>> monthList = new ArrayList<>();  // 根据实时年月列表计算月列表
     private final TxnRvItemRepository txnRvItemRepository = new TxnRvItemRepository();
     private final YearMonthRepository yearMonthRepository = new YearMonthRepository();
-    private final TxnInfoRepository txnInfoRepository = new TxnInfoRepository();
+    private final TxnRepository txnRepository = new TxnRepository();
 
     public ListStatsFragViewModel()
     {
@@ -115,19 +115,19 @@ public class ListStatsFragViewModel extends BaseFragmentViewModel
         currentYearAndMonth.setValue(new YearAndMonth(year, month));
     }
 
-    public void deleteTxnInfo(int id)
+    public void deleteTxn(int id)
     {
-        txnInfoRepository.deleteById(id);
+        txnRepository.deleteById(id);
     }
 
-    public LiveData<TxnInfo> queryTxnInfo(int id)
+    public LiveData<Txn> queryTxn(int id)
     {
-        return txnInfoRepository.queryById(id);
+        return txnRepository.queryById(id);
     }
 
-    public void insertTxnInfo(TxnInfo txnInfo)
+    public void insertTxn(Txn txn)
     {
-        txnInfoRepository.insert(txnInfo);
+        txnRepository.insert(txn);
     }
 
     public LiveData<List<TxnRvItem>> getItemList()

@@ -68,7 +68,7 @@ public class EditTxnActivity extends BaseActivity<ActivityEditTxnBinding, EditTx
         {
             if (menuItem.getItemId() == R.id.save)
             {
-                int result = viewModel.updateTxnInfo();
+                int result = viewModel.updateTxn();
                 if (result == 1) finish();
                 else
                 {
@@ -91,7 +91,7 @@ public class EditTxnActivity extends BaseActivity<ActivityEditTxnBinding, EditTx
 
     private void initSpinner()
     {
-        ArrayAdapter<String> adapterForTvnAcct = new ArrayAdapter<>(this, R.layout.text_field_list_item, viewModel.getAcctTypeArray());
+        ArrayAdapter<String> adapterForTvnAcct = new ArrayAdapter<>(this, R.layout.text_field_list_item, viewModel.getAcctArray());
         binding.txnAcct.setAdapter(adapterForTvnAcct);
         ArrayAdapter<String> adapterForTvnType = new ArrayAdapter<>(this, R.layout.text_field_list_item, viewModel.getTxnTypeArray());
         binding.txnType.setAdapter(adapterForTvnType);

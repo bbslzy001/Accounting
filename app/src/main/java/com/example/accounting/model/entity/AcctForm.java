@@ -1,19 +1,19 @@
 package com.example.accounting.model.entity;
 
-public class AcctTypeForm
+public class AcctForm
 {
-    private String type;
+    private String name;
     private String amountText;
 
-    public AcctTypeForm(String type, String amountText)
+    public AcctForm(String name, String amountText)
     {
-        this.type = type;
+        this.name = name;
         this.amountText = amountText;
     }
 
-    public String getType()
+    public String getName()
     {
-        return type;
+        return name;
     }
 
     public String getAmountText()
@@ -21,9 +21,9 @@ public class AcctTypeForm
         return amountText;
     }
 
-    public void setType(String type)
+    public void setName(String name)
     {
-        this.type = type;
+        this.name = name;
     }
 
     public void setAmountText(String amountText)

@@ -3,40 +3,40 @@ package com.example.accounting.ui.viewmodel.activity;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.accounting.base.BaseActivityViewModel;
-import com.example.accounting.model.entity.AcctTypeForm;
-import com.example.accounting.model.repository.AcctTypeRepository;
-import com.example.accounting.model.room.bean.AcctType;
+import com.example.accounting.model.entity.AcctForm;
+import com.example.accounting.model.repository.AcctRepository;
+import com.example.accounting.model.room.bean.Acct;
 
 public class AddAcctActViewModel extends BaseActivityViewModel
 {
-    private final MutableLiveData<AcctTypeForm> formData = new MutableLiveData<>();
-    private final AcctTypeRepository acctTypeRepository = new AcctTypeRepository();
+    private final MutableLiveData<AcctForm> formData = new MutableLiveData<>();
+    private final AcctRepository acctRepository = new AcctRepository();
 
     public AddAcctActViewModel()
     {
         super();
     }
 
-    public MutableLiveData<AcctTypeForm> getFormData()
+    public MutableLiveData<AcctForm> getFormData()
     {
         return formData;
     }
 
     public void initFormData()
     {
-        AcctTypeForm acctTypeForm = new AcctTypeForm(null, null);
-        formData.setValue(acctTypeForm);
+        AcctForm acctForm = new AcctForm(null, null);
+        formData.setValue(acctForm);
     }
 
-    public int insertAcctType()
+    public int insertAcct()
     {
-        AcctTypeForm acctTypeForm = formData.getValue();
-        if (acctTypeForm == null) return 0;
-        else if (acctTypeForm.getType() == null) return -1;
-        else if (acctTypeForm.getAmountText() == null) return -2;
-        else if (!isDouble(acctTypeForm.getAmountText())) return -3;
-        double amount = Double.parseDouble(acctTypeForm.getAmountText());
-        acctTypeRepository.insert(new AcctType(0, acctTypeForm.getType(), amount));
+        AcctForm acctForm = formData.getValue();
+        if (acctForm == null) return 0;
+        else if (acctForm.getName() == null) return -1;
+        else if (acctForm.getAmountText() == null) return -2;
+        else if (!isDouble(acctForm.getAmountText())) return -3;
+        double amount = Double.parseDouble(acctForm.getAmountText());
+        acctRepository.insert(new Acct(0, acctForm.getName(), amount));
         return 1;
     }
 

@@ -29,9 +29,9 @@ public class TxnForDayRvAdapter extends BaseRvAdapter<TxnForDayRvGroup>
 
     public interface OnSubItemClickListener
     {
-        void onItemClick(int txnInfoId);
+        void onItemClick(int txnId);
 
-        void onItemLongClick(int txnInfoId);
+        void onItemLongClick(int txnId);
     }
 
     public void setOnSubItemClickListener(OnSubItemClickListener onSubItemClickListener)
@@ -86,7 +86,7 @@ public class TxnForDayRvAdapter extends BaseRvAdapter<TxnForDayRvGroup>
             // 遍历每个交易信息，将其转换为子项
             for (TxnRvItem item : Objects.requireNonNull(subList))
             {
-                TxnForDayRvSubItem subItem = new TxnForDayRvSubItem(item.getTxnInfoId(), item.getTxnType(), item.getTime(), item.getAmount());
+                TxnForDayRvSubItem subItem = new TxnForDayRvSubItem(item.getTxnId(), item.getTxnType(), item.getTime(), item.getAmount());
                 subItemList.add(subItem);
             }
 
@@ -143,7 +143,7 @@ public class TxnForDayRvAdapter extends BaseRvAdapter<TxnForDayRvGroup>
             if (onSubItemClickListener != null)
             {
                 int position = getAdapterPosition();  // 获取ViewHolder的位置
-                onSubItemClickListener.onItemClick(itemInfoList.get(position).getTxnInfoId());
+                onSubItemClickListener.onItemClick(itemInfoList.get(position).getSubItemId());
             }
         }
 
@@ -153,7 +153,7 @@ public class TxnForDayRvAdapter extends BaseRvAdapter<TxnForDayRvGroup>
             if (onSubItemClickListener != null)
             {
                 int position = getAdapterPosition();  // 获取ViewHolder的位置
-                onSubItemClickListener.onItemLongClick(itemInfoList.get(position).getTxnInfoId());
+                onSubItemClickListener.onItemLongClick(itemInfoList.get(position).getSubItemId());
                 return true;
             }
             return false;

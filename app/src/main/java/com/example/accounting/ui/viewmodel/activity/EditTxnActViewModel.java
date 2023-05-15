@@ -5,12 +5,12 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 import com.example.accounting.base.BaseActivityViewModel;
-import com.example.accounting.model.entity.TxnInfoForm;
-import com.example.accounting.model.repository.AcctTypeRepository;
-import com.example.accounting.model.repository.TxnInfoRepository;
+import com.example.accounting.model.entity.TxnForm;
+import com.example.accounting.model.repository.AcctRepository;
+import com.example.accounting.model.repository.TxnRepository;
 import com.example.accounting.model.repository.TxnTypeRepository;
-import com.example.accounting.model.room.bean.AcctType;
-import com.example.accounting.model.room.bean.TxnInfo;
+import com.example.accounting.model.room.bean.Acct;
+import com.example.accounting.model.room.bean.Txn;
 import com.example.accounting.model.room.bean.TxnRvItem;
 import com.example.accounting.model.room.bean.TxnType;
 
@@ -19,25 +19,25 @@ import java.util.Objects;
 
 public class EditTxnActViewModel extends BaseActivityViewModel
 {
-    private int txnInfoId;
-    private String[] acctTypeArray;
+    private int txnId;
+    private String[] acctArray;
     private String[] txnTypeArray;
     private LiveData<List<TxnType>> txnTypeListLiveData;
-    private LiveData<List<AcctType>> acctTypeListLiveData;
-    private final MutableLiveData<TxnInfoForm> formData = new MutableLiveData<>();
+    private LiveData<List<Acct>> acctListLiveData;
+    private final MutableLiveData<TxnForm> formData = new MutableLiveData<>();
     private final MutableLiveData<Integer> isAllCompleted = new MutableLiveData<>(2);
-    private final AcctTypeRepository acctTypeRepository = new AcctTypeRepository();
+    private final AcctRepository acctRepository = new AcctRepository();
     private final TxnTypeRepository txnTypeRepository = new TxnTypeRepository();
-    private final TxnInfoRepository txnInfoRepository = new TxnInfoRepository();
+    private final TxnRepository txnRepository = new TxnRepository();
 
     public EditTxnActViewModel()
     {
         super();
     }
 
-    public String[] getAcctTypeArray()
+    public String[] getAcctArray()
     {
-        return acctTypeArray;
+        return acctArray;
     }
 
     public String[] getTxnTypeArray()
@@ -45,7 +45,7 @@ public class EditTxnActViewModel extends BaseActivityViewModel
         return txnTypeArray;
     }
 
-    public MutableLiveData<TxnInfoForm> getFormData()
+    public MutableLiveData<TxnForm> getFormData()
     {
         return formData;
     }
@@ -82,22 +82,22 @@ public class EditTxnActViewModel extends BaseActivityViewModel
 
     public void initFormData(TxnRvItem txnRvItem)
     {
-        txnInfoId = txnRvItem.getTxnInfoId();
+        txnId = txnRvItem.getTxnId();
         int incomeOrExpense = txnRvItem.getAmount() > 0 ? 0 : 1;
-        String acctType = txnRvItem.getAcctType();
+        String acctName = txnRvItem.getAcctName();
         String txnType = txnRvItem.getTxnType();
         String amountText = String.valueOf(Math.abs(txnRvItem.getAmount()));
         String date = txnRvItem.getDate();
         String time = txnRvItem.getTime();
         String remark = txnRvItem.getRemark();
-        TxnInfoForm txnInfoForm = new TxnInfoForm(incomeOrExpense, acctType, txnType, amountText, date, time, remark);
-        formData.setValue(txnInfoForm);
+        TxnForm txnForm = new TxnForm(incomeOrExpense, acctName, txnType, amountText, date, time, remark);
+        formData.setValue(txnForm);
     }
 
     public void initDropdownData()
     {
         txnTypeListLiveData = txnTypeRepository.queryAll();
-        acctTypeListLiveData = acctTypeRepository.queryAll();
+        acctListLiveData = acctRepository.queryAll();
 
         txnTypeListLiveData.observeForever(new Observer<>()
         {
@@ -114,50 +114,50 @@ public class EditTxnActViewModel extends BaseActivityViewModel
             }
         });
 
-        acctTypeListLiveData.observeForever(new Observer<>()
+        acctListLiveData.observeForever(new Observer<>()
         {
             @Override
-            public void onChanged(List<AcctType> acctTypes)
+            public void onChanged(List<Acct> accts)
             {
-                if (acctTypes != null)
+                if (accts != null)
                 {
-                    acctTypeArray = new String[acctTypes.size()];
-                    for (int i = 0; i < acctTypes.size(); i++) acctTypeArray[i] = acctTypes.get(i).getType();
+                    acctArray = new String[accts.size()];
+                    for (int i = 0; i < accts.size(); i++) acctArray[i] = accts.get(i).getName();
                     isAllCompleted.setValue(isAllCompleted.getValue() - 1);
-                    acctTypeListLiveData.removeObserver(this);
+                    acctListLiveData.removeObserver(this);
                 }
             }
         });
     }
 
-    public int updateTxnInfo()
+    public int updateTxn()
     {
-        TxnInfoForm txnInfoForm = formData.getValue();
-        if (txnInfoForm == null) return 0;
-        else if (txnInfoForm.getAmountText() == null) return -1;
-        else if (txnInfoForm.getAcctType() == null) return -2;
-        else if (txnInfoForm.getTxnType() == null) return -3;
-        else if (!isPositiveDouble(txnInfoForm.getAmountText())) return -4;
-        double amount = txnInfoForm.getIncomeOrExpense() == 0 ? Double.parseDouble(txnInfoForm.getAmountText()) : -Double.parseDouble(txnInfoForm.getAmountText());
-        int acctTypeId = 0;
+        TxnForm txnForm = formData.getValue();
+        if (txnForm == null) return 0;
+        else if (txnForm.getAmountText() == null) return -1;
+        else if (txnForm.getAcctName() == null) return -2;
+        else if (txnForm.getTxnType() == null) return -3;
+        else if (!isPositiveDouble(txnForm.getAmountText())) return -4;
+        double amount = txnForm.getIncomeOrExpense() == 0 ? Double.parseDouble(txnForm.getAmountText()) : -Double.parseDouble(txnForm.getAmountText());
+        int acctId = 0;
         int txnTypeId = 0;
-        for (AcctType type : Objects.requireNonNull(acctTypeListLiveData.getValue()))
+        for (Acct type : Objects.requireNonNull(acctListLiveData.getValue()))
         {
-            if (type.getType().equals(txnInfoForm.getAcctType()))
+            if (type.getName().equals(txnForm.getAcctName()))
             {
-                acctTypeId = type.getId();
+                acctId = type.getId();
                 break;
             }
         }
         for (TxnType type : Objects.requireNonNull(txnTypeListLiveData.getValue()))
         {
-            if (type.getType().equals(txnInfoForm.getTxnType()))
+            if (type.getType().equals(txnForm.getTxnType()))
             {
                 txnTypeId = type.getId();
                 break;
             }
         }
-        txnInfoRepository.update(new TxnInfo(txnInfoId, amount, txnInfoForm.getDate(), txnInfoForm.getTime(), txnInfoForm.getRemark(), acctTypeId, txnTypeId));
+        txnRepository.update(new Txn(txnId, amount, txnForm.getDate(), txnForm.getTime(), txnForm.getRemark(), acctId, txnTypeId));
         return 1;
     }
 

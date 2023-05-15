@@ -8,28 +8,28 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.accounting.model.room.bean.AcctType;
+import com.example.accounting.model.room.bean.Acct;
 
 import java.util.List;
 
 @Dao
-public interface AcctTypeDao
+public interface AcctDao
 {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insert(AcctType acctType);
+    void insert(Acct acct);
 
     @Delete()
-    void delete(AcctType acctType);
+    void delete(Acct acct);
 
-    @Query("delete from AcctType")
+    @Query("delete from Acct")
     void deleteAll();
 
     @Update
-    void update(AcctType acctType);
+    void update(Acct acct);
 
-    @Query("select * from AcctType where AT_id = :id")
-    LiveData<AcctType> queryById(int id);
+    @Query("select * from Acct where A_id = :id")
+    LiveData<Acct> queryById(int id);
 
-    @Query("select * from AcctType")
-    LiveData<List<AcctType>> queryAll();
+    @Query("select * from Acct")
+    LiveData<List<Acct>> queryAll();
 }

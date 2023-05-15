@@ -67,7 +67,7 @@ public class AddTxnActivity extends BaseActivity<ActivityAddTxnBinding, AddTxnAc
         {
             if (menuItem.getItemId() == R.id.add)
             {
-                int result = viewModel.insertTxnInfo();
+                int result = viewModel.insertTxn();
                 if (result == 1) finish();
                 else
                 {
@@ -90,7 +90,7 @@ public class AddTxnActivity extends BaseActivity<ActivityAddTxnBinding, AddTxnAc
 
     private void initSpinner()
     {
-        ArrayAdapter<String> adapterForTvnAcct = new ArrayAdapter<>(this, R.layout.text_field_list_item, viewModel.getAcctTypeArray());
+        ArrayAdapter<String> adapterForTvnAcct = new ArrayAdapter<>(this, R.layout.text_field_list_item, viewModel.getAcctArray());
         binding.txnAcct.setAdapter(adapterForTvnAcct);
         ArrayAdapter<String> adapterForTvnType = new ArrayAdapter<>(this, R.layout.text_field_list_item, viewModel.getTxnTypeArray());
         binding.txnType.setAdapter(adapterForTvnType);

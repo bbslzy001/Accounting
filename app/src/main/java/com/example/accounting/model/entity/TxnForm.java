@@ -5,10 +5,10 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
-public class TxnInfoForm
+public class TxnForm
 {
     private int incomeOrExpense;
-    private String acctType;
+    private String acctName;
     private String txnType;
     private String amountText;
     private String date;
@@ -18,10 +18,10 @@ public class TxnInfoForm
     private int hour;
     private int minute;
 
-    public TxnInfoForm(int incomeOrExpense, String acctType, String txnType, String amountText, String date, String time, String remark)
+    public TxnForm(int incomeOrExpense, String acctName, String txnType, String amountText, String date, String time, String remark)
     {
         this.incomeOrExpense = incomeOrExpense;
-        this.acctType = acctType;
+        this.acctName = acctName;
         this.txnType = txnType;
         this.amountText = amountText;
         this.date = date;
@@ -32,10 +32,10 @@ public class TxnInfoForm
         initTimePickerData();
     }
 
-    public TxnInfoForm(int incomeOrExpense, String acctType, String txnType, String amountText, Calendar calendar, String remark)
+    public TxnForm(int incomeOrExpense, String acctName, String txnType, String amountText, Calendar calendar, String remark)
     {
         this.incomeOrExpense = incomeOrExpense;
-        this.acctType = acctType;
+        this.acctName = acctName;
         this.txnType = txnType;
         this.amountText = amountText;
         this.date = new SimpleDateFormat("yyyy/MM/dd", Locale.getDefault()).format(calendar.getTime());
@@ -51,9 +51,9 @@ public class TxnInfoForm
         return incomeOrExpense;
     }
 
-    public String getAcctType()
+    public String getAcctName()
     {
-        return acctType;
+        return acctName;
     }
 
     public String getTxnType()
@@ -101,9 +101,9 @@ public class TxnInfoForm
         this.incomeOrExpense = incomeOrExpense;
     }
 
-    public void setAcctType(String acctType)
+    public void setAcctName(String acctName)
     {
-        this.acctType = acctType;
+        this.acctName = acctName;
     }
 
     public void setTxnType(String txnType)

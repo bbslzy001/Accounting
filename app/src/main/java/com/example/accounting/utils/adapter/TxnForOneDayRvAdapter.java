@@ -29,9 +29,9 @@ public class TxnForOneDayRvAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     public interface OnItemClickListener
     {
-        void onItemClick(int txnInfoId);
+        void onItemClick(int txnId);
 
-        void onItemLongClick(int txnInfoId);
+        void onItemLongClick(int txnId);
     }
 
     public void setOnItemClickListener(TxnForOneDayRvAdapter.OnItemClickListener onItemClickListener)
@@ -142,7 +142,7 @@ public class TxnForOneDayRvAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             if (onItemClickListener != null)
             {
                 int position = getAdapterPosition();  // 获取ViewHolder的位置
-                onItemClickListener.onItemClick(itemList.get(position - 1).getTxnInfoId());
+                onItemClickListener.onItemClick(itemList.get(position - 1).getTxnId());
             }
         }
 
@@ -152,7 +152,7 @@ public class TxnForOneDayRvAdapter extends RecyclerView.Adapter<RecyclerView.Vie
             if (onItemClickListener != null)
             {
                 int position = getAdapterPosition();  // 获取ViewHolder的位置
-                onItemClickListener.onItemLongClick(itemList.get(position - 1).getTxnInfoId());
+                onItemClickListener.onItemLongClick(itemList.get(position - 1).getTxnId());
                 return true;
             }
             return false;

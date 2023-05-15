@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="com.example.accounting.model.room.bean.AcctType" />
+            type="com.example.accounting.model.room.bean.Acct" />
     </data>
 
     <LinearLayout
@@ -34,7 +34,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start|center"
-                android:text="@{item.type}"
+                android:text="@{item.name}"
                 android:textSize="16sp" />
 
         </LinearLayout>

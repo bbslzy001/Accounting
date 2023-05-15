@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="none"
                     android:spinnerMode="dropdown"
-                    android:text="@={viewModel.formData.acctType}" />
+                    android:text="@={viewModel.formData.acctName}" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
