@@ -2,45 +2,45 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "89dcbba50de35fc056c3f781cdbf8edd",
+    "identityHash": "a870738269817dbcd25523eabb4b66e3",
     "entities": [
       {
-        "tableName": "TxnInfo",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`TI_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `TI_amount` REAL NOT NULL, `TI_date` TEXT, `TI_time` TEXT, `TI_remark` TEXT, `AT_id` INTEGER NOT NULL, `TT_id` INTEGER NOT NULL, FOREIGN KEY(`AT_id`) REFERENCES `AcctType`(`AT_id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`TT_id`) REFERENCES `TxnType`(`TT_id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "tableName": "Txn",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`T_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `T_amount` REAL NOT NULL, `T_date` TEXT, `T_time` TEXT, `T_remark` TEXT, `A_id` INTEGER NOT NULL, `TT_id` INTEGER NOT NULL, FOREIGN KEY(`A_id`) REFERENCES `Acct`(`A_id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`TT_id`) REFERENCES `TxnType`(`TT_id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
-            "columnName": "TI_id",
+            "columnName": "T_id",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
             "fieldPath": "amount",
-            "columnName": "TI_amount",
+            "columnName": "T_amount",
             "affinity": "REAL",
             "notNull": true
           },
           {
             "fieldPath": "date",
-            "columnName": "TI_date",
+            "columnName": "T_date",
             "affinity": "TEXT",
             "notNull": false
           },
           {
             "fieldPath": "time",
-            "columnName": "TI_time",
+            "columnName": "T_time",
             "affinity": "TEXT",
             "notNull": false
           },
           {
             "fieldPath": "remark",
-            "columnName": "TI_remark",
+            "columnName": "T_remark",
             "affinity": "TEXT",
             "notNull": false
           },
           {
-            "fieldPath": "acctTypeId",
-            "columnName": "AT_id",
+            "fieldPath": "acctId",
+            "columnName": "A_id",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -54,57 +54,57 @@
         "primaryKey": {
           "autoGenerate": true,
           "columnNames": [
-            "TI_id"
+            "T_id"
           ]
         },
         "indices": [
           {
-            "name": "index_TxnInfo_TI_date",
+            "name": "index_Txn_T_date",
             "unique": false,
             "columnNames": [
-              "TI_date"
+              "T_date"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_TxnInfo_TI_date` ON `${TABLE_NAME}` (`TI_date`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Txn_T_date` ON `${TABLE_NAME}` (`T_date`)"
           },
           {
-            "name": "index_TxnInfo_TI_amount",
+            "name": "index_Txn_T_amount",
             "unique": false,
             "columnNames": [
-              "TI_amount"
+              "T_amount"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_TxnInfo_TI_amount` ON `${TABLE_NAME}` (`TI_amount`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Txn_T_amount` ON `${TABLE_NAME}` (`T_amount`)"
           },
           {
-            "name": "index_TxnInfo_AT_id",
+            "name": "index_Txn_A_id",
             "unique": false,
             "columnNames": [
-              "AT_id"
+              "A_id"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_TxnInfo_AT_id` ON `${TABLE_NAME}` (`AT_id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Txn_A_id` ON `${TABLE_NAME}` (`A_id`)"
           },
           {
-            "name": "index_TxnInfo_TT_id",
+            "name": "index_Txn_TT_id",
             "unique": false,
             "columnNames": [
               "TT_id"
             ],
             "orders": [],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_TxnInfo_TT_id` ON `${TABLE_NAME}` (`TT_id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_Txn_TT_id` ON `${TABLE_NAME}` (`TT_id`)"
           }
         ],
         "foreignKeys": [
           {
-            "table": "AcctType",
+            "table": "Acct",
             "onDelete": "CASCADE",
             "onUpdate": "CASCADE",
             "columns": [
-              "AT_id"
+              "A_id"
             ],
             "referencedColumns": [
-              "AT_id"
+              "A_id"
             ]
           },
           {
@@ -121,24 +121,24 @@
         ]
       },
       {
-        "tableName": "AcctType",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`AT_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `AT_type` TEXT, `AT_amount` REAL NOT NULL)",
+        "tableName": "Acct",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`A_id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `A_name` TEXT, `A_amount` REAL NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
-            "columnName": "AT_id",
+            "columnName": "A_id",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "type",
-            "columnName": "AT_type",
+            "fieldPath": "name",
+            "columnName": "A_name",
             "affinity": "TEXT",
             "notNull": false
           },
           {
             "fieldPath": "amount",
-            "columnName": "AT_amount",
+            "columnName": "A_amount",
             "affinity": "REAL",
             "notNull": true
           }
@@ -146,7 +146,7 @@
         "primaryKey": {
           "autoGenerate": true,
           "columnNames": [
-            "AT_id"
+            "A_id"
           ]
         },
         "indices": [],
@@ -182,7 +182,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '89dcbba50de35fc056c3f781cdbf8edd')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a870738269817dbcd25523eabb4b66e3')"
     ]
   }
 }

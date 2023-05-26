@@ -39,7 +39,8 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:windowTranslucentNavigation">true</item>
 
-        <!-- Application background color -->
-        <item name="colorApplicationBackground">@color/my_theme_dark_background</item>
+        <!-- Grey color -->
+        <item name="colorPrimaryGrey">@color/my_theme_dark_primary_gray</item>
+        <item name="colorSecondaryGrey">@color/my_theme_dark_secondary_gray</item>
     </style>
 </resources>

@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <attr name="colorApplicationBackground" format="color" />
+    <attr name="colorPrimaryGrey" format="color" />
+    <attr name="colorSecondaryGrey" format="color" />
 </resources>

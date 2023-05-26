@@ -5,12 +5,8 @@
     <data>
 
         <variable
-            name="group"
-            type="com.example.accounting.model.entity.TxnForDayRvGroup" />
-
-        <variable
-            name="headerItem"
-            type="com.example.accounting.model.entity.TxnForDayRvHeaderItem" />
+            name="header"
+            type="com.example.accounting.model.entity.TxnForOneDayRvHeader" />
     </data>
 
     <LinearLayout
@@ -26,7 +22,7 @@
             android:id="@+id/header_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{headerItem.date}"
+            android:text="@{header.date}"
             android:textSize="16sp" />
 
         <LinearLayout
@@ -52,7 +48,7 @@
                 android:paddingEnd="16dp"
                 android:textColor="@color/my_theme_positive"
                 android:textSize="16sp"
-                app:headerItemAmount="@{headerItem.income}" />
+                app:headerItemAmount="@{header.income}" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
@@ -66,16 +62,9 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/my_theme_negative"
                 android:textSize="16sp"
-                app:headerItemAmount="@{headerItem.expenditure}" />
+                app:headerItemAmount="@{header.expense}" />
 
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/header_toggle"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:scaleType="fitCenter"
-            app:headerItemToggle="@{group.expanded}" />
 
     </LinearLayout>
 </layout>

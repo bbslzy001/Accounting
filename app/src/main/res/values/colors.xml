@@ -63,9 +63,11 @@
     <color name="md_theme_dark_scrim">#000000</color>
 
     <color name="my_theme_light_navigation">#E7EEF6</color>
-    <color name="my_theme_light_background">#FCFBFE</color>
     <color name="my_theme_dark_navigation">#242A30</color>
-    <color name="my_theme_dark_background">#1A1C1E</color>
+    <color name="my_theme_light_primary_gray">#666666</color>
+    <color name="my_theme_dark_primary_gray">#A0A0A0</color>
+    <color name="my_theme_light_secondary_gray">#E0E0E0</color>
+    <color name="my_theme_dark_secondary_gray">#333333</color>
     <color name="my_theme_positive">#00C853</color>
     <color name="my_theme_negative">#D50000</color>
 </resources>

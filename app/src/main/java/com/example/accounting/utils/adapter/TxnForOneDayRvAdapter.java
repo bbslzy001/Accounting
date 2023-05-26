@@ -9,65 +9,59 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.accounting.R;
-import com.example.accounting.databinding.RvHeaderAcctBinding;
-import com.example.accounting.databinding.RvItemAcctBinding;
-import com.example.accounting.model.entity.AcctRvHeader;
-import com.example.accounting.model.room.bean.Acct;
+import com.example.accounting.databinding.RvHeaderTxnForOneDayBinding;
+import com.example.accounting.databinding.RvItemTxnForOneDayBinding;
+import com.example.accounting.model.entity.TxnForOneDayRvHeader;
+import com.example.accounting.model.room.bean.TxnRvItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AcctRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
+public class TxnForOneDayRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
     public static final int HEADER = 0;  // 头
     public static final int ITEM = 1;  // 项
 
-    private AcctRvHeader header;
-    private List<Acct> itemList = new ArrayList<>();
+    private TxnForOneDayRvHeader header;
+    private List<TxnRvItem> itemList = new ArrayList<>();
 
-    private AcctRvAdapter.OnItemClickListener onItemClickListener;
+    private TxnForOneDayRvAdapter.OnItemClickListener onItemClickListener;
 
     public interface OnItemClickListener
     {
         void onItemClick(int txnId);
+
+        void onItemLongClick(int txnId);
     }
 
-    public void setOnItemClickListener(AcctRvAdapter.OnItemClickListener onItemClickListener)
+    public void setOnItemClickListener(TxnForOneDayRvAdapter.OnItemClickListener onItemClickListener)
     {
         this.onItemClickListener = onItemClickListener;
     }
 
-    public AcctRvAdapter()
+    public TxnForOneDayRvAdapter()
     {
     }
 
-    private void calculateHeader()
+    private void calculateHeader(String date)
     {
-        double netAmount = 0.0;
-        double totalAmount = 0.0;
-        double negativeAmount = 0.0;
+        double income = 0.0;
+        double expense = 0.0;
 
-        for (Acct acct : itemList)
+        for (TxnRvItem txnRvItem : itemList)
         {
-            netAmount += acct.getAmount();
-            if (acct.getAmount() > 0)
-            {
-                totalAmount += acct.getAmount();
-            }
-            else
-            {
-                negativeAmount += acct.getAmount();
-            }
+            if (txnRvItem.getAmount() > 0) income += txnRvItem.getAmount();
+            else expense += txnRvItem.getAmount();
         }
 
-        this.header = new AcctRvHeader(netAmount, totalAmount, negativeAmount);
+        this.header = new TxnForOneDayRvHeader(date, income, expense);
     }
 
-    public void setRvData(List<Acct> itemList)
+    public void setRvData(String date, List<TxnRvItem> itemList)
     {
         this.itemList = itemList;
 
-        calculateHeader();
+        calculateHeader(date);
 
         notifyDataSetChanged();
     }
@@ -92,12 +86,12 @@ public class AcctRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         if (viewType == HEADER)
         {
-            RvHeaderAcctBinding binding = DataBindingUtil.inflate(inflater, R.layout.rv_header_acct, parent, false);
+            RvHeaderTxnForOneDayBinding binding = DataBindingUtil.inflate(inflater, R.layout.rv_header_txn_for_one_day, parent, false);
             return new HeaderViewHolder(binding);
         }
         else
         {
-            RvItemAcctBinding binding = DataBindingUtil.inflate(inflater, R.layout.rv_item_acct, parent, false);
+            RvItemTxnForOneDayBinding binding = DataBindingUtil.inflate(inflater, R.layout.rv_item_txn_for_one_day, parent, false);
             return new ItemViewHolder(binding);
         }
     }
@@ -121,24 +115,25 @@ public class AcctRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
     private class HeaderViewHolder extends RecyclerView.ViewHolder
     {
-        private final RvHeaderAcctBinding binding;
+        private final RvHeaderTxnForOneDayBinding binding;
 
-        public HeaderViewHolder(RvHeaderAcctBinding binding)
+        public HeaderViewHolder(RvHeaderTxnForOneDayBinding binding)
         {
             super(binding.getRoot());
             this.binding = binding;
         }
     }
 
-    private class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
+    private class ItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener
     {
-        private final RvItemAcctBinding binding;
+        private final RvItemTxnForOneDayBinding binding;
 
-        public ItemViewHolder(RvItemAcctBinding binding)
+        public ItemViewHolder(RvItemTxnForOneDayBinding binding)
         {
             super(binding.getRoot());
             this.binding = binding;
             this.binding.getRoot().setOnClickListener(this);  // 整个 ItemViewHolder 的点击事件绑定
+            this.binding.getRoot().setOnLongClickListener(this);  // 整个 ItemViewHolder 的长按点击事件绑定
         }
 
         @Override
@@ -147,8 +142,20 @@ public class AcctRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             if (onItemClickListener != null)
             {
                 int position = getAdapterPosition();  // 获取ViewHolder的位置
-                onItemClickListener.onItemClick(itemList.get(position - 1).getId());
+                onItemClickListener.onItemClick(itemList.get(position - 1).getTxnId());
             }
+        }
+
+        @Override
+        public boolean onLongClick(View v)
+        {
+            if (onItemClickListener != null)
+            {
+                int position = getAdapterPosition();  // 获取ViewHolder的位置
+                onItemClickListener.onItemLongClick(itemList.get(position - 1).getTxnId());
+                return true;
+            }
+            return false;
         }
     }
 }

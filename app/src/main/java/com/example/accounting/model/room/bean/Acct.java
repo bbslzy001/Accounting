@@ -4,23 +4,23 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "AcctType")
-public class AcctType
+@Entity(tableName = "Acct")
+public class Acct
 {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "AT_id")
+    @ColumnInfo(name = "A_id")
     private int id;
 
-    @ColumnInfo(name = "AT_type")
-    private String type;
+    @ColumnInfo(name = "A_name")
+    private String name;
 
-    @ColumnInfo(name = "AT_amount")
+    @ColumnInfo(name = "A_amount")
     private double amount;
 
-    public AcctType(int id, String type, double amount)
+    public Acct(int id, String name, double amount)
     {
         this.id = id;
-        this.type = type;
+        this.name = name;
         this.amount = amount;
     }
 
@@ -29,9 +29,9 @@ public class AcctType
         return id;
     }
 
-    public String getType()
+    public String getName()
     {
-        return type;
+        return name;
     }
 
     public double getAmount()
@@ -44,9 +44,9 @@ public class AcctType
         this.id = id;
     }
 
-    public void setType(String type)
+    public void setName(String name)
     {
-        this.type = type;
+        this.name = name;
     }
 
     public void setAmount(double amount)

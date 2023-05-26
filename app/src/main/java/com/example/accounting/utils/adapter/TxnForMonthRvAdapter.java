@@ -29,7 +29,7 @@ public class TxnForMonthRvAdapter extends BaseRvAdapter<TxnForMonthRvGroup>
 
     public interface OnSubItemClickListener
     {
-        void onItemClick(int txnInfoId);
+        void onItemClick(int txnId);
     }
 
     public void setOnSubItemClickListener(OnSubItemClickListener onSubItemClickListener)
@@ -68,7 +68,7 @@ public class TxnForMonthRvAdapter extends BaseRvAdapter<TxnForMonthRvGroup>
         subItemViewHolder.binding.executePendingBindings();
     }
 
-    public void setItemList(List<TxnRvItem> itemList)
+    public void setRvData(List<TxnRvItem> itemList)
     {
         List<TxnForMonthRvGroup> groupList = new ArrayList<>();
 
@@ -89,7 +89,7 @@ public class TxnForMonthRvAdapter extends BaseRvAdapter<TxnForMonthRvGroup>
             for (TxnRvItem item : Objects.requireNonNull(subList))
             {
                 String[] dateArr = item.getDate().split("/");
-                TxnForMonthRvSubItem subItem = new TxnForMonthRvSubItem(item.getTxnInfoId(), item.getTxnType(), dateArr[2] + "日 " + item.getTime(), item.getAmount());
+                TxnForMonthRvSubItem subItem = new TxnForMonthRvSubItem(item.getTxnId(), item.getTxnType(), dateArr[2] + "日 " + item.getTime(), item.getAmount());
                 subItemList.add(subItem);
             }
 
@@ -145,7 +145,7 @@ public class TxnForMonthRvAdapter extends BaseRvAdapter<TxnForMonthRvGroup>
             if (onSubItemClickListener != null)
             {
                 int position = getAdapterPosition();  // 获取ViewHolder的位置
-                onSubItemClickListener.onItemClick(itemInfoList.get(position).getTxnInfoId());
+                onSubItemClickListener.onItemClick(itemInfoList.get(position).getSubItemId());
             }
         }
     }

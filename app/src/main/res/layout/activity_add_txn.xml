@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.accounting.ui.viewmodel.activity.EditTxnActViewModel" />
+            type="com.example.accounting.ui.viewmodel.activity.AddTxnActViewModel" />
     </data>
 
     <RelativeLayout
@@ -24,9 +24,9 @@
                 android:id="@+id/topAppBar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                app:menu="@menu/edit_txn_top_bar_menu"
+                app:menu="@menu/add_top_bar_menu"
                 app:navigationIcon="@drawable/ic_close"
-                app:title="编辑交易" />
+                app:title="添加交易" />
 
         </com.google.android.material.appbar.AppBarLayout>
 

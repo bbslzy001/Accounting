@@ -37,7 +37,7 @@ public class AcctDetailsActivity extends BaseActivity<ActivityAcctDetailsBinding
     {
         super.initView();
         int acctId = getIntent().getIntExtra("acctId", -1);
-        viewModel.initAcctType(acctId);
+        viewModel.initAcct(acctId);
         viewModel.initItemList(acctId);
         initTopAppbar();
         initRecyclerView();
@@ -57,12 +57,12 @@ public class AcctDetailsActivity extends BaseActivity<ActivityAcctDetailsBinding
     private void initRecyclerView()
     {
         TxnForMonthRvAdapter adapter = new TxnForMonthRvAdapter();
-        adapter.setOnSubItemClickListener(txnInfoId ->
+        adapter.setOnSubItemClickListener(txnId ->
         {
             TxnRvItem txnRvItem = new TxnRvItem();
             for (TxnRvItem item : Objects.requireNonNull(viewModel.getItemList().getValue()))
             {
-                if (item.getTxnInfoId() == txnInfoId)
+                if (item.getTxnId() == txnId)
                 {
                     txnRvItem = item;
                     break;
@@ -70,7 +70,7 @@ public class AcctDetailsActivity extends BaseActivity<ActivityAcctDetailsBinding
             }
             new MaterialAlertDialogBuilder(AcctDetailsActivity.this)
                     .setTitle("交易信息")
-                    .setMessage("交易类型：" + txnRvItem.getTxnType() + "\n交易账户：" + txnRvItem.getAcctType() + "\n交易金额：" + txnRvItem.getAmount() + "\n交易日期：" + txnRvItem.getDate() + "\n交易时间：" + txnRvItem.getTime() + "\n交易备注：" + txnRvItem.getRemark())
+                    .setMessage("交易类型：" + txnRvItem.getTxnType() + "\n交易账户：" + txnRvItem.getAcctName() + "\n交易金额：" + txnRvItem.getAmount() + "\n交易日期：" + txnRvItem.getDate() + "\n交易时间：" + txnRvItem.getTime() + "\n交易备注：" + txnRvItem.getRemark())
                     .setPositiveButton("关闭", null)
                     .show();
         });

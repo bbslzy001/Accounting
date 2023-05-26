@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,18 +9,65 @@
             type="com.example.accounting.ui.viewmodel.fragment.statistics.CalStatsFragViewModel" />
     </data>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingHorizontal="8dp">
 
-        <com.google.android.material.textview.MaterialTextView
+        <TextView
+            android:id="@+id/current_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="@string/cal_stats"
-            android:textSize="36sp" />
+            android:layout_margin="8dp"
+            android:text="@{viewModel.currentDate.toString(`yyyy年MM月`)}"
+            android:textSize="20sp" />
 
-    </RelativeLayout>
+        <com.necer.view.WeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="8dp"
+            app:calendarBackground="?android:attr/colorBackground"
+            app:defaultCheckedBackground="@drawable/calendar_default_checked"
+            app:defaultCheckedLunarTextColor="?attr/colorPrimaryGrey"
+            app:defaultCheckedSolarTextColor="?attr/colorOnSurfaceVariant"
+            app:defaultUnCheckedLunarTextColor="?attr/colorPrimaryGrey"
+            app:defaultUnCheckedSolarTextColor="?attr/colorOnSurfaceVariant"
+            app:todayCheckedBackground="@drawable/calendar_today_checked"
+            app:todayCheckedLunarTextColor="?attr/colorPrimaryGrey"
+            app:todayCheckedSolarTextColor="?attr/colorOnSurfaceVariant"
+            app:todayUnCheckedLunarTextColor="?attr/colorPrimaryGrey"
+            app:todayUnCheckedSolarTextColor="?attr/colorOnSurfaceVariant" />
+
+        <com.necer.calendar.Miui10Calendar
+            android:id="@+id/calendar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:calendarBackground="?android:attr/colorBackground"
+            app:defaultCheckedBackground="@drawable/calendar_default_checked"
+            app:defaultCheckedLunarTextColor="?attr/colorPrimaryGrey"
+            app:defaultCheckedSolarTextColor="?attr/colorOnSurfaceVariant"
+            app:defaultUnCheckedLunarTextColor="?attr/colorPrimaryGrey"
+            app:defaultUnCheckedSolarTextColor="?attr/colorOnSurfaceVariant"
+            app:todayCheckedBackground="@drawable/calendar_today_checked"
+            app:todayCheckedLunarTextColor="?attr/colorPrimaryGrey"
+            app:todayCheckedSolarTextColor="?attr/colorOnSurfaceVariant"
+            app:todayUnCheckedLunarTextColor="?attr/colorPrimaryGrey"
+            app:todayUnCheckedSolarTextColor="?attr/colorOnSurfaceVariant">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="?android:attr/colorBackground"
+                android:orientation="vertical"
+                android:scrollbars="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:txnForOneDayCurrentDate="@{viewModel.currentDate.toString(`yyyy年MM月dd日`)}"
+                app:txnForOneDayRvItemList="@{viewModel.itemList}" />
+
+        </com.necer.calendar.Miui10Calendar>
+
+    </LinearLayout>
 
 </layout>

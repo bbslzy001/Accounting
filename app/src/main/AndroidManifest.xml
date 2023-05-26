@@ -18,6 +18,10 @@
         <activity
             android:name=".ui.view.activity.AcctDetailsActivity"
             android:exported="false" />
+        <activity android:name=".ui.view.activity.AddAcctActivity"
+            android:exported="false" />
+        <activity android:name=".ui.view.activity.AddTxnActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.view.activity.DashboardActivity"
             android:exported="false" />

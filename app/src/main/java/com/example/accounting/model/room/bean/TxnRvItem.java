@@ -6,12 +6,12 @@ import java.io.Serializable;
 
 public class TxnRvItem implements Serializable
 {
-    private int txnInfoId;
+    private int txnId;
     private double amount;
     private String date;
     private String time;
     private String remark;
-    private String acctType;
+    private String acctName;
     private String txnType;
 
     @Ignore
@@ -19,20 +19,20 @@ public class TxnRvItem implements Serializable
     {
     }
 
-    public TxnRvItem(int txnInfoId, double amount, String date, String time, String remark, String acctType, String txnType)
+    public TxnRvItem(int txnId, double amount, String date, String time, String remark, String acctName, String txnType)
     {
-        this.txnInfoId = txnInfoId;
+        this.txnId = txnId;
         this.amount = amount;
         this.date = date;
         this.time = time;
         this.remark = remark;
-        this.acctType = acctType;
+        this.acctName = acctName;
         this.txnType = txnType;
     }
 
-    public int getTxnInfoId()
+    public int getTxnId()
     {
-        return txnInfoId;
+        return txnId;
     }
 
     public double getAmount()
@@ -55,9 +55,9 @@ public class TxnRvItem implements Serializable
         return remark;
     }
 
-    public String getAcctType()
+    public String getAcctName()
     {
-        return acctType;
+        return acctName;
     }
 
     public String getTxnType()
@@ -65,9 +65,9 @@ public class TxnRvItem implements Serializable
         return txnType;
     }
 
-    public void setTxnInfoId(int txnInfoId)
+    public void setTxnId(int txnId)
     {
-        this.txnInfoId = txnInfoId;
+        this.txnId = txnId;
     }
 
     public void setAmount(double amount)
@@ -90,9 +90,9 @@ public class TxnRvItem implements Serializable
         this.remark = remark;
     }
 
-    public void setAcctType(String acctType)
+    public void setAcctName(String acctName)
     {
-        this.acctType = acctType;
+        this.acctName = acctName;
     }
 
     public void setTxnType(String txnType)

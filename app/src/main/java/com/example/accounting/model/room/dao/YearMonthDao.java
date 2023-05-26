@@ -11,6 +11,9 @@ import java.util.List;
 @Dao
 public interface YearMonthDao
 {
-    @Query("SELECT DISTINCT SUBSTR(TI_date, 1, 4) AS year, SUBSTR(TI_date, 6, 2) AS month FROM TxnInfo ORDER BY year ASC, month ASC")
+    @Query("select distinct substr(T_date, 1, 4) as year, " +
+            "substr(T_date, 6, 2) as month " +
+            "from Txn " +
+            "order by year asc, month asc")
     LiveData<List<YearMonth>> queryAll();
 }

@@ -15,9 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.accounting.R;
 import com.example.accounting.model.entity.YearAndMonth;
-import com.example.accounting.model.room.bean.AcctType;
+import com.example.accounting.model.room.bean.Acct;
 import com.example.accounting.model.room.bean.TxnRvItem;
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.List;
@@ -31,7 +32,7 @@ public class MyBindingAdapter
         TxnForDayRvAdapter adapter = (TxnForDayRvAdapter) recyclerView.getAdapter();
         if (adapter != null && itemList != null && itemList.getValue() != null)
         {
-            adapter.setItemList(itemList.getValue());
+            adapter.setRvData(itemList.getValue());
         }
     }
 
@@ -41,17 +42,27 @@ public class MyBindingAdapter
         TxnForMonthRvAdapter adapter = (TxnForMonthRvAdapter) recyclerView.getAdapter();
         if (adapter != null && itemList != null && itemList.getValue() != null)
         {
-            adapter.setItemList(itemList.getValue());
+            adapter.setRvData(itemList.getValue());
+        }
+    }
+
+    @BindingAdapter({"txnForOneDayCurrentDate", "txnForOneDayRvItemList"})
+    public static void setTxnForOneDayRvItemList(RecyclerView recyclerView, String date, LiveData<List<TxnRvItem>> itemList)
+    {
+        TxnForOneDayRvAdapter adapter = (TxnForOneDayRvAdapter) recyclerView.getAdapter();
+        if (adapter != null && itemList != null && itemList.getValue() != null)
+        {
+            adapter.setRvData(date, itemList.getValue());
         }
     }
 
     @BindingAdapter({"accountRvItemList"})
-    public static void setAccountRvItemList(RecyclerView recyclerView, LiveData<List<AcctType>> itemList)
+    public static void setAccountRvItemList(RecyclerView recyclerView, LiveData<List<Acct>> itemList)
     {
         AcctRvAdapter adapter = (AcctRvAdapter) recyclerView.getAdapter();
         if (adapter != null && itemList != null && itemList.getValue() != null)
         {
-            adapter.setItemList(itemList.getValue());
+            adapter.setRvData(itemList.getValue());
         }
     }
 
@@ -77,7 +88,7 @@ public class MyBindingAdapter
     @BindingAdapter({"headerItemAmount"})
     public static void setHeaderItemAmount(TextView textView, double amount)
     {
-        textView.setText(String.format(Locale.getDefault(), "%.2f", Math.abs(amount)));  // 去掉原有的负号，手动绘制
+        textView.setText(String.format(Locale.getDefault(), "%.2f", Math.abs(amount)));
     }
 
     @BindingAdapter({"headerItemToggle"})
@@ -126,7 +137,7 @@ public class MyBindingAdapter
     }
 
     @BindingAdapter({"currentYearAndMonth"})
-    public static void setCurrentDate(Button button, LiveData<YearAndMonth> currentYearAndMonth)
+    public static void setCurrentYearAndMonth(Button button, LiveData<YearAndMonth> currentYearAndMonth)
     {
         if (currentYearAndMonth != null && currentYearAndMonth.getValue() != null)
         {
@@ -151,11 +162,20 @@ public class MyBindingAdapter
     }
 
     @BindingAdapter({"acctDetailedTitle"})
-    public static void setAcctDetailedTitle(MaterialToolbar toolbar, LiveData<AcctType> acctType)
+    public static void setAcctDetailedTitle(MaterialToolbar toolbar, LiveData<Acct> acct)
     {
-        if (acctType != null && acctType.getValue() != null)
+        if (acct != null && acct.getValue() != null)
         {
-            toolbar.setTitle(acctType.getValue().getType());
+            toolbar.setTitle(acct.getValue().getName());
+        }
+    }
+
+    @BindingAdapter({"incomeOrExpense"})
+    public static void setIncomeOrExpense(MaterialButtonToggleGroup group, int incomeOrExpense)
+    {
+        if (group != null)
+        {
+            group.check(group.getChildAt(incomeOrExpense).getId());
         }
     }
 

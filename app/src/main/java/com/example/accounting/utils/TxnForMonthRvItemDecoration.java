@@ -25,7 +25,7 @@ public class TxnForMonthRvItemDecoration extends BaseRvItemDecoration<TxnForMont
     @Override
     protected View createHeaderView(RecyclerView recyclerView, TxnForMonthRvGroup group)
     {
-        View headerView = LayoutInflater.from(context).inflate(R.layout.rv_header_item_txn_for_day, recyclerView, false);
+        View headerView = LayoutInflater.from(context).inflate(R.layout.rv_header_item_txn_for_month, recyclerView, false);
         TextView dateTextView = headerView.findViewById(R.id.header_date);
         TextView incomeTextView = headerView.findViewById(R.id.header_income);
         TextView expenseTextView = headerView.findViewById(R.id.header_expenditure);

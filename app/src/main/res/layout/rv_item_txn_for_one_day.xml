@@ -6,14 +6,14 @@
 
         <variable
             name="item"
-            type="com.example.accounting.model.room.bean.Acct" />
+            type="com.example.accounting.model.room.bean.TxnRvItem" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingHorizontal="8dp"
+        android:paddingHorizontal="16dp"
         android:paddingVertical="8dp">
 
         <ImageView
@@ -22,20 +22,29 @@
             android:layout_gravity="start|center"
             android:contentDescription="TradeInfoIcon"
             android:scaleType="center"
-            android:src="@drawable/ic_acct_item" />
+            android:src="@drawable/ic_txn_item" />
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <com.google.android.material.textview.MaterialTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start|center"
-                android:text="@{item.name}"
+                android:layout_gravity="start|top"
+                android:text="@{item.txnType}"
                 android:textSize="16sp" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|bottom"
+                android:text="@{item.time}"
+                android:textColor="#C0C0C0"
+                android:textSize="12sp" />
 
         </LinearLayout>
 
@@ -44,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
             android:textSize="16sp"
-            app:itemAmount="@{item.amount}" />
+            app:subItemAmount="@{item.amount}" />
 
     </LinearLayout>
 </layout>

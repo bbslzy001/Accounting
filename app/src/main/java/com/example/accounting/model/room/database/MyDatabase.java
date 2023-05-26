@@ -5,19 +5,19 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import com.example.accounting.base.BaseApplication;
-import com.example.accounting.model.room.bean.AcctType;
-import com.example.accounting.model.room.bean.TxnInfo;
+import com.example.accounting.model.room.bean.Acct;
+import com.example.accounting.model.room.bean.Txn;
 import com.example.accounting.model.room.bean.TxnType;
-import com.example.accounting.model.room.dao.AcctTypeDao;
-import com.example.accounting.model.room.dao.TxnInfoDao;
+import com.example.accounting.model.room.dao.AcctDao;
+import com.example.accounting.model.room.dao.TxnDao;
 import com.example.accounting.model.room.dao.TxnRvItemDao;
 import com.example.accounting.model.room.dao.TxnTypeDao;
 import com.example.accounting.model.room.dao.YearMonthDao;
 
 @Database(
         entities = {
-                TxnInfo.class,
-                AcctType.class,
+                Txn.class,
+                Acct.class,
                 TxnType.class
         },
         version = 1
@@ -27,9 +27,9 @@ public abstract class MyDatabase extends RoomDatabase
     private static final String DB_NAME = "Accounting.db";
     private static MyDatabase myDatabase;
 
-    public abstract TxnInfoDao getTxnInfoDao();
+    public abstract TxnDao getTxnDao();
 
-    public abstract AcctTypeDao getAcctDao();
+    public abstract AcctDao getAcctDao();
 
     public abstract TxnTypeDao getTxnTypeDao();
 

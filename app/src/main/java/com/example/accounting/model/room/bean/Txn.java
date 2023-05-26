@@ -7,19 +7,19 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 @Entity(
-        tableName = "TxnInfo",
+        tableName = "Txn",
         indices = {
-                @Index(value = "TI_date"),
-                @Index(value = "TI_amount"),
-                @Index(value = "AT_id"),
+                @Index(value = "T_date"),
+                @Index(value = "T_amount"),
+                @Index(value = "A_id"),
                 @Index(value = "TT_id")
         },
         foreignKeys = {
                 @ForeignKey(
-                        entity = AcctType.class,
+                        entity = Acct.class,
                         onDelete = ForeignKey.CASCADE,
                         onUpdate = ForeignKey.CASCADE,
-                        parentColumns = "AT_id", childColumns = "AT_id"
+                        parentColumns = "A_id", childColumns = "A_id"
                 ),
                 @ForeignKey(
                         entity = TxnType.class,
@@ -29,38 +29,38 @@ import androidx.room.PrimaryKey;
                 )
         }
 )
-public class TxnInfo
+public class Txn
 {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "TI_id")
+    @ColumnInfo(name = "T_id")
     private int id;
 
-    @ColumnInfo(name = "TI_amount")
+    @ColumnInfo(name = "T_amount")
     private double amount;
 
-    @ColumnInfo(name = "TI_date")
+    @ColumnInfo(name = "T_date")
     private String date;
 
-    @ColumnInfo(name = "TI_time")
+    @ColumnInfo(name = "T_time")
     private String time;
 
-    @ColumnInfo(name = "TI_remark")
+    @ColumnInfo(name = "T_remark")
     private String remark;
 
-    @ColumnInfo(name = "AT_id")
-    private int acctTypeId;
+    @ColumnInfo(name = "A_id")
+    private int acctId;
 
     @ColumnInfo(name = "TT_id")
     private int txnTypeId;
 
-    public TxnInfo(int id, double amount, String date, String time, String remark, int acctTypeId, int txnTypeId)
+    public Txn(int id, double amount, String date, String time, String remark, int acctId, int txnTypeId)
     {
         this.id = id;
         this.amount = amount;
         this.date = date;
         this.time = time;
         this.remark = remark;
-        this.acctTypeId = acctTypeId;
+        this.acctId = acctId;
         this.txnTypeId = txnTypeId;
     }
 
@@ -89,9 +89,9 @@ public class TxnInfo
         return remark;
     }
 
-    public int getAcctTypeId()
+    public int getAcctId()
     {
-        return acctTypeId;
+        return acctId;
     }
 
     public int getTxnTypeId()
@@ -124,9 +124,9 @@ public class TxnInfo
         this.remark = remark;
     }
 
-    public void setAcctTypeId(int acctTypeId)
+    public void setAcctId(int acctId)
     {
-        this.acctTypeId = acctTypeId;
+        this.acctId = acctId;
     }
 
     public void setTxnTypeId(int txnTypeId)

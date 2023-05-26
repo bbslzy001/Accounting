@@ -11,15 +11,14 @@ import com.example.accounting.model.repository.TxnRepository;
 import com.example.accounting.model.repository.TxnTypeRepository;
 import com.example.accounting.model.room.bean.Acct;
 import com.example.accounting.model.room.bean.Txn;
-import com.example.accounting.model.room.bean.TxnRvItem;
 import com.example.accounting.model.room.bean.TxnType;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Objects;
 
-public class EditTxnActViewModel extends BaseActivityViewModel
+public class AddTxnActViewModel extends BaseActivityViewModel
 {
-    private int txnId;
     private String[] acctArray;
     private String[] txnTypeArray;
     private LiveData<List<TxnType>> txnTypeListLiveData;
@@ -30,7 +29,7 @@ public class EditTxnActViewModel extends BaseActivityViewModel
     private final TxnTypeRepository txnTypeRepository = new TxnTypeRepository();
     private final TxnRepository txnRepository = new TxnRepository();
 
-    public EditTxnActViewModel()
+    public AddTxnActViewModel()
     {
         super();
     }
@@ -80,17 +79,9 @@ public class EditTxnActViewModel extends BaseActivityViewModel
         return Objects.requireNonNull(formData.getValue()).getMinute();
     }
 
-    public void initFormData(TxnRvItem txnRvItem)
+    public void initFormData()
     {
-        txnId = txnRvItem.getTxnId();
-        int incomeOrExpense = txnRvItem.getAmount() > 0 ? 0 : 1;
-        String acctName = txnRvItem.getAcctName();
-        String txnType = txnRvItem.getTxnType();
-        String amountText = String.valueOf(Math.abs(txnRvItem.getAmount()));
-        String date = txnRvItem.getDate();
-        String time = txnRvItem.getTime();
-        String remark = txnRvItem.getRemark();
-        TxnForm txnForm = new TxnForm(incomeOrExpense, acctName, txnType, amountText, date, time, remark);
+        TxnForm txnForm = new TxnForm(0, null, null, null, Calendar.getInstance(), null);
         formData.setValue(txnForm);
     }
 
@@ -107,7 +98,8 @@ public class EditTxnActViewModel extends BaseActivityViewModel
                 if (txnTypes != null)
                 {
                     txnTypeArray = new String[txnTypes.size()];
-                    for (int i = 0; i < txnTypes.size(); i++) txnTypeArray[i] = txnTypes.get(i).getType();
+                    for (int i = 0; i < txnTypes.size(); i++)
+                        txnTypeArray[i] = txnTypes.get(i).getType();
                     isAllCompleted.setValue(isAllCompleted.getValue() - 1);
                     txnTypeListLiveData.removeObserver(this);
                 }
@@ -122,7 +114,8 @@ public class EditTxnActViewModel extends BaseActivityViewModel
                 if (accts != null)
                 {
                     acctArray = new String[accts.size()];
-                    for (int i = 0; i < accts.size(); i++) acctArray[i] = accts.get(i).getName();
+                    for (int i = 0; i < accts.size(); i++)
+                        acctArray[i] = accts.get(i).getName();
                     isAllCompleted.setValue(isAllCompleted.getValue() - 1);
                     acctListLiveData.removeObserver(this);
                 }
@@ -130,7 +123,7 @@ public class EditTxnActViewModel extends BaseActivityViewModel
         });
     }
 
-    public int updateTxn()
+    public int insertTxn()
     {
         TxnForm txnForm = formData.getValue();
         if (txnForm == null) return 0;
@@ -157,7 +150,7 @@ public class EditTxnActViewModel extends BaseActivityViewModel
                 break;
             }
         }
-        txnRepository.update(new Txn(txnId, amount, txnForm.getDate(), txnForm.getTime(), txnForm.getRemark(), acctId, txnTypeId));
+        txnRepository.insert(new Txn(0, amount, txnForm.getDate(), txnForm.getTime(), txnForm.getRemark(), acctId, txnTypeId));
         return 1;
     }
 

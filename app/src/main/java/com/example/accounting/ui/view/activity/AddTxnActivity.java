@@ -6,9 +6,8 @@ import android.widget.Toast;
 import com.example.accounting.BR;
 import com.example.accounting.R;
 import com.example.accounting.base.BaseActivity;
-import com.example.accounting.databinding.ActivityEditTxnBinding;
-import com.example.accounting.model.room.bean.TxnRvItem;
-import com.example.accounting.ui.viewmodel.activity.EditTxnActViewModel;
+import com.example.accounting.databinding.ActivityAddTxnBinding;
+import com.example.accounting.ui.viewmodel.activity.AddTxnActViewModel;
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.timepicker.MaterialTimePicker;
 import com.google.android.material.timepicker.TimeFormat;
@@ -18,18 +17,18 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
 
-public class EditTxnActivity extends BaseActivity<ActivityEditTxnBinding, EditTxnActViewModel>
+public class AddTxnActivity extends BaseActivity<ActivityAddTxnBinding, AddTxnActViewModel>
 {
     @Override
     protected int getLayoutId()
     {
-        return R.layout.activity_edit_txn;
+        return R.layout.activity_add_txn;
     }
 
     @Override
-    protected Class<EditTxnActViewModel> getViewModelClass()
+    protected Class<AddTxnActViewModel> getViewModelClass()
     {
-        return EditTxnActViewModel.class;
+        return AddTxnActViewModel.class;
     }
 
     @Override
@@ -43,7 +42,7 @@ public class EditTxnActivity extends BaseActivity<ActivityEditTxnBinding, EditTx
     {
         super.initView();
 
-        viewModel.initFormData((TxnRvItem) getIntent().getSerializableExtra("txnRvItem"));
+        viewModel.initFormData();
         viewModel.initDropdownData();
         viewModel.isAllCompleted().observe(this, isAllCompleted ->
         {
@@ -66,9 +65,9 @@ public class EditTxnActivity extends BaseActivity<ActivityEditTxnBinding, EditTx
         binding.topAppBar.setNavigationOnClickListener(view -> finish());
         binding.topAppBar.setOnMenuItemClickListener(menuItem ->
         {
-            if (menuItem.getItemId() == R.id.save)
+            if (menuItem.getItemId() == R.id.add)
             {
-                int result = viewModel.updateTxn();
+                int result = viewModel.insertTxn();
                 if (result == 1) finish();
                 else
                 {
@@ -131,8 +130,8 @@ public class EditTxnActivity extends BaseActivity<ActivityEditTxnBinding, EditTx
             MaterialTimePicker timePicker = new MaterialTimePicker.Builder()
                     .setTitleText("选择时间")
                     .setTimeFormat(TimeFormat.CLOCK_24H)
-                    .setHour(viewModel.getHour())
-                    .setMinute(viewModel.getMinute())
+                    .setHour(viewModel.getHour())  // 设置小时数为当前小时数
+                    .setMinute(viewModel.getMinute())  // 设置分钟数为当前分钟数
                     .build();
 
             // 设置时间选择器的回调函数

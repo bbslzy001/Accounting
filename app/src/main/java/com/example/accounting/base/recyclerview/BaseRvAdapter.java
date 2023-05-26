@@ -149,7 +149,7 @@ public abstract class BaseRvAdapter<G extends BaseRvGroup> extends RecyclerView.
         private final int groupIndex;
         private final int itemType;
         private final int subItemIndex;
-        private final int txnInfoId;
+        private final int subItemId;
 
         /**
          * ItemInfo 的构造函数，用于保存一个 Item 的信息
@@ -157,14 +157,14 @@ public abstract class BaseRvAdapter<G extends BaseRvGroup> extends RecyclerView.
          * @param groupIndex   当前 Item 属于第几个 Group，从 0 开始计数
          * @param itemType     当前 Item 属于 列表头类型 还是 列表项类型
          * @param subItemIndex 当前 Item 属于 当前 Group 的第几个列表项：列表头值为 -1，列表项从 0 开始计数
-         * @param txnInfoId    当前 Item 对应的 TxnInfo 的 id
+         * @param subItemId    当前 Item 对应的 id
          */
-        public ItemInfo(int groupIndex, int itemType, int subItemIndex, int txnInfoId)
+        public ItemInfo(int groupIndex, int itemType, int subItemIndex, int subItemId)
         {
             this.groupIndex = groupIndex;
             this.itemType = itemType;
             this.subItemIndex = subItemIndex;
-            this.txnInfoId = txnInfoId;
+            this.subItemId = subItemId;
         }
 
         public int getGroupIndex()
@@ -182,9 +182,9 @@ public abstract class BaseRvAdapter<G extends BaseRvGroup> extends RecyclerView.
             return subItemIndex;
         }
 
-        public int getTxnInfoId()
+        public int getSubItemId()
         {
-            return txnInfoId;
+            return subItemId;
         }
     }
 }
