@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat;
 import com.example.accounting.BR;
 import com.example.accounting.R;
 import com.example.accounting.base.BaseActivity;
+import com.example.accounting.base.BaseApplication;
 import com.example.accounting.databinding.ActivityMainBinding;
 import com.example.accounting.ui.viewmodel.activity.MainActViewModel;
 import com.example.accounting.utils.adapter.MainVpAdapter;
@@ -43,7 +44,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainActViewM
         initNavigation();
         initAddTradeButton();
 
-        viewModel.fakeData();
+        /* 如果是第一次启动应用，初始化数据 */
+        if (((BaseApplication)getApplication()).isFirstTimeLaunch())
+        {
+            viewModel.initData();
+            ((BaseApplication)getApplication()).setFirstTimeLaunch(false);
+        }
+
     }
 
     /**

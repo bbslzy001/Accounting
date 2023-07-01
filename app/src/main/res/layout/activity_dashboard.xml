@@ -52,21 +52,75 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/day_chip1"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="今日" />
+                    android:checked="@{viewModel.getChipList().get(0).isState()}"
+                    android:text="今日收支" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/day_chip2"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="近三日" />
+                    android:checked="@{viewModel.getChipList().get(1).isState()}"
+                    android:text="今日收入" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/day_chip3"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="近七日" />
+                    android:checked="@{viewModel.getChipList().get(2).isState()}"
+                    android:text="今日支出" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/day_chip4"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@{viewModel.getChipList().get(3).isState()}"
+                    android:text="近三日收支" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/day_chip5"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@{viewModel.getChipList().get(4).isState()}"
+                    android:text="近三日收入" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/day_chip6"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@{viewModel.getChipList().get(5).isState()}"
+                    android:text="近三日支出" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/day_chip7"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@{viewModel.getChipList().get(6).isState()}"
+                    android:text="近七日收支" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/day_chip8"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@{viewModel.getChipList().get(7).isState()}"
+                    android:text="近七日收入" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/day_chip9"
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="@{viewModel.getChipList().get(8).isState()}"
+                    android:text="近七日支出" />
 
             </com.google.android.material.chip.ChipGroup>
 
@@ -91,20 +145,26 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/month_chip1"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="@{viewModel.getChipList().get(9).isState()}"
                     android:text="今月" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/month_chip2"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="@{viewModel.getChipList().get(10).isState()}"
                     android:text="近三月" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/month_chip3"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="@{viewModel.getChipList().get(11).isState()}"
                     android:text="近六月" />
 
             </com.google.android.material.chip.ChipGroup>
@@ -129,21 +189,27 @@
                 android:layout_height="wrap_content">
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip1"
+                    android:id="@+id/year_chip1"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="@{viewModel.getChipList().get(12).isState()}"
                     android:text="今年" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip2"
+                    android:id="@+id/year_chip2"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="@{viewModel.getChipList().get(13).isState()}"
                     android:text="近三年" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/chip3"
+                    android:id="@+id/year_chip3"
+                    style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:checked="@{viewModel.getChipList().get(14).isState()}"
                     android:text="近五年" />
 
             </com.google.android.material.chip.ChipGroup>

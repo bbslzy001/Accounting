@@ -6,6 +6,6 @@
         android:title="@string/setting" />
     <item
         android:id="@+id/drawer_about"
-        android:icon="@drawable/ic_info"
+        android:icon="@drawable/ic_about"
         android:title="@string/about" />
 </menu>

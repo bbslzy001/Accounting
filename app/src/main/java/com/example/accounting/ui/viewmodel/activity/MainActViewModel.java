@@ -6,7 +6,9 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.accounting.R;
 import com.example.accounting.base.BaseActivityViewModel;
+import com.example.accounting.model.repository.ChipRepository;
 import com.example.accounting.model.repository.TxnTypeRepository;
+import com.example.accounting.model.room.bean.Chip;
 import com.example.accounting.model.room.bean.TxnType;
 
 public class MainActViewModel extends BaseActivityViewModel
@@ -14,6 +16,7 @@ public class MainActViewModel extends BaseActivityViewModel
     private final MutableLiveData<Integer> topAppBarTitle = new MutableLiveData<>(R.string.app_name);
     private final MutableLiveData<Integer> statsFragState = new MutableLiveData<>(R.string.list_stats);
     private final TxnTypeRepository txnTypeRepository = new TxnTypeRepository();
+    private final ChipRepository chipRepository = new ChipRepository();
 
     public MainActViewModel()
     {
@@ -25,9 +28,18 @@ public class MainActViewModel extends BaseActivityViewModel
         return topAppBarTitle;
     }
 
-    public void fakeData()
+    public void initData()
     {
-        txnTypeRepository.insert(new TxnType(0, "吃饭"));
+        String[] txnTypeNames = {"餐饮", "交通", "购物", "娱乐", "工资", "奖金", "投资", "其他"};
+        for (String name : txnTypeNames)
+        {
+            txnTypeRepository.insert(new TxnType(0, name));
+        }
+
+        for (int i = 0; i < 15; ++i)
+        {
+            chipRepository.insert(new Chip(0, true));
+        }
     }
 
     public void updateStatsFragState()
