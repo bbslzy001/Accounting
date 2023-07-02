@@ -6,9 +6,11 @@ import androidx.room.RoomDatabase;
 
 import com.example.accounting.base.BaseApplication;
 import com.example.accounting.model.room.bean.Acct;
+import com.example.accounting.model.room.bean.Chip;
 import com.example.accounting.model.room.bean.Txn;
 import com.example.accounting.model.room.bean.TxnType;
 import com.example.accounting.model.room.dao.AcctDao;
+import com.example.accounting.model.room.dao.ChipDao;
 import com.example.accounting.model.room.dao.TxnDao;
 import com.example.accounting.model.room.dao.TxnRvItemDao;
 import com.example.accounting.model.room.dao.TxnTypeDao;
@@ -18,7 +20,8 @@ import com.example.accounting.model.room.dao.YearMonthDao;
         entities = {
                 Txn.class,
                 Acct.class,
-                TxnType.class
+                TxnType.class,
+                Chip.class
         },
         version = 1
 )
@@ -36,6 +39,8 @@ public abstract class MyDatabase extends RoomDatabase
     public abstract TxnRvItemDao getTxnRvItemDao();
 
     public abstract YearMonthDao getYearMonthDao();
+
+    public abstract ChipDao getChipDao();
 
     public static MyDatabase getMyDatabaseInstance()
     {

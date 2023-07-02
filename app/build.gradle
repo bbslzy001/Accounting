@@ -47,4 +47,6 @@ dependencies {
 
     implementation "io.noties.markwon:core:4.5.1"
     implementation 'com.necer.ncalendar:ncalendar:5.0.2'
+
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }

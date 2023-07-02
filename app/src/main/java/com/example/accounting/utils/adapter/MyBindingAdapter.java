@@ -16,11 +16,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.accounting.R;
 import com.example.accounting.model.entity.YearAndMonth;
 import com.example.accounting.model.room.bean.Acct;
+import com.example.accounting.model.room.bean.CardInfo;
+import com.example.accounting.model.room.bean.Chip;
 import com.example.accounting.model.room.bean.TxnRvItem;
+import com.example.accounting.utils.PercentageValueFormatter;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.textview.MaterialTextView;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -66,6 +76,26 @@ public class MyBindingAdapter
         }
     }
 
+    @BindingAdapter({"cardRvItemList"})
+    public static void setCardRvItemList(RecyclerView recyclerView, LiveData<List<Chip>> itemList)
+    {
+        CardRvAdapter adapter = (CardRvAdapter) recyclerView.getAdapter();
+        if (adapter != null && itemList != null && itemList.getValue() != null)
+        {
+            adapter.setRvData(itemList.getValue());
+        }
+    }
+
+    @BindingAdapter({"cardRvItemListData"})
+    public static void setCardRvItemListData(RecyclerView recyclerView, LiveData<CardInfo> cardInfo)
+    {
+        CardRvAdapter adapter = (CardRvAdapter) recyclerView.getAdapter();
+        if (adapter != null && cardInfo != null && cardInfo.getValue() != null)
+        {
+            adapter.setCardInfo(cardInfo.getValue());
+        }
+    }
+
     @BindingAdapter({"cardAmount"})
     public static void setCardAmount(TextView textView, double amount)
     {
@@ -77,6 +107,46 @@ public class MyBindingAdapter
         {
             textView.setText(String.format(Locale.getDefault(), "- %.2f", Math.abs(amount)));  // 去掉原有的负号，手动绘制
         }
+    }
+
+    @BindingAdapter({"pieChartIncome", "pieChartExpense"})
+    public static void setPieChartIncomeAndExpense(PieChart pieChart, double income, double expense)
+    {
+        List<PieEntry> pieEntryList = new ArrayList<>();  // 饼图数据
+        List<Integer> colorList = new ArrayList<>();  // 颜色列表
+
+        if (income == 0.0 && expense == 0.0)
+        {
+            pieEntryList.add(new PieEntry(1, "无记录"));
+            colorList.add(rgb(115, 119, 127));
+        }
+        else
+        {
+            pieEntryList.add(new PieEntry((float) (income / (income - expense)), "收入"));
+            colorList.add(rgb(158, 202, 255));
+            pieEntryList.add(new PieEntry((float) (-expense / (income - expense)), "支出"));
+            colorList.add(rgb(255, 218, 214));
+        }
+
+        PieDataSet pieDataSet = new PieDataSet(pieEntryList, "");
+        pieDataSet.setColors(colorList);
+        pieDataSet.setValueTextSize(12);
+        pieDataSet.setValueFormatter(new PercentageValueFormatter());  // 设置百分比格式
+
+        PieData pieData = new PieData(pieDataSet);
+
+        Legend legend = pieChart.getLegend();  // 设置图例
+        legend.setHorizontalAlignment(Legend.LegendHorizontalAlignment.CENTER);
+        legend.setTextSize(12);
+
+        Description description = new Description();  // 设置描述
+        description.setText("");
+        pieChart.setDescription(description);
+
+        pieChart.setDrawHoleEnabled(false);  // 不显示中间空白
+        pieChart.setDrawCenterText(false);  // 不显示中间文字
+        pieChart.setDrawEntryLabels(false);  // 不显示文字标签
+        pieChart.setData(pieData);
     }
 
     @BindingAdapter({"itemAmount"})
