@@ -13,13 +13,10 @@
         android:layout_height="match_parent"
         android:paddingHorizontal="8dp">
 
-        <com.google.android.material.textview.MaterialTextView
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/mbar_chart"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="@string/month_anal"
-            android:textSize="36sp" />
+            android:layout_height="match_parent" />
 
     </RelativeLayout>
 
