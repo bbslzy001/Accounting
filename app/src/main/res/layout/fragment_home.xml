@@ -18,6 +18,8 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:cardRvItemList="@{viewModel.chipList}"
+            app:cardRvItemListData="@{viewModel.cardInfo}"
             app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
             app:spanCount="2" />
 

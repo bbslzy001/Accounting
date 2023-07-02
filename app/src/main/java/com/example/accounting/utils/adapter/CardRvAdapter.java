@@ -1,63 +1,225 @@
 package com.example.accounting.utils.adapter;
 
+import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class CardRvAdapter extends RecyclerView.Adapter<CardRvAdapter.ViewHolder>
+import com.example.accounting.R;
+import com.example.accounting.databinding.RvItemCard1Binding;
+import com.example.accounting.databinding.RvItemCard2Binding;
+import com.example.accounting.model.room.bean.CardInfo;
+import com.example.accounting.model.room.bean.Chip;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class CardRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 {
-    private List<Item> items;
+    public static final int ITEM1 = 1;  // 第一类
+    public static final int ITEM2 = 2;  // 第二类
 
-    public CustomAdapter(List<Item> items) {
-        this.items = items;
+    private List<Chip> chipList = new ArrayList<>();
+    private List<Integer> validIndexList = new ArrayList<>();
+    private CardInfo cardInfo = new CardInfo();
+
+    public CardRvAdapter()
+    {
     }
 
-    @NonNull
-    @Override
-    public CardRvAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
+    public void setRvData(List<Chip> chipList)
     {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_item, parent, false);
-        return new CustomViewHolder(view);
+        this.chipList = chipList;
+        calculateValidIndexList();
+        notifyDataSetChanged();
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull CardRvAdapter.ViewHolder holder, int position)
+    public void setCardInfo(CardInfo cardInfo)
     {
-        Item item = items.get(position);
+        this.cardInfo = cardInfo;
+        notifyDataSetChanged();
+    }
 
-        // Set card width and height based on item properties
-        ViewGroup.LayoutParams layoutParams = holder.cardView.getLayoutParams();
-        layoutParams.width = item.width;
-        layoutParams.height = item.height;
-        holder.cardView.setLayoutParams(layoutParams);
-
-        // Set other card properties and data
+    private void calculateValidIndexList()
+    {
+        List<Integer> validIndexList = new ArrayList<>();
+        for (int i = 0; i < chipList.size(); i++)
+        {
+            if (chipList.get(i).isState())
+            {
+                validIndexList.add(i);
+            }
+        }
+        this.validIndexList = validIndexList;
     }
 
     @Override
     public int getItemCount()
     {
-        return items.size();
+        return validIndexList.size();
     }
 
     @Override
-    public int getItemViewType(int position) {
-        Item item = items.get(position);
-        // 根据 item 的属性返回一个整数值，表示该 item 对应的布局类型
-        // 在这个例子中，我们假设 item 类有一个名为 layoutType 的整数属性
-        return item.layoutType;
+    public int getItemViewType(int position)
+    {
+        int actualPosition = validIndexList.get(position);
+        if (actualPosition % 3 == 0 || actualPosition > 8) return ITEM1;
+        else return ITEM2;
     }
 
-    public static class ViewHolder extends RecyclerView.ViewHolder
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType)
     {
-        CardView cardView;
-        public ViewHolder(@NonNull android.view.View itemView)
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        if (viewType == ITEM1)
         {
+            RvItemCard1Binding binding = DataBindingUtil.inflate(inflater, R.layout.rv_item_card_1, parent, false);
+            return new CardViewHolder1(binding);
+        }
+        else
+        {
+            RvItemCard2Binding binding = DataBindingUtil.inflate(inflater, R.layout.rv_item_card_2, parent, false);
+            return new CardViewHolder2(binding);
+        }
+    }
 
-            super(itemView);
-            cardView = itemView.findViewById(R.id.cardView);
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position)
+    {
+        int actualPosition = validIndexList.get(position);
+        if (actualPosition % 3 == 0 || actualPosition > 8)
+        {
+            CardViewHolder1 viewHolder = (CardViewHolder1) holder;
+            switch (actualPosition)
+            {
+                case 0 ->
+                {
+                    viewHolder.binding.setTitle("本日收支");
+                    viewHolder.binding.setAmount(cardInfo.getDayAmount());
+                    viewHolder.binding.setIncome(cardInfo.getDayIncome());
+                    viewHolder.binding.setExpense(cardInfo.getDayExpense());
+                }
+                case 3 ->
+                {
+                    viewHolder.binding.setTitle("近三日收支");
+                    viewHolder.binding.setAmount(cardInfo.getThreeDayAmount());
+                    viewHolder.binding.setIncome(cardInfo.getThreeDayIncome());
+                    viewHolder.binding.setExpense(cardInfo.getThreeDayExpense());
+                }
+                case 6 ->
+                {
+                    viewHolder.binding.setTitle("本周收支");
+                    viewHolder.binding.setAmount(cardInfo.getWeekAmount());
+                    viewHolder.binding.setIncome(cardInfo.getWeekIncome());
+                    viewHolder.binding.setExpense(cardInfo.getWeekExpense());
+                }
+                case 9 ->
+                {
+                    viewHolder.binding.setTitle("本月收支");
+                    viewHolder.binding.setAmount(cardInfo.getMonthAmount());
+                    viewHolder.binding.setIncome(cardInfo.getMonthIncome());
+                    viewHolder.binding.setExpense(cardInfo.getMonthExpense());
+                }
+                case 10 ->
+                {
+                    viewHolder.binding.setTitle("近三月收支");
+                    viewHolder.binding.setAmount(cardInfo.getThreeMonthAmount());
+                    viewHolder.binding.setIncome(cardInfo.getThreeMonthIncome());
+                    viewHolder.binding.setExpense(cardInfo.getThreeMonthExpense());
+                }
+                case 11 ->
+                {
+                    viewHolder.binding.setTitle("近六月收支");
+                    viewHolder.binding.setAmount(cardInfo.getSixMonthAmount());
+                    viewHolder.binding.setIncome(cardInfo.getSixMonthIncome());
+                    viewHolder.binding.setExpense(cardInfo.getSixMonthExpense());
+                }
+                case 12 ->
+                {
+                    viewHolder.binding.setTitle("本年收支");
+                    viewHolder.binding.setAmount(cardInfo.getYearAmount());
+                    viewHolder.binding.setIncome(cardInfo.getYearIncome());
+                    viewHolder.binding.setExpense(cardInfo.getYearExpense());
+                }
+                case 13 ->
+                {
+                    viewHolder.binding.setTitle("近三年收支");
+                    viewHolder.binding.setAmount(cardInfo.getThreeYearAmount());
+                    viewHolder.binding.setIncome(cardInfo.getThreeYearIncome());
+                    viewHolder.binding.setExpense(cardInfo.getThreeYearExpense());
+                }
+                case 14 ->
+                {
+                    viewHolder.binding.setTitle("近五年收支");
+                    viewHolder.binding.setAmount(cardInfo.getFiveYearAmount());
+                    viewHolder.binding.setIncome(cardInfo.getFiveYearIncome());
+                    viewHolder.binding.setExpense(cardInfo.getFiveYearExpense());
+                }
+            }
+            viewHolder.binding.executePendingBindings();
+        }
+        else
+        {
+            CardViewHolder2 viewHolder = (CardViewHolder2) holder;
+            switch (actualPosition)
+            {
+                case 1 ->
+                {
+                    viewHolder.binding.setTitle("本日收入");
+                    viewHolder.binding.setAmount(cardInfo.getDayIncome());
+                }
+                case 2 ->
+                {
+                    viewHolder.binding.setTitle("本日支出");
+                    viewHolder.binding.setAmount(cardInfo.getDayExpense());
+                }
+                case 4 ->
+                {
+                    viewHolder.binding.setTitle("近三日收入");
+                    viewHolder.binding.setAmount(cardInfo.getThreeDayIncome());
+                }
+                case 5 ->
+                {
+                    viewHolder.binding.setTitle("近三日支出");
+                    viewHolder.binding.setAmount(cardInfo.getThreeDayExpense());
+                }
+                case 7 ->
+                {
+                    viewHolder.binding.setTitle("本周收入");
+                    viewHolder.binding.setAmount(cardInfo.getWeekIncome());
+                }
+                case 8 ->
+                {
+                    viewHolder.binding.setTitle("本周支出");
+                    viewHolder.binding.setAmount(cardInfo.getWeekExpense());
+                }
+            }
+            viewHolder.binding.executePendingBindings();
+        }
+    }
 
+    private static class CardViewHolder1 extends RecyclerView.ViewHolder
+    {
+        private final RvItemCard1Binding binding;
+
+        public CardViewHolder1(RvItemCard1Binding binding)
+        {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+    }
+
+    private static class CardViewHolder2 extends RecyclerView.ViewHolder
+    {
+        private final RvItemCard2Binding binding;
+
+        public CardViewHolder2(RvItemCard2Binding binding)
+        {
+            super(binding.getRoot());
+            this.binding = binding;
         }
     }
 }
