@@ -3,6 +3,7 @@ package com.example.accounting.model.repository;
 import androidx.lifecycle.LiveData;
 
 import com.example.accounting.model.room.bean.CardInfo;
+import com.example.accounting.model.room.bean.PostInfo;
 import com.example.accounting.model.room.bean.Txn;
 import com.example.accounting.model.room.dao.TxnDao;
 import com.example.accounting.model.room.database.MyDatabase;
@@ -50,6 +51,24 @@ public class TxnRepository
     public LiveData<List<Txn>> queryAll()
     {
         return txnDao.queryAll();
+    }
+
+    public LiveData<PostInfo> queryDayPostInfo()
+    {
+        List<String> dateRanges = getDateRanges();
+        return txnDao.queryPostInfo(dateRanges.get(3), dateRanges.get(0));
+    }
+
+    public LiveData<PostInfo> queryMonthPostInfo()
+    {
+        List<String> dateRanges = getDateRanges();
+        return txnDao.queryPostInfo(dateRanges.get(6), dateRanges.get(0));
+    }
+
+    public LiveData<PostInfo> queryYearPostInfo()
+    {
+        List<String> dateRanges = getDateRanges();
+        return txnDao.queryPostInfo(dateRanges.get(8), dateRanges.get(0));
     }
 
     public LiveData<CardInfo> queryCardInfo()

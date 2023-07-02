@@ -1,25 +1,21 @@
 package com.example.accounting.ui.view.fragment.analyse;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.LiveData;
 
 import com.example.accounting.BR;
 import com.example.accounting.R;
 import com.example.accounting.base.BaseFragment;
-import com.example.accounting.databinding.FragmentAnalDayBinding;
 import com.example.accounting.databinding.FragmentAnalYearBinding;
-import com.example.accounting.ui.viewmodel.fragment.analyse.DayAnalFragViewModel;
+import com.example.accounting.model.room.bean.PostInfo;
 import com.example.accounting.ui.viewmodel.fragment.analyse.YearAnalFragViewModel;
-import com.github.mikephil.charting.charts.BarChart;
+import com.example.accounting.utils.chatgpt.ChatGPTServer;
+import com.example.accounting.utils.chatgpt.Message;
+import com.example.accounting.utils.chatgpt.Prompt;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 
-public class YearAnalFragment extends BaseFragment<FragmentAnalDayBinding, YearAnalFragViewModel>
+public class YearAnalFragment extends BaseFragment<FragmentAnalYearBinding, YearAnalFragViewModel>
 {
     @Override
     protected int getLayoutId()
@@ -38,23 +34,73 @@ public class YearAnalFragment extends BaseFragment<FragmentAnalDayBinding, YearA
     {
         return BR.viewModel;
     }
-    private BarChart mBarChart;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_anal_year, container, false);
+    protected void initView()
+    {
+        super.initView();
+        initAiSuggestion();
+        initIncomeChart();
+        initExpenseChart();
+    }
 
-        mBarChart = view.findViewById(R.id.ybar_chart);
+    private void initAiSuggestion()
+    {
+        LiveData<PostInfo> postInfoLiveData = viewModel.getPostInfo();
+        postInfoLiveData.observe(this, postInfo ->
+        {
+            if (postInfo != null)
+            {
+                ChatGPTServer.getResponse(Prompt.yearPrompt, Message.getSuggestionMessage(postInfo), new ChatGPTServer.OnPostInfoReceivedListener()
+                {
+                    @Override
+                    public void onPostInfoReceived(String response)
+                    {
+                        binding.aiText.setText(response);
+                    }
 
-        DayAnalFragViewModel viewModel = new ViewModelProvider(this).get(DayAnalFragViewModel.class);
-        BarData barData = YearAnalFragViewModel.generateBarChartData();
-        XAxis xAxis = mBarChart.getXAxis();
+                    @Override
+                    public void onError(Exception e)
+                    {
+                        e.printStackTrace();
+                        binding.aiText.setText(e.toString());
+                    }
+                });
+            }
+        });
+    }
+
+    private void initIncomeChart()
+    {
+        // 设置x轴
+        XAxis xAxis = binding.incomeChart.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"2019", "2020", "2021", "2022", "2023"}));
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        mBarChart.setData(barData);
-        mBarChart.invalidate();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"2021", "2022", "2023"}));
+        xAxis.setLabelCount(5);
 
+        // 填充数据
+        binding.incomeChart.setData(viewModel.getIncomeData());
 
-        return view;
+        // 设置空白描述
+        Description description = new Description();
+        description.setText("");
+        binding.incomeChart.setDescription(description);
+    }
+
+    private void initExpenseChart()
+    {
+        // 设置x轴
+        XAxis xAxis = binding.expenseChart.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"2019", "2020", "2021", "2022", "2023"}));
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setLabelCount(5);
+
+        // 填充数据
+        binding.expenseChart.setData(viewModel.getExpenseData());
+
+        // 设置空白描述
+        Description description = new Description();
+        description.setText("");
+        binding.expenseChart.setDescription(description);
     }
 }

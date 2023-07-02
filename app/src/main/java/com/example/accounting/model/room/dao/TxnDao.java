@@ -9,6 +9,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.accounting.model.room.bean.CardInfo;
+import com.example.accounting.model.room.bean.PostInfo;
 import com.example.accounting.model.room.bean.Txn;
 
 import java.util.List;
@@ -36,6 +37,17 @@ public interface TxnDao
 
     @Query("select * from Txn")
     LiveData<List<Txn>> queryAll();
+
+    @Query("select " +
+            "(select ifnull(sum(T_amount), 0.0) from Txn where T_date between :startDate and :endDate and TT_id = 1) as dining, " +
+            "(select ifnull(sum(T_amount), 0.0) from Txn where T_date between :startDate and :endDate and TT_id = 2) as transportation, " +
+            "(select ifnull(sum(T_amount), 0.0) from Txn where T_date between :startDate and :endDate and TT_id = 3) as shopping, " +
+            "(select ifnull(sum(T_amount), 0.0) from Txn where T_date between :startDate and :endDate and TT_id = 4) as entertainment, " +
+            "(select ifnull(sum(T_amount), 0.0) from Txn where T_date between :startDate and :endDate and TT_id = 5) as salary, " +
+            "(select ifnull(sum(T_amount), 0.0) from Txn where T_date between :startDate and :endDate and TT_id = 6) as bonus, " +
+            "(select ifnull(sum(T_amount), 0.0) from Txn where T_date between :startDate and :endDate and TT_id = 7) as investment"
+    )
+    LiveData<PostInfo> queryPostInfo(String startDate, String endDate);
 
     @Query("select " +
             "dayIncome, dayExpense, (dayIncome + dayExpense) as dayAmount, " +
