@@ -15,6 +15,7 @@ import com.example.accounting.databinding.FragmentAnalYearBinding;
 import com.example.accounting.ui.viewmodel.fragment.analyse.DayAnalFragViewModel;
 import com.example.accounting.ui.viewmodel.fragment.analyse.YearAnalFragViewModel;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
@@ -38,23 +39,45 @@ public class YearAnalFragment extends BaseFragment<FragmentAnalDayBinding, YearA
     {
         return BR.viewModel;
     }
-    private BarChart mBarChart;
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_anal_year, container, false);
+    protected void initView()
+    {
+        super.initView();
+        initIncomeChart();
+        initExpenseChart();
+    }
 
-        mBarChart = view.findViewById(R.id.ybar_chart);
-
-        DayAnalFragViewModel viewModel = new ViewModelProvider(this).get(DayAnalFragViewModel.class);
-        BarData barData = YearAnalFragViewModel.generateBarChartData();
-        XAxis xAxis = mBarChart.getXAxis();
+    private void initIncomeChart()
+    {
+        // 设置x轴
+        XAxis xAxis = binding.incomeChart.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"2018", "2019","2020","2021","2022","2023"}));
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        mBarChart.setData(barData);
-        mBarChart.invalidate();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"2021", "2022", "2023"}));
+        xAxis.setLabelCount(6);
 
+        // 填充数据
+        binding.incomeChart.setData(viewModel.getIncomeData());
 
-        return view;
+        // 设置空白描述
+        Description description = new Description();
+        description.setText("");
+        binding.incomeChart.setDescription(description);
+    }
+
+    private void initExpenseChart()
+    {
+        // 设置x轴
+        XAxis xAxis = binding.expenseChart.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"2018", "2019","2020","2021","2022","2023"}));
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setLabelCount(6);
+
+        // 填充数据
+        binding.expenseChart.setData(viewModel.getExpenseData());
+
+        // 设置空白描述
+        Description description = new Description();
+        description.setText("");
+        binding.expenseChart.setDescription(description);
     }
 }

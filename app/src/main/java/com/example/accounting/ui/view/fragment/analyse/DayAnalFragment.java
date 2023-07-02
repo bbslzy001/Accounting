@@ -41,7 +41,7 @@ public class DayAnalFragment extends BaseFragment<FragmentAnalDayBinding, DayAna
     {
         // 设置x轴
         XAxis xAxis = binding.incomeChart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"工资", "奖金"}));
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"Mon", "Tues","Weds","Thurs","Fri","Sat","Sun"}));
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
         // 填充数据
@@ -57,8 +57,9 @@ public class DayAnalFragment extends BaseFragment<FragmentAnalDayBinding, DayAna
     {
         // 设置x轴
         XAxis xAxis = binding.expenseChart.getXAxis();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"餐饮", "交通", "购物", "娱乐"}));
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"Mon", "Tues","Weds","Thurs","Fri","Sat","Sun"}));
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setLabelCount(7);
 
         // 填充数据
         binding.expenseChart.setData(viewModel.getExpenseData());

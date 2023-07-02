@@ -19,8 +19,13 @@ public class DayAnalFragViewModel extends BaseFragmentViewModel
     public BarData getIncomeData()
     {
         ArrayList<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(0, 100));
-        entries.add(new BarEntry(1, 200));
+        entries.add(new BarEntry(0, 0));
+        entries.add(new BarEntry(1, 0));
+        entries.add(new BarEntry(2, 0));
+        entries.add(new BarEntry(3, 0));
+        entries.add(new BarEntry(4, 800));
+        entries.add(new BarEntry(5, 3500));
+        entries.add(new BarEntry(6, 1200));
 
         BarDataSet dataSet = new BarDataSet(entries, "收入");
         dataSet.setColor(Color.parseColor("#87CEFA"));
@@ -31,10 +36,14 @@ public class DayAnalFragViewModel extends BaseFragmentViewModel
     public BarData getExpenseData()
     {
         ArrayList<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(0, 100));
-        entries.add(new BarEntry(1, 200));
-        entries.add(new BarEntry(2, 150));
-        entries.add(new BarEntry(3, 300));
+        entries.add(new BarEntry((float) 0, (float) 60.8));
+        entries.add(new BarEntry(1F, (float) 33.1));
+        entries.add(new BarEntry(2, 65));
+        entries.add(new BarEntry(3, (float) 75.2));
+        entries.add(new BarEntry(4, 88));
+        entries.add(new BarEntry(5, 217.5F));
+        entries.add(new BarEntry(6F, (float) 223.2));
+
 
         BarDataSet dataSet = new BarDataSet(entries, "支出");
         dataSet.setColor(Color.parseColor("#87CEFA"));
