@@ -2,7 +2,11 @@ package com.example.accounting.ui.viewmodel.fragment.analyse;
 
 import android.graphics.Color;
 
+import androidx.lifecycle.LiveData;
+
 import com.example.accounting.base.BaseFragmentViewModel;
+import com.example.accounting.model.repository.TxnRepository;
+import com.example.accounting.model.room.bean.PostInfo;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -11,10 +15,25 @@ import java.util.ArrayList;
 
 public class MonthAnalFragViewModel extends BaseFragmentViewModel
 {
+    private LiveData<PostInfo> postInfo;
+    private final TxnRepository txnRepository = new TxnRepository();
+
     public MonthAnalFragViewModel()
     {
         super();
+        initPostInfo();
     }
+
+    private void initPostInfo()
+    {
+        postInfo = txnRepository.queryMonthPostInfo();
+    }
+
+    public LiveData<PostInfo> getPostInfo()
+    {
+        return postInfo;
+    }
+
     public BarData getIncomeData()
     {
         ArrayList<BarEntry> entries = new ArrayList<>();
@@ -35,9 +54,9 @@ public class MonthAnalFragViewModel extends BaseFragmentViewModel
     {
         ArrayList<BarEntry> entries = new ArrayList<>();
         entries.add(new BarEntry((float) 0, (float) 36.5));
-        entries.add(new BarEntry(1F, (float)99.2));
+        entries.add(new BarEntry(1F, (float) 99.2));
         entries.add(new BarEntry(2F, 147.5F));
-        entries.add(new BarEntry(3, (float)107.2));
+        entries.add(new BarEntry(3, (float) 107.2));
         entries.add(new BarEntry(4F, (float) 588.9));
         entries.add(new BarEntry(5, 440.7F));
 

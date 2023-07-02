@@ -2,6 +2,7 @@ package com.example.accounting.utils.chatgpt;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -77,37 +78,38 @@ public class ChatGPTServer
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response)
             {
+                try
                 {
-                    try
+                    if (response.isSuccessful())
                     {
-                        if (response.isSuccessful())
+                        String jsonString = Objects.requireNonNull(response.body()).string();
+                        JsonObject jsonObject = gson.fromJson(jsonString, JsonObject.class);
+                        JsonArray choicesArray = jsonObject.getAsJsonArray("choices");
+                        if (choicesArray != null && choicesArray.size() > 0)
                         {
-                            String jsonString = Objects.requireNonNull(response.body()).string();
-                            JsonObject jsonObject = gson.fromJson(jsonString, JsonObject.class);
-                            JsonArray choicesArray = jsonObject.getAsJsonArray("choices");
-                            if (choicesArray != null && choicesArray.size() > 0)
+                            JsonObject choiceObject = choicesArray.get(0).getAsJsonObject();
+                            if (choiceObject != null)
                             {
-                                JsonObject choiceObject = choicesArray.get(0).getAsJsonObject();
-                                if (choiceObject != null)
+                                JsonObject messageObject = choiceObject.getAsJsonObject("message");
+                                if (messageObject != null)
                                 {
-                                    JsonObject messageObject = choiceObject.getAsJsonObject("message");
-                                    if (messageObject != null)
-                                    {
-                                        mainHandler.post(() -> listener.onPostInfoReceived(messageObject.get("content").getAsString()));
-                                    }
+                                    Log.d("test", "onResponse: " + messageObject.get("content").getAsString());
+                                    mainHandler.post(() -> listener.onPostInfoReceived(messageObject.get("content").getAsString()));
+                                    return;
                                 }
                             }
-                            mainHandler.post(() -> listener.onError(new IOException("Unexpected response format.")));
                         }
-                        else
-                        {
-                            mainHandler.post(() -> listener.onError(new IOException("Unexpected response code: " + response.code())));
-                        }
+                        mainHandler.post(() -> listener.onError(new IOException("Unexpected response format.")));
                     }
-                    catch (IOException e)
+                    else
                     {
-                        e.printStackTrace();
+                        mainHandler.post(() -> listener.onError(new IOException("Unexpected response code: " + response.code())));
                     }
+                }
+                catch (IOException e)
+                {
+                    e.printStackTrace();
+                    mainHandler.post(() -> listener.onError(new IOException(e)));
                 }
             }
         });

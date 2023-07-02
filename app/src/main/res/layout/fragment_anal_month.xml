@@ -20,7 +20,6 @@
             android:padding="8dp">
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/income_card"
                 style="?attr/materialCardViewElevatedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,7 +36,46 @@
                     android:paddingVertical="12dp">
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/income_text"
+                        android:id="@+id/ai_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:paddingBottom="8dp"
+                        android:text="AI分析"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/ai_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ai_title"
+                        android:text="分析中..."
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                style="?attr/materialCardViewElevatedStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginBottom="8dp"
+                android:checkable="false"
+                android:clickable="false"
+                android:focusable="false">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="12dp">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/income_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
@@ -46,17 +84,16 @@
                         android:textStyle="bold" />
 
                     <com.github.mikephil.charting.charts.BarChart
-                        android:id="@+id/mbar_chart"
+                        android:id="@+id/income_chart"
                         android:layout_width="match_parent"
                         android:layout_height="400dp"
-                        android:layout_below="@id/income_text" />
+                        android:layout_below="@id/income_title" />
 
                 </RelativeLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/expense_card"
                 style="?attr/materialCardViewElevatedStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,7 +110,7 @@
                     android:paddingVertical="12dp">
 
                     <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/expense_text"
+                        android:id="@+id/expense_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentTop="true"
@@ -85,7 +122,7 @@
                         android:id="@+id/expense_chart"
                         android:layout_width="match_parent"
                         android:layout_height="400dp"
-                        android:layout_below="@id/expense_text" />
+                        android:layout_below="@id/expense_title" />
 
                 </RelativeLayout>
 
@@ -94,4 +131,5 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
+
 </layout>

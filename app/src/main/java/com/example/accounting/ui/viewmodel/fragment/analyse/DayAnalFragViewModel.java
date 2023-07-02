@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class DayAnalFragViewModel extends BaseFragmentViewModel
 {
-    LiveData<PostInfo> postInfo;
+    private LiveData<PostInfo> postInfo;
     private final TxnRepository txnRepository = new TxnRepository();
 
     public DayAnalFragViewModel()
