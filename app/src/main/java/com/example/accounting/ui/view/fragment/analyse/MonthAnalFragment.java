@@ -14,6 +14,7 @@ import com.example.accounting.databinding.FragmentAnalMonthBinding;
 import com.example.accounting.ui.viewmodel.fragment.analyse.DayAnalFragViewModel;
 import com.example.accounting.ui.viewmodel.fragment.analyse.MonthAnalFragViewModel;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
@@ -36,23 +37,45 @@ public class MonthAnalFragment extends BaseFragment<FragmentAnalMonthBinding, Mo
     {
         return BR.viewModel;
     }
-    private BarChart mBarChart;
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_anal_month, container, false);
+    protected void initView()
+    {
+        super.initView();
+        initIncomeChart();
+        initExpenseChart();
+    }
 
-        mBarChart = view.findViewById(R.id.mbar_chart);
-
-        DayAnalFragViewModel viewModel = new ViewModelProvider(this).get(DayAnalFragViewModel.class);
-        BarData barData = MonthAnalFragViewModel.generateBarChartData();
-        XAxis xAxis = mBarChart.getXAxis();
+    private void initIncomeChart()
+    {
+        // 设置x轴
+        XAxis xAxis = binding.mbarChart.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"二月", "三月","四月","五月","六月","七月"}));
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        mBarChart.setData(barData);
-        mBarChart.invalidate();
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"一月", "二月", "三月", "四月", "五月", "六月", "七月","八月","九月","十月","十一月","十二月"}));
+        xAxis.setLabelCount(6);
 
+        // 填充数据
+        binding.mbarChart.setData(viewModel.getIncomeData());
 
-        return view;
+        // 设置空白描述
+        Description description = new Description();
+        description.setText("");
+        binding.mbarChart.setDescription(description);
+    }
+
+    private void initExpenseChart()
+    {
+        // 设置x轴
+        XAxis xAxis = binding.expenseChart.getXAxis();
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(new String[]{"二月", "三月","四月","五月","六月","七月"}));
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setLabelCount(6);
+
+        // 填充数据
+        binding.expenseChart.setData(viewModel.getExpenseData());
+
+        // 设置空白描述
+        Description description = new Description();
+        description.setText("");
+        binding.expenseChart.setDescription(description);
     }
 }

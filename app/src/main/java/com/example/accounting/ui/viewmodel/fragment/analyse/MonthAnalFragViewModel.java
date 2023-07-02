@@ -15,23 +15,33 @@ public class MonthAnalFragViewModel extends BaseFragmentViewModel
     {
         super();
     }
-    public static BarData generateBarChartData() {
+    public BarData getIncomeData()
+    {
         ArrayList<BarEntry> entries = new ArrayList<>();
-        entries.add(new BarEntry(0, 1000));
-        entries.add(new BarEntry(1, 2000));
-        entries.add(new BarEntry(2, 1500));
-        entries.add(new BarEntry(3, 3000));
-        entries.add(new BarEntry(4, 2500));
-        entries.add(new BarEntry(5, 1800));
-        entries.add(new BarEntry(6, 1200));
-        entries.add(new BarEntry(7, 2000));
-        entries.add(new BarEntry(8, 1500));
-        entries.add(new BarEntry(9, 3000));
-        entries.add(new BarEntry(10, 2500));
-        entries.add(new BarEntry(11, 1800));
-        entries.add(new BarEntry(12, 1200));
+        entries.add(new BarEntry(0, 0));
+        entries.add(new BarEntry(1, 0));
+        entries.add(new BarEntry(2, 0));
+        entries.add(new BarEntry(3, 0));
+        entries.add(new BarEntry(4, 800));
+        entries.add(new BarEntry(5, 8300));
 
-        BarDataSet dataSet = new BarDataSet(entries, "花销");
+        BarDataSet dataSet = new BarDataSet(entries, "收入");
+        dataSet.setColor(Color.parseColor("#87CEFA"));
+        dataSet.setValueTextColor(Color.BLUE);
+        return new BarData(dataSet);
+    }
+
+    public BarData getExpenseData()
+    {
+        ArrayList<BarEntry> entries = new ArrayList<>();
+        entries.add(new BarEntry((float) 0, (float) 36.5));
+        entries.add(new BarEntry(1F, (float)99.2));
+        entries.add(new BarEntry(2F, 147.5F));
+        entries.add(new BarEntry(3, (float)107.2));
+        entries.add(new BarEntry(4F, (float) 588.9));
+        entries.add(new BarEntry(5, 440.7F));
+
+        BarDataSet dataSet = new BarDataSet(entries, "支出");
         dataSet.setColor(Color.parseColor("#87CEFA"));
         dataSet.setValueTextColor(Color.BLUE);
         return new BarData(dataSet);
